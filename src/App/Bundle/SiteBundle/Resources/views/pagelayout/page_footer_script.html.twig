@@ -1,0 +1,45 @@
+{# Use assetics is very slow in DEV #}
+{% if app.environment == 'dev' %}
+    <script src="{{ asset( 'assets/vendor/jquery/jquery.min.js' ) }}"></script>
+    <script src="{{ asset( 'assets/vendor/jquery.easing/js/jquery.easing.min.js' ) }}"></script>
+    <script src="{{ asset( 'assets/vendor/bootstrap/dist/js/bootstrap.min.js' ) }}"></script>
+    <script src="{{ asset( 'assets/vendor/jquery-mobile-bower/js/jquery.mobile-1.4.5.min.js' ) }}"></script>
+    <script src="{{ asset( 'assets/vendor/jquery-backstretch/jquery.backstretch.min.js' ) }}"></script>
+    <script src="{{ asset( 'assets/vendor/scrollreveal/dist/scrollreveal.min.js' ) }}"></script>
+    <script src="{{ asset( 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' ) }}"></script>
+    <script src="{{ asset( 'assets/vendor/masonry/dist/masonry.pkgd.min.js' ) }}"></script>
+    <script src="{{ asset( 'assets/vendor/classie/classie.js' ) }}"></script>
+    <script src="{{ asset( 'assets/vendor/wow/dist/wow.min.js' ) }}"></script>
+    <script src="{{ asset( 'bundles/despassite/js/main.js' ) }}"></script>
+    <script src="{{ asset( 'bundles/despassite/js/script.js' ) }}"></script>
+{% else %}
+    {% javascripts filter='uglifyjs2'
+        'assets/vendor/jquery/jquery.min.js'
+        'assets/vendor/jquery.easing/js/jquery.easing.min.js'
+        'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
+        'assets/vendor/jquery-mobile-bower/js/jquery.mobile-1.4.5.min.js'
+        'assets/vendor/jquery-backstretch/jquery.backstretch.min.js'
+        'assets/vendor/scrollreveal/dist/scrollreveal.min.js'
+        'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js'
+        'assets/vendor/masonry/dist/masonry.pkgd.min.js'
+        'assets/vendor/classie/classie.js'
+        'assets/vendor/wow/dist/wow.min.js'
+        'bundles/despassite/js/main.js'
+        'bundles/despassite/js/script.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {# Eloqua track page view #}
+    {% if app.environment == 'prod' %}
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-46159303-4', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    {% endif %}
+{% endif %}

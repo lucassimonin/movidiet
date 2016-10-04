@@ -1,0 +1,69 @@
+{% extends "DespasSiteBundle::pagelayout.html.twig" %}
+{% block content %}
+    <nav id="mainNav" class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header padding-navbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">{{ 'despas.global.title'|trans }}</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a class="page-scroll" href="#news">{{ 'despas.title.news'|trans }}</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">{{ 'despas.title.biography'|trans }}</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#portfolio">{{ 'despas.title.gallery'|trans }}</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if not ez_is_field_empty(content, 'facebook_url') %}
+                        <li>
+                            <a class="btn btn-social-icon btn-fb" href="{{ ez_field_value(content, 'facebook_url') }}" target="_blank"><i class="fa fa-facebook-official"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if not ez_is_field_empty(content, 'instagram_url') %}
+                        <li>
+                            <a class="btn btn-social-icon btn-instagram" href="{{ ez_field_value(content, 'instagram_url') }}" target="_blank"><i class="fa fa-instagram"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if not ez_is_field_empty(content, 'email') %}
+                        <li>
+                            <a class="btn btn-social-icon btn-contact page-scroll" href="mailto:{{ ez_field_value(content, 'email') }}"><i class="fa fa-envelope-o"></i></a>
+                        </li>
+                    {% endif %}
+                    {{ render( controller( 'DespasSiteBundle:Common:languages', {'routeRef': ez_route()} ) ) }}
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <section id="homepage" class="no-padding">
+    </section>
+    {{ ez_render_field(content, 'image_banner', {
+        parameters: {
+            alias: 'banner_image',
+            class: 'hide img-banner'
+        }
+    }) }}
+    {{ ez_render_field(content, 'image_banner_mobile', {
+        parameters: {
+            alias: 'banner_image_mobile',
+            class: 'hide img-banner-mobile'
+        }
+    }) }}
+    {% include '@DespasSite/content/parts/news.html.twig' %}
+    {% include '@DespasSite/content/parts/biography.html.twig' %}
+    {% include '@DespasSite/content/parts/gallery.html.twig' %}
+
+
+
+{% endblock %}

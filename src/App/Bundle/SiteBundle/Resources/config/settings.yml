@@ -1,0 +1,3 @@
+parameters:
+    # News
+    app.listing_news.homepage.limit: 3

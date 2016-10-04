@@ -1,0 +1,18 @@
+<section id="about">
+    <div class="container">
+        <h2>{{ 'despas.title.biography'|trans }}</h2>
+        <div class="row">
+            <div class="col-sm-6 wow fadeInLeft">
+                {{ ez_render_field(content, 'text_bio') }}
+            </div>
+            <div class="col-sm-6 wow fadeInUp">
+                {{ ez_render_field(content, 'image_bio', {
+                    parameters: {
+                        alias: 'top_image',
+                        class: 'img-responsive lazyload'
+                    }
+                }) }}
+            </div>
+        </div>
+    </div>
+</section>

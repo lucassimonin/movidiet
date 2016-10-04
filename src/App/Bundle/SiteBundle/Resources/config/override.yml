@@ -1,0 +1,11 @@
+system:
+    site_group:
+        # View provider configuration
+        # @see https://confluence.ez.no/display/EZP/View+provider+configuration
+        location_view:
+            full:
+                homepage:
+                    controller: "DespasSiteBundle:Home:index"
+                    template: "DespasSiteBundle:content/full:homepage.html.twig"
+                    match:
+                        Identifier\ContentType: [homepage]

@@ -1,0 +1,2 @@
+parameters:
+    app.core_helper.class: Authors\CoreBundle\Helper\CoreHelper
