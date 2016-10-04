@@ -1,0 +1,43 @@
+ezpublish:
+    # Repositories configuration, setup default repository to support solr if enabled
+    repositories:
+        default:
+            storage: ~
+            search:
+                engine: %search_engine%
+                connection: default
+
+    # Siteaccess configuration, with one siteaccess per default
+    siteaccess:
+        list: [benjamindespas, benjamindespas_fr]
+        groups:
+            site_group: [benjamindespas, benjamindespas_fr]
+        default_siteaccess: benjamindespas
+        match:
+            URIElement: 1
+
+    # System settings, grouped by siteaccess and/or siteaccess group
+    system:
+        site_group:
+            content:
+                tree_root:
+                    # Root locationId. Default is top locationId
+                    location_id: 54
+                    # Every URL aliases starting with those prefixes will be considered
+                    # being outside of the subtree starting at root_location.
+                    # Default value is an empty array.
+                    # Prefixes are not case sensitive.
+                    excluded_uri_prefixes: [ /media, /images ]
+                view_cache: true      # Activates HttpCache for content
+                ttl_cache: true       # Activates expiration based HttpCache for content (very fast)
+                default_ttl: 60       # Number of seconds an Http response is valid in cache (if ttl_cache is true)
+            # Pool to use for cache, needs to be differant per repository (database).
+            cache_pool_name: '%cache_pool%'
+            # These reflect the current installers, complete installation before you change them. For changing var_dir
+            # it is recommended to install clean, then change setting before you start adding binary content, otherwise you'll
+            # need to manually modify your database data to reflect this to avoid exceptions.
+            var_dir: var/site
+            # System languages. Note that by default, content, content types, and other data are in eng-GB locale,
+            # so removing eng-GB from this list may lead to errors or content not being shown, unless you change
+            # all eng-GB data to other locales first.
+            languages: [eng-GB]

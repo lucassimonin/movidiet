@@ -1,0 +1,5 @@
+# Only settings different then parameters.yml.dist, buildParameters will inject those we don't define from there!
+parameters:
+    database_name: behattestdb
+    database_user: ezp
+    database_password: ezp

@@ -1,0 +1,13 @@
+# This file is a "template" of what your parameters.yml file should look like
+parameters:
+    # A secret key that's used to generate certain security-related tokens
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+    # Settings for database backend used by Doctrine DBAL
+    # In turn used for Content Repository Persistence, and default database powered search engine
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_port: ~
+    database_name: ezplatform
+    database_user: root
+    database_password:

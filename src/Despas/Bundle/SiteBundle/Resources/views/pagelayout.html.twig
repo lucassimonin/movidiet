@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|slice(0, 2) }}" class="js csstransitions">
+        <head>
+            {% block head %}
+                {% include 'DespasSiteBundle::pagelayout/page_head.html.twig' %}
+                {% include 'DespasSiteBundle::pagelayout/page_head_style.html.twig' %}
+                {% include 'DespasSiteBundle::pagelayout/page_head_for_ie.html.twig' %}
+            {% endblock %}
+            {% block meta %}
+            {% endblock %}
+        </head>
+    <body id="page-top">
+        {% include 'DespasSiteBundle::pagelayout/page_header.html.twig' %}
+        {% block content %}{% endblock %}
+
+        {% include 'DespasSiteBundle::pagelayout/page_footer.html.twig' %}
+        {% block footerScript %}
+            {% include 'DespasSiteBundle::pagelayout/page_footer_script.html.twig' %}
+        {% endblock %}
+    </body>
+</html>
