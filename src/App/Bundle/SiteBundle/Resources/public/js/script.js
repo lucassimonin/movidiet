@@ -95,7 +95,6 @@
 })(jQuery); // End of use strict
 
 $( document ).ready(function() {
-
   var picture = $('.img-banner').attr('src');
   if($( window ).width() < 500) {
     picture = $('.img-banner-mobile').attr('src');
@@ -112,13 +111,13 @@ $( document ).ready(function() {
     });
   })
 
-  $( '#myCarousel' ).on( 'swipeleft', function() {
+  /*$( '#myCarousel' ).on( 'swipeleft', function() {
     $('#myCarousel').carousel('next');
   });
 
   $( '#myCarousel' ).on( 'swiperight', function() {
     $('#myCarousel').carousel('prev');
-  });
+  });*/
 
   var initialPosition = $('#mainNav').offset().top,
     positionTop = false;
