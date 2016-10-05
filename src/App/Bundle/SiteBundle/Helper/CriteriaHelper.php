@@ -43,18 +43,9 @@ class CriteriaHelper
      */
     public function generateContentCriterionByParentLocationIdAndContentIdentifiersAndFieldsData($parentLocationId, array $contentTypeIdentifiers = [], array $fieldsData = [], array $relationList = [], array $tagsList = [])
     {
-        $isPreview = false;
-        $siteAccesses = $this->siteAccess;
-        if (!is_null($this->siteAccess) &&
-            $this->siteAccess->hasAttribute('matchingType') &&
-            $this->siteAccess->attribute('matchingType') == 'preview') {
-            $isPreview = true;
-        }
 
         $criteria = [];
-        if (!$isPreview) {
-            $criteria[] = new Criterion\Visibility(Criterion\Visibility::VISIBLE);
-        }
+        $criteria[] = new Criterion\Visibility(Criterion\Visibility::VISIBLE);
         $criteria[] = new Criterion\ContentTypeIdentifier($contentTypeIdentifiers);
         $criteria[] = new Criterion\ParentLocationId($parentLocationId);
 
@@ -90,12 +81,12 @@ class CriteriaHelper
             }
         }
 
-        $tagsListSearchCriterion = array();
+        /*$tagsListSearchCriterion = array();
         if (!empty($tagsList)) {
             $tagsListSearchCriterion[] = new TagsCriterion\TagId($tagsList);
             $tmpCriteria = new Criterion\LogicalAnd($tagsListSearchCriterion);
             $criteria[] = $tmpCriteria;
-        }
+        }*/
 
         return new Criterion\LogicalAnd($criteria);
     }

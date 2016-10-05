@@ -28,7 +28,7 @@ class CoreHelper
     /** @var \eZ\Publish\API\Repository\ContentTypeService */
     protected $contentEntityManager;
 
-    /** @var \Mrt\SiteBundle\Helper\CriteriaHelper */
+    /** @var CriteriaHelper */
     protected $criteriaHelper;
 
     /** @var \eZ\Publish\API\Repository\SearchService */
@@ -80,7 +80,14 @@ class CoreHelper
             );
 
             // Getting results
-            $searchResultLatestNews = $this->searchService->findContent($queryLatestNews);
+            $searchResultLatestNews = $this->repository->sudo(
+                function() use ($queryLatestNews) {
+                    return $this->searchService->findContent($queryLatestNews);
+                }
+            );
+
+
+
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage());
             $this->logger->critical($e->getCode());
@@ -88,6 +95,7 @@ class CoreHelper
             $this->logger->critical($e->getLine());
             exit("error");
         }
+        //var_dump($searchResultLatestNews);die;
         // Building latest News tab
         if (isset($searchResultLatestNews->searchHits)) {
             foreach ($searchResultLatestNews->searchHits as $hit) {
@@ -146,7 +154,11 @@ class CoreHelper
         $criteria = $this->criteriaHelper->generateContentCriterionByParentLocationIdAndContentIdentifiersAndFieldsData($locationId, $contentType);
         $query = new Query();
         $query->filter = $criteria;
-        $searchResult = $this->searchService->findContent($query);
+        $searchResult = $this->repository->sudo(
+            function() use ($query) {
+                return $this->searchService->findContent($query);
+            }
+        );
         $childrensObject = array();
         if (isset($searchResult->searchHits)) {
             foreach ($searchResult->searchHits as $hit) {
