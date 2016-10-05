@@ -1,2 +1,21 @@
 imports:
     - { resource: ezplatform.yml }
+
+ezpublish:
+    siteaccess:
+        match:
+            Compound\LogicalAnd:
+                benjamindespas:
+                    matchers:
+                        Map\URI:
+                            fr: true
+                        Map\Host:
+                            benjamindespas.dev: true
+                    match: benjamindespas
+                benjamindespas_en:
+                    matchers:
+                        Map\URI:
+                            en: true
+                        Map\Host:
+                            benjamindespas.dev: true
+                    match: benjamindespas_en

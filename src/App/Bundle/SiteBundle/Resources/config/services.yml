@@ -1,4 +1,7 @@
 services:
     app.core_helper:
-             class: %site_authors.core_helper.class%
-             arguments: [@ezpublish.api.repository, @service_container, @ezpublish_legacy.kernel, @ezpublish.siteaccess]
+             class: %app.core_helper.class%
+             arguments: [@ezpublish.api.repository, @service_container]
+    app.criteria_helper:
+            class: %app.criteria_helper.class%
+            arguments: [@ezpublish.siteaccess]

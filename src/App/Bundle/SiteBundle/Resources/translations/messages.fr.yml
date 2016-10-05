@@ -1,5 +1,10 @@
-despas.global.title: Benjamin despas
-despas.global.meta_title: Benjamin despas
-despas.title.news: Actualités
-despas.title.biography: Biographie
-despas.title.gallery: Galerie
+app.global.title: Benjamin despas
+app.global.meta_title: Benjamin despas
+app.title.news: Actualités
+app.title.biography: Biographie
+app.title.gallery: Galerie
+app.contact_me: Contactez moi
+app.filter.all: Tous
+app.filter.nude: Nus
+app.filter.portrait: Portraits
+app.filter.other: Autres

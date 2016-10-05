@@ -5,7 +5,7 @@ system:
         location_view:
             full:
                 homepage:
-                    controller: "DespasSiteBundle:Home:index"
-                    template: "DespasSiteBundle:content/full:homepage.html.twig"
+                    controller: "AppSiteBundle:Home:index"
+                    template: "AppSiteBundle:content/full:homepage.html.twig"
                     match:
                         Identifier\ContentType: [homepage]

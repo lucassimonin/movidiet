@@ -2,7 +2,7 @@
     {% if not ez_is_field_empty(content, 'meta_title') %}
         {{ ez_field_value(content, 'meta_title') }}
     {% else %}
-        {{ 'despas.global.meta_title'|trans }}
+        {{ 'app.global.meta_title'|trans }}
     {% endif %}
 </title>
 {% if not ez_is_field_empty(content, 'meta_description') %}

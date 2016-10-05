@@ -1,51 +1,32 @@
 <section id="news">
     <div class="container">
-        <h2>{{ 'despas.title.news'|trans }}</h2>
+        {% set count = news|length - 1 %}
+        <h2>{{ 'app.title.news'|trans }}</h2>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
+                {% for i in 0..count %}
+                    <li data-target="#myCarousel" data-slide-to="{{ i }}" {% if i == 0 %}class="active">{% endif %}</li>
+                {% endfor %}
             </ol>
-
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <div class="col-sm-6">
-                        <img src="images/actu.png" class="img-responsive">
+                {% for key, new in news %}
+                    <div class="item {% if key == 0 %}active{% endif %}">
+                        <div class="col-sm-6">
+                            {{ ez_render_field(new, 'image', {
+                                parameters: {
+                                    alias: 'news_image',
+                                    class: 'img-responsive'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>{{ ez_field_value(new, 'title') }}</h3>
+                            {{ ez_render_field(new, 'description') }}
+                        </div>
                     </div>
-                    <div class="col-sm-6">
-                        <h3>MyRankArt : 8ème Salon de Peinture</h3>
-                        <p>Découvrez ma réalisation "Féline" parmi les 25 finalistes sélectionnées par le Jury pour ce 8ème salon de Peinture.</p>
-                        <p>
-                            <a href="http://www.myrankart-leblog.com/les-25-oeuvres-finalistes" target="_blank">Lien</a>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="col-sm-6">
-                        <img src="images/actu2.png" class="img-responsive">
-                    </div>
-                    <div class="col-sm-6">
-                        <h3>YICCA : International Contest of Contemporary Art</h3>
-                        <p>Participation à la 6ème édition du YICCA qui se déroulera à Rome en septembre 2015. Retrouvez ma réalisation "Enivrez-vous" qui a recueilli pour le moment plus de 1000 j'aime à l'Open Contest.</p>
-                        <p>
-                            <a href="http://yicca.org/contest/artwork/165/enivrez-vous" target="_blank">Lien</a>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="col-sm-6">
-                        <img src="images/actu3.png" class="img-responsive">
-                    </div>
-                    <div class="col-sm-6">
-                        <h3>MyRankArt : 5ème Salon de Peinture</h3>
-                        <p>Retrouvez ma réalisation "Totem" qui a été primée par le Jury parmi plus de 200 oeuvres. Elle obtient le 10e prix du Jury, un bon début! </p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
 
             <!-- Left and right controls -->

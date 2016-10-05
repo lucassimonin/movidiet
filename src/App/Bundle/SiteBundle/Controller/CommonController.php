@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Despas\Bundle\SiteBundle\Controller;
+namespace App\Bundle\SiteBundle\Controller;
 
 use eZ\Bundle\EzPublishCoreBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +35,7 @@ class CommonController extends Controller
             $this->container->getParameter( 'ezpublish.locale.conversion_map' )
         );
 
-        return $this->render( '@DespasSite/content/parts/languages.html.twig',
+        return $this->render( '@AppSite/content/parts/languages.html.twig',
             array('currentLanguage' => $currentEzLanguage, 'routeRef' => $routeRef)
         );
     }

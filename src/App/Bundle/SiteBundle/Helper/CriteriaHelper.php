@@ -1,7 +1,8 @@
 <?php
-namespace Mrt\SiteBundle\Helper;
+namespace App\Bundle\SiteBundle\Helper;
 
 use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use Netgen\TagsBundle\API\Repository\Values\Content\Query\Criterion as TagsCriterion;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\MVC\Legacy\Templating\GlobalHelper;
@@ -9,21 +10,21 @@ use eZ\Publish\Core\MVC\Legacy\Templating\GlobalHelper;
 /**
  * CriteriaHelper Class
  *
- * @author kapetanosm
+ * @author simoninl
  */
 class CriteriaHelper
 {
     /**
-     * @var \eZ\Publish\Core\MVC\Legacy\Templating\GlobalHelper
+     * @var SiteAccess
      */
-    private $globalHelper;
+    private $siteAccess;
 
     /**
-     * @param Container $globalHelper
+     * @param SiteAccess $siteAccess
      */
-    public function __construct(GlobalHelper $globalHelper)
+    public function __construct(SiteAccess $siteAccess)
     {
-        $this->globalHelper = $globalHelper;
+        $this->siteAccess = $siteAccess;
     }
 
     /**
@@ -43,10 +44,10 @@ class CriteriaHelper
     public function generateContentCriterionByParentLocationIdAndContentIdentifiersAndFieldsData($parentLocationId, array $contentTypeIdentifiers = [], array $fieldsData = [], array $relationList = [], array $tagsList = [])
     {
         $isPreview = false;
-        $siteAccesses = $this->globalHelper->getSiteaccess();
-        if (!is_null($siteAccesses) &&
-        $this->globalHelper->getSiteaccess()->hasAttribute('matchingType') &&
-        $this->globalHelper->getSiteaccess()->attribute('matchingType') == 'preview') {
+        $siteAccesses = $this->siteAccess;
+        if (!is_null($this->siteAccess) &&
+            $this->siteAccess->hasAttribute('matchingType') &&
+            $this->siteAccess->attribute('matchingType') == 'preview') {
             $isPreview = true;
         }
 

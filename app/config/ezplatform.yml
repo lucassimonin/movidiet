@@ -1,3 +1,6 @@
+imports:
+    - { resource: image_variations.yml }
+
 ezpublish:
     # Repositories configuration, setup default repository to support solr if enabled
     repositories:
@@ -9,15 +12,17 @@ ezpublish:
 
     # Siteaccess configuration, with one siteaccess per default
     siteaccess:
-        list: [benjamindespas, benjamindespas_fr]
+        list: [benjamindespas, benjamindespas_en]
         groups:
-            site_group: [benjamindespas, benjamindespas_fr]
+            site_group: [benjamindespas, benjamindespas_en]
         default_siteaccess: benjamindespas
-        match:
-            URIElement: 1
 
     # System settings, grouped by siteaccess and/or siteaccess group
     system:
+        benjamindespas:
+            languages: [fre-FR]
+        benjamindespas_en:
+            languages: [eng-GB, fre-FR]
         site_group:
             content:
                 tree_root:
@@ -37,7 +42,3 @@ ezpublish:
             # it is recommended to install clean, then change setting before you start adding binary content, otherwise you'll
             # need to manually modify your database data to reflect this to avoid exceptions.
             var_dir: var/site
-            # System languages. Note that by default, content, content types, and other data are in eng-GB locale,
-            # so removing eng-GB from this list may lead to errors or content not being shown, unless you change
-            # all eng-GB data to other locales first.
-            languages: [eng-GB]

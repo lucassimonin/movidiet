@@ -1,2 +1,3 @@
 parameters:
-    app.core_helper.class: Authors\CoreBundle\Helper\CoreHelper
+    app.core_helper.class: App\Bundle\SiteBundle\Helper\CoreHelper
+    app.criteria_helper.class: App\Bundle\SiteBundle\Helper\CriteriaHelper

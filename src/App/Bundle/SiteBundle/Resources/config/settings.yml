@@ -1,3 +1,6 @@
 parameters:
-    # News
+    app.listing_news.locationid: 55
+    app.gallery.locationid: 56
     app.listing_news.homepage.limit: 3
+    app.new.content_type.identifier: news
+    app.item_gallery.content_type.identifier: item_gallery

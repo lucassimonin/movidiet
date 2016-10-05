@@ -1,4 +1,4 @@
-{% extends "DespasSiteBundle::pagelayout.html.twig" %}
+{% extends "AppSiteBundle::pagelayout.html.twig" %}
 {% block content %}
     <nav id="mainNav" class="navbar navbar-default">
         <div class="container-fluid">
@@ -7,20 +7,20 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">{{ 'despas.global.title'|trans }}</a>
+                <a class="navbar-brand page-scroll" href="#page-top">{{ 'app.global.title'|trans }}</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
                     <li>
-                        <a class="page-scroll" href="#news">{{ 'despas.title.news'|trans }}</a>
+                        <a class="page-scroll" href="#news">{{ 'app.title.news'|trans }}</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about">{{ 'despas.title.biography'|trans }}</a>
+                        <a class="page-scroll" href="#about">{{ 'app.title.biography'|trans }}</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#portfolio">{{ 'despas.title.gallery'|trans }}</a>
+                        <a class="page-scroll" href="#portfolio">{{ 'app.title.gallery'|trans }}</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -39,7 +39,7 @@
                             <a class="btn btn-social-icon btn-contact page-scroll" href="mailto:{{ ez_field_value(content, 'email') }}"><i class="fa fa-envelope-o"></i></a>
                         </li>
                     {% endif %}
-                    {{ render( controller( 'DespasSiteBundle:Common:languages', {'routeRef': ez_route()} ) ) }}
+                    {{ render( controller( 'AppSiteBundle:Common:languages', {'routeRef': ez_route()} ) ) }}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -60,10 +60,11 @@
             class: 'hide img-banner-mobile'
         }
     }) }}
-    {% include '@DespasSite/content/parts/news.html.twig' %}
-    {% include '@DespasSite/content/parts/biography.html.twig' %}
-    {% include '@DespasSite/content/parts/gallery.html.twig' %}
-
-
-
+    {% if news|length > 0 %}
+        {% include 'AppSiteBundle::content/parts/news.html.twig' with {'news': news} %}
+    {% endif %}
+    {% include 'AppSiteBundle::content/parts/biography.html.twig' %}
+    {% if gallery_items|length %}
+        {% include 'AppSiteBundle::content/parts/gallery.html.twig' with {'gallery_items': gallery_items} %}
+    {% endif %}
 {% endblock %}

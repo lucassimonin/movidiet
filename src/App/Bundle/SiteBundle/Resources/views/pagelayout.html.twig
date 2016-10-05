@@ -2,20 +2,20 @@
 <html lang="{{ app.request.locale|slice(0, 2) }}" class="js csstransitions">
         <head>
             {% block head %}
-                {% include 'DespasSiteBundle::pagelayout/page_head.html.twig' %}
-                {% include 'DespasSiteBundle::pagelayout/page_head_style.html.twig' %}
-                {% include 'DespasSiteBundle::pagelayout/page_head_for_ie.html.twig' %}
-                {% include '@DespasSite/pagelayout/page_head_script.html.twig' %}
+                {% include 'AppSiteBundle::pagelayout/page_head.html.twig' %}
+                {% include 'AppSiteBundle::pagelayout/page_head_style.html.twig' %}
+                {% include 'AppSiteBundle::pagelayout/page_head_for_ie.html.twig' %}
+                {% include 'AppSiteBundle::pagelayout/page_head_script.html.twig' %}
             {% endblock %}
-            {% include '@DespasSite/pagelayout/page_meta.html.twig' %}
+            {% include 'AppSiteBundle::pagelayout/page_meta.html.twig' %}
         </head>
     <body id="page-top">
-        {% include 'DespasSiteBundle::pagelayout/page_header.html.twig' %}
+        {% include 'AppSiteBundle::pagelayout/page_header.html.twig' %}
         {% block content %}{% endblock %}
 
-        {% include 'DespasSiteBundle::pagelayout/page_footer.html.twig' %}
+        {% include 'AppSiteBundle::pagelayout/page_footer.html.twig' %}
         {% block footerScript %}
-            {% include 'DespasSiteBundle::pagelayout/page_footer_script.html.twig' %}
+            {% include 'AppSiteBundle::pagelayout/page_footer_script.html.twig' %}
         {% endblock %}
     </body>
 </html>

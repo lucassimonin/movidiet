@@ -1,2 +1,29 @@
 imports:
     - { resource: ezplatform.yml }
+
+ezpublish:
+    system:
+        benjamindespas:
+            languages: [fre-FR]
+        benjamindespas_en:
+            # In site_authors_sanofi_fr siteaccess, fre-FR is always preferred, and fallback to eng-US if needed.
+            languages: [eng-GB, fre-FR]
+    siteaccess:
+        match:
+            Compound\LogicalAnd:
+                benjamindespas:
+                    matchers:
+                        Map\URI:
+                            fr: true
+                        Map\Host:
+                            benjamindespas.com: true
+                    match: benjamindespas
+                benjamindespas_en:
+                    matchers:
+                        Map\URI:
+                            en: true
+                        Map\Host:
+                            benjamindespas.com: true
+                    match: benjamindespas_en
+            Map\Host:
+                benjamindespas.com: benjamindespas
