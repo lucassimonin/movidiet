@@ -19,11 +19,11 @@ ezpublish:
                     filters:
                         - { name: geometry/scaledownonly, params: [600, 600] }
                 top_image:
-                    reference: reference
+                    reference: ~
                     filters:
                         - { name: geometry/scaledownonly, params: [1080, 1080] }
                 banner_image:
-                    reference: reference
+                    reference: ~
                     filters:
                         - { name: geometry/scaledownonly, params: [1920, 400] }
                 banner_image_mobile:
