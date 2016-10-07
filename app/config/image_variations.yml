@@ -23,15 +23,10 @@ ezpublish:
                     filters:
                         - { name: geometry/scaledownonly, params: [1080, 1080] }
                 banner_image:
-                    reference: ~
+                    reference: reference
                     filters:
                         - { name: geometry/scaledownonly, params: [1920, 400] }
                 banner_image_mobile:
                     reference: ~
                     filters:
                         - { name: geometry/scalewidth, params: [450] }
-liip_imagine:
-    driver: imagick
-        filter_sets:
-            banner_image:
-                jpeg_quality: 50
