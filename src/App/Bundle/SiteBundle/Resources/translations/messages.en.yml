@@ -5,6 +5,6 @@ app.title.biography: Biography
 app.title.gallery: Gallery
 app.contact_me: Contact me
 app.filter.all: All
-app.filter.nude: Nude
-app.filter.portrait: Portrait
-app.filter.other: Other
+app.filter.peinture: Paintings
+app.filter.dessin: Drawings
+app.filter.photo: Photos
