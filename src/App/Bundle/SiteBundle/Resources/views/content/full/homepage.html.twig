@@ -46,9 +46,9 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <section id="homepage" class="no-padding">
-    </section>
-    {{ ez_render_field(content, 'image_banner', {
+        <!--<section id="homepage" class="no-padding">
+    </section>-->
+    {#{ ez_render_field(content, 'image_banner', {
         parameters: {
             alias: 'banner_image',
             class: 'hide img-banner'
@@ -59,7 +59,7 @@
             alias: 'banner_image_mobile',
             class: 'hide img-banner-mobile'
         }
-    }) }}
+    }) }#}
     {% if news|length > 0 %}
         {% include 'AppSiteBundle::content/parts/news.html.twig' with {'news': news} %}
     {% endif %}

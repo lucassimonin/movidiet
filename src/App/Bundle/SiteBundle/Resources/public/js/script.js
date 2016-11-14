@@ -95,16 +95,20 @@
 })(jQuery); // End of use strict
 
 $( document ).ready(function() {
-  var picture = $('.img-banner').attr('src');
+  /*var picture = $('.img-banner').attr('src');
   if($( window ).width() < 500) {
     picture = $('.img-banner-mobile').attr('src');
   }
-  $('#homepage').backstretch(picture);
+  $('#homepage').backstretch(picture);*/
   $(document).on('click', '.filter', function() {
-    $('.all').hide();
+    $('.grid .all').each(function(i, elt) {
+      $(elt).appendTo('.grid-filter');
+    });
     $('.filter').removeClass('active');
     $(this).addClass('active');
-    $($(this).data('filter')).show();
+    $('.grid-filter ' + $(this).data('filter')).each(function(i, elt) {
+      $(elt).appendTo('.grid');
+    });
     new Masonry(document.querySelector('.grid'), {
       itemSelector: '.grid__item',
       isFitWidth : true
