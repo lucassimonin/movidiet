@@ -15,10 +15,10 @@ class HomeController extends Controller
     public function indexAction(Request $request, $locationId, $viewType, $layout = false, array $params = array())
     {
         $this->coreHelper = $this->container->get('app.core_helper');
-        $galleryItemContentTypeIdentifier = $this->container->getParameter('app.item_gallery.content_type.identifier');
-        $galleryLocationId = $this->container->getParameter('app.gallery.locationid');
-        $params['news'] = $this->coreHelper->getLatestNews();
-        $params['gallery_items'] = $this->coreHelper->getChildrenObject([$galleryItemContentTypeIdentifier], $galleryLocationId);
+        $formuleItemContentTypeIdentifier = $this->container->getParameter('app.formule.content_type.identifier');
+        $formulesLocationId = $this->container->getParameter('app.formules.locationid');
+        $params['articles'] = $this->coreHelper->getLatestArticles();
+        $params['formules'] = $this->coreHelper->getChildrenObject([$formuleItemContentTypeIdentifier], $formulesLocationId);
         $response = $this->get('ez_content')->viewLocation(
             $locationId,
             $viewType,

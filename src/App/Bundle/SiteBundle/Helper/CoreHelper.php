@@ -56,11 +56,11 @@ class CoreHelper
      * Get latest news (default number = 3)
      * @return array
      */
-    public function getLatestNews()
+    public function getLatestArticles()
     {
         $newsContentTypeIdentifier = $this->container->getParameter('app.new.content_type.identifier');
-        $listingNewsLimit = $this->container->getParameter('app.listing_news.homepage.limit');
-        $listingNewsLocationId = $this->container->getParameter('app.listing_news.locationid');
+        $listingNewsLimit = $this->container->getParameter('app.article.homepage.limit');
+        $listingNewsLocationId = $this->container->getParameter('app.blog.locationid');
 
         // Initialize latestNews
         $latestNews = [];
