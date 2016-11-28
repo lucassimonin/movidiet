@@ -5,3 +5,7 @@ services:
     app.criteria_helper:
             class: %app.criteria_helper.class%
             arguments: [@ezpublish.siteaccess]
+    app.form.type.contact:
+            class: %app.form.type.contact.class%
+            tags:
+                - { name: form.type, alias: contact_type }

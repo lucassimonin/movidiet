@@ -5,17 +5,17 @@ ezpublish:
     siteaccess:
         match:
             Compound\LogicalAnd:
-                benjamindespas:
+                movidiet:
                     matchers:
                         Map\URI:
                             fr: true
                         Map\Host:
-                            benjamindespas.dev: true
-                    match: benjamindespas
-                benjamindespas_en:
+                            movidiet.dev: true
+                    match: movidiet
+                movidiet_en:
                     matchers:
                         Map\URI:
                             en: true
                         Map\Host:
-                            benjamindespas.dev: true
-                    match: benjamindespas_en
+                            movidiet.dev: true
+                    match: movidiet_en

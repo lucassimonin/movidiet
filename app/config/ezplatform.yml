@@ -12,16 +12,16 @@ ezpublish:
 
     # Siteaccess configuration, with one siteaccess per default
     siteaccess:
-        list: [benjamindespas, benjamindespas_en]
+        list: [movidiet, movidiet_en]
         groups:
-            site_group: [benjamindespas, benjamindespas_en]
-        default_siteaccess: benjamindespas
+            site_group: [movidiet, movidiet_en]
+        default_siteaccess: movidiet
 
     # System settings, grouped by siteaccess and/or siteaccess group
     system:
-        benjamindespas:
+        movidiet:
             languages: [fre-FR]
-        benjamindespas_en:
+        movidiet_en:
             languages: [eng-GB, fre-FR]
         site_group:
             content:

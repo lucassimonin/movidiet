@@ -1,0 +1,3 @@
+contact-form-ajax:
+    path: /add-contact
+    defaults: { _controller: AppSiteBundle:Home:contactForm }

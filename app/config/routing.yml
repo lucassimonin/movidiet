@@ -26,3 +26,7 @@ _ezpublishPlatformUIRoutes:
 
 _ezplatformRepositoryFormsRoutes:
     resource: "@EzSystemsRepositoryFormsBundle/Resources/config/routing.yml"
+
+
+my_route:
+    resource: "@AppSiteBundle/Resources/config/routing.yml"

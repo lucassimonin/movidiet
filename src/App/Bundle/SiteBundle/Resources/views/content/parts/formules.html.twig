@@ -4,7 +4,7 @@
         <h2 class="formule green text-center text-uppercase">- {{ 'app.subtitle.formule_two'|trans }} -</h2>
         <div class="black-title text-center">{{ 'app.subtitle.formule'|trans }}</div>
         <div class="row formules-container">
-            {% for formule in formules %}
+            {% for id, formule in formules %}
                 <div class="col-md-4 col-sm-4 col-xs-12 item-formule wow fadeInUp">
                     <div class="title">
                             <span class="text-uppercase text-bold">{{ ez_render_field(formule, 'title') }}</span>
@@ -13,7 +13,7 @@
                     <div class="content">
                         {{ ez_render_field(formule, 'description') }}
                         <div class="text-center bnt-container">
-                            <button class="formule-btn">{{ 'app.formule.btn'|trans }}</button>
+                            <a href="#contact" class="formule-btn page-scroll go-contact" data-id="{{ id }}">{{ 'app.formule.btn'|trans }}</a>
                         </div>
                     </div>
                 </div>

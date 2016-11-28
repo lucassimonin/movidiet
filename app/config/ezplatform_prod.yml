@@ -3,27 +3,27 @@ imports:
 
 ezpublish:
     system:
-        benjamindespas:
+        movidiet:
             languages: [fre-FR]
-        benjamindespas_en:
+        movidiet_en:
             # In site_authors_sanofi_fr siteaccess, fre-FR is always preferred, and fallback to eng-US if needed.
             languages: [eng-GB, fre-FR]
     siteaccess:
         match:
             Compound\LogicalAnd:
-                benjamindespas:
+                movidiet:
                     matchers:
                         Map\URI:
                             fr: true
                         Map\Host:
-                            benjamindespas.com: true
-                    match: benjamindespas
-                benjamindespas_en:
+                            movidiet.com: true
+                    match: movidiet
+                movidiet_en:
                     matchers:
                         Map\URI:
                             en: true
                         Map\Host:
-                            benjamindespas.com: true
-                    match: benjamindespas_en
+                            movidiet.com: true
+                    match: movidiet_en
             Map\Host:
-                benjamindespas.com: benjamindespas
+                movidiet.com: movidiet

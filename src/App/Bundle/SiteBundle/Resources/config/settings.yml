@@ -1,9 +1,12 @@
 parameters:
     app.blog.locationid: 63
     app.formules.locationid: 64
+    app.contacts.locationid: 72
     app.blog.article.limit: 5
     app.article.content_type.identifier: article
     app.formule.content_type.identifier: formule
+    app.contact.content_type.identifier: contact
     app.article.category.sport: 0
     app.article.category.diet: 1
     app.article.category.recipe: 2
+    app.cache.high.ttl: 3600

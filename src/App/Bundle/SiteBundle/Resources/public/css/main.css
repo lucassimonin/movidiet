@@ -422,6 +422,11 @@ header {
   margin-right: auto;
 }
 
+.form-control {
+  border-radius: 0;
+  border: none;
+}
+
 @-webkit-keyframes drop {
   0% {
     top: 5px;
@@ -479,6 +484,14 @@ img::-moz-selection {
   .item-formule, .article-item {
     margin-top: 20px;
   }
+
+  h2.formule, h2.blog, h2.contact {
+    font-size: 30px;
+  }
+  .navbar-nav {
+    margin:0;
+  }
+
 }
 @media (min-width: 768px) {
 
