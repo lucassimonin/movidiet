@@ -4,15 +4,11 @@
 
 
 <h1 class="hide">{{ 'app.global.title'|trans }}</h1>
-<header>
-    <div class="header-content">
+<header style="background-image:url('{{ ez_field_value(content, 'image_top').uri }}');">
+    <div class="header-content wow fadeInUp">
         <div class="header-content-inner">
-            {{ ez_render_field(content, 'image_top', {
-                parameters: {
-                    alias: 'top_image',
-                    class: 'img-responsive img-header'
-                }
-            }) }}
+            {{ ez_render_field(content, 'logo') }}
+            {{ ez_render_field(content, 'subtitle') }}
         </div>
     </div>
     <div class="container text-center">

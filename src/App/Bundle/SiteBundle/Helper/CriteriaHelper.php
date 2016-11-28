@@ -3,9 +3,7 @@ namespace App\Bundle\SiteBundle\Helper;
 
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use Netgen\TagsBundle\API\Repository\Values\Content\Query\Criterion as TagsCriterion;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\MVC\Legacy\Templating\GlobalHelper;
 
 /**
  * CriteriaHelper Class
@@ -80,13 +78,6 @@ class CriteriaHelper
                 $criteria[] = $tmpCriteria;
             }
         }
-
-        /*$tagsListSearchCriterion = array();
-        if (!empty($tagsList)) {
-            $tagsListSearchCriterion[] = new TagsCriterion\TagId($tagsList);
-            $tmpCriteria = new Criterion\LogicalAnd($tagsListSearchCriterion);
-            $criteria[] = $tmpCriteria;
-        }*/
 
         return new Criterion\LogicalAnd($criteria);
     }

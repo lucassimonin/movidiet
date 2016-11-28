@@ -1,0 +1,23 @@
+<section id="contact" style="background-image:url('{{ ez_field_value(content, 'image_contact').uri }}');">
+    <div class="container">
+
+        <h2 class="green text-center text-uppercase contact">- {{ 'app.subtitle.contact'|trans }} -</h2>
+        <form>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <input type="text" class="form-control" id="name" placeholder="Nom">
+                </div>
+                <div class="form-group col-sm-4">
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+                <div class="form-group col-sm-4">
+                    <input type="text" class="form-control" id="subject" placeholder="Sujet">
+                </div>
+                <div class="form-group col-sm-12">
+                    <textarea id="message" rows="10" class="form-control" placeholder="Votre message"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">Envoyer</button>
+        </form>
+    </div>
+</section>

@@ -1,10 +1,16 @@
-app.global.title: Benjamin despas
-app.global.meta_title: Benjamin despas
-app.title.news: News
-app.title.biography: Biography
-app.title.gallery: Gallery
-app.contact_me: Contact me
-app.filter.all: All
-app.filter.peinture: Paintings
-app.filter.dessin: Drawings
-app.filter.photo: Photos
+app.global.title: 'Mov.i<span class="green">Diet</span>'
+app.global.meta_title: Mov.iDiet
+app.title.program: Programme
+app.title.coach: Coach
+app.title.formule: Formules
+app.title.blog: Blog
+app.title.contact: Contact
+app.subtitle.program: Le programme Mov.iDiet
+app.subtitle.coach: Votre coach
+app.subtitle.formule: Des programmes adaptés à vos besoins
+app.subtitle.formule_two: Nos Formules
+app.formule.btn: Je m'inscris
+app.subtitle.blog: Le blog
+app.blog.btn.article: Lire l'article
+app.blog.btn.all_article: Voir tous les articles
+app.subtitle.contact: Contactez nous

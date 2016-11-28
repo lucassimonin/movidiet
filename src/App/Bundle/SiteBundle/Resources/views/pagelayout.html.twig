@@ -9,8 +9,7 @@
             {% endblock %}
             {% include 'AppSiteBundle::pagelayout/page_meta.html.twig' %}
         </head>
-    <body id="page-top">
-        {% include 'AppSiteBundle::pagelayout/page_header.html.twig' %}
+    <body id="page-top" data-spy="scroll" data-target="#bs-navbar-collapse">
         {% block content %}{% endblock %}
 
         {% include 'AppSiteBundle::pagelayout/page_footer.html.twig' %}
