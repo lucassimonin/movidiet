@@ -1,12 +1,2 @@
 {# Use assetics is very slow in DEV #}
-{% if app.environment == 'dev' %}
-    <script src="{{ asset( 'assets/vendor/modernizr/modernizr.js' ) }}"></script>
-    <script src="{{ asset( 'assets/vendor/lazysizes/lazysizes.min.js' ) }}" async=""></script>
-{% else %}
-    {% javascripts filter='uglifyjs2'
-    'assets/vendor/modernizr/modernizr.js'
-    'assets/vendor/lazysizes/lazysizes.min.js'
-    %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endif %}
+<script src="{{ asset('assets/app/js/app_head.js') }}" type="text/javascript" ></script>

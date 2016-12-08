@@ -1,17 +1,4 @@
-{# Use assetics is very slow in DEV #}
-{% if app.environment == 'dev' %}
 <!--[if lt IE 9]>
-    <script src="{{ asset( 'assets/vendor/html5shiv/dist/html5shiv.js' ) }}"></script>
-    <script src="{{ asset( 'assets/vendor/respond/src/respond.js' ) }}"></script>
+<script src="{{ asset('assets/app/js/app_ie.js') }}" type="text/javascript" ></script>
 <![endif]-->
-{% else %}
-<!--[if lt IE 9]>
-    {% javascripts filter='?uglifyjs2'
-        'assets/vendor/html5shiv/dist/html5shiv.js'
-        'assets/vendor/respond/src/respond.js'
-    %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-<![endif]-->
-{% endif %}
 <!--[if IE]><meta name="MSSmartTagsPreventParsing" content="TRUE"/><![endif]-->

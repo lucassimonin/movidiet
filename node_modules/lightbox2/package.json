@@ -1,0 +1,71 @@
+{
+  "name": "lightbox2",
+  "version": "2.9.0",
+  "author": {
+    "name": "Lokesh Dhakar",
+    "email": "lokesh.dhakar@gmail.com"
+  },
+  "description": "The original Lightbox script. Uses jQuery.",
+  "keywords": [
+    "lightbox",
+    "lightbox2",
+    "overlay",
+    "gallery",
+    "slideshow",
+    "images"
+  ],
+  "homepage": "http://lokeshdhakar.com/projects/lightbox2/",
+  "main": "./dist/js/lightbox.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lokesh/lightbox2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lokesh/lightbox2/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.githubusercontent.com/lokesh/lightbox2/master/LICENSE"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-connect": "^0.7.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-cssmin": "^0.12.3",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-watch": "^0.5.3",
+    "grunt-jscs": "^1.8.0"
+  },
+  "gitHead": "fd8d8795476a2851b02fd93350fd659512a54699",
+  "_id": "lightbox2@2.9.0",
+  "scripts": {},
+  "_shasum": "f9a2fdb41ab3ca94bf0f769210b59bb14a5d5f62",
+  "_from": "lightbox2@>=2.9.0 <3.0.0",
+  "_npmVersion": "3.10.9",
+  "_nodeVersion": "6.7.0",
+  "_npmUser": {
+    "name": "lokesh.dhakar",
+    "email": "lokesh.dhakar@gmail.com"
+  },
+  "dist": {
+    "shasum": "f9a2fdb41ab3ca94bf0f769210b59bb14a5d5f62",
+    "tarball": "https://registry.npmjs.org/lightbox2/-/lightbox2-2.9.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "lokesh.dhakar",
+      "email": "lokesh.dhakar@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/lightbox2-2.9.0.tgz_1478483320313_0.9134495395701379"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/lightbox2/-/lightbox2-2.9.0.tgz",
+  "readme": "ERROR: No README data found!"
+}

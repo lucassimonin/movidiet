@@ -1,11 +1,3 @@
 <link href="https://fonts.googleapis.com/css?family=Dosis:300" rel="stylesheet">
 
-{% stylesheets filter='uglifycss' filter='cssrewrite' output='css/style.css'
-    'assets/vendor/bootstrap/dist/css/bootstrap.css'
-    'assets/vendor/font-awesome/css/font-awesome.min.css'
-    'assets/vendor/flag-icon-css/css/flag-icon.min.css'
-    'bundles/appsite/css/main.css'
-    'assets/vendor/wow/css/libs/animate.css'
-%}
-    <link href="{{ asset_url }}" rel="stylesheet" media="all" type="text/css" />
-{% endstylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/app/css/style.css') }}" type="text/css" />
