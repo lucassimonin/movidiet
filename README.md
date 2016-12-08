@@ -1,8 +1,8 @@
-Power by eZ Platform
+Powered by eZ Platform
 You need install Bower & Gulp
 
 Launch :
-- composer install
-- bower install
 - npm install
-- npm run gulp
+- bower install
+- composer install
+- gulp
