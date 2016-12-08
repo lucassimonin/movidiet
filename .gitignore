@@ -33,3 +33,4 @@ behat.yml
 src/.DS_Store
 web/.DS_Store
 .DS_Store
+node_modules/
