@@ -1,4 +1,9 @@
 {% extends "AppSiteBundle::pagelayout.html.twig" %}
 {% block content %}
-    BLOG
+    {% include 'AppSiteBundle::pagelayout/page_navigation_blog.html.twig' %}
+    {% include 'AppSiteBundle::content/parts/blog_partfull.html.twig' with {'articles': recipe_articles, 'bgcolor': 'bggreen', 'title': 'app.recipetitle'} %}
+    {% include 'AppSiteBundle::content/parts/blog_partfull.html.twig' with {'articles': diet_articles, 'bgcolor': '', 'title': 'app.diettitle'}  %}
+    {% include 'AppSiteBundle::content/parts/blog_partfull.html.twig' with {'articles': sport_articles, 'bgcolor': 'bggreen', 'title': 'app.sporttitle'} %}
+
+
 {% endblock %}

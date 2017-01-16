@@ -35,9 +35,10 @@ class ContactType extends AbstractType
             ->add('email', 'email', array('required' => true))
             ->add('subject', 'choice', array(
                 'choices' => array(
-                    'Formule classic',
-                    'Formule medium',
-                    'Formule Pro',
+                    'Premier bilan',
+                    'Suivi diététique',
+                    'Forfaits diététiques',
+                    'Pack mov.idiet',
                     'Autre'
                 ),
                 'required' => true

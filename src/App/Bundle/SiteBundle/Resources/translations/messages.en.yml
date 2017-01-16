@@ -9,8 +9,10 @@ app.subtitle.program: Le programme Mov.iDiet
 app.subtitle.coach: Votre coach
 app.subtitle.formule: Des programmes adaptés à vos besoins
 app.subtitle.formule_two: Nos Formules
-app.formule.btn: Je m'inscris
+app.formule.btn: me contacter
 app.subtitle.blog: Le blog
 app.blog.btn.article: Lire l'article
 app.blog.btn.all_article: Voir tous les articles
-app.subtitle.contact: Contactez nous
+app.subtitle.contact: Contactez moi
+app.devis: Devis gratuit sur demande
+app.start_to: à partir de

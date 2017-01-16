@@ -2,13 +2,27 @@
     <div class="container">
 
         <h2 class="formule green text-center text-uppercase">- {{ 'app.subtitle.formule_two'|trans }} -</h2>
-        <div class="black-title text-center">{{ 'app.subtitle.formule'|trans }}</div>
+        <div class="black-title text-center title-formule">{{ 'app.subtitle.formule'|trans }}</div>
         <div class="row formules-container">
             {% for id, formule in formules %}
-                <div class="col-md-4 col-sm-4 col-xs-12 item-formule wow fadeInUp">
-                    <div class="title">
-                            <span class="text-uppercase text-bold">{{ ez_render_field(formule, 'title') }}</span>
-                            <span><span class="price text-bold">{{ ez_render_field(formule, 'price') }}€</span> <span class="bymonth">/mois</span></span>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 item-formule wow fadeInUp">
+                    <div class="title {% if ez_field_value(formule, 'black_bg').bool %}black_bg{% endif %}">
+                            <span class="text-uppercase text-bold title-name">{{ ez_render_field(formule, 'title') }}</span>
+                            <span class="title-price">
+                                {% if not ez_is_field_empty(formule, 'price') %}
+                                    {% if ez_is_field_empty(formule, 'time_seance') %}
+                                        <span class="text-bold">{{ 'app.start_to'|trans }}</span>
+                                    {% endif %}
+                                    <span class="price">{{ ez_render_field(formule, 'price') }}€</span>
+                                    {% if not ez_is_field_empty(formule, 'time_seance') %}
+                                        <span class="text-bold">{{ ez_render_field(formule, 'time_seance') }}</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="devis">
+                                        {{ 'app.devis'|trans }}
+                                    </span>
+                                {% endif %}
+                            </span>
                     </div>
                     <div class="content">
                         {{ ez_render_field(formule, 'description') }}

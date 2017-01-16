@@ -1,4 +1,11 @@
 {% extends "AppSiteBundle::pagelayout.html.twig" %}
 {% block content %}
-    ARTICLE
+    {% include 'AppSiteBundle::pagelayout/page_navigation_blog.html.twig' %}
+    <section id="article">
+        <div class="container">
+            <h2>{{ ez_render_field(content, 'title') }}</h2>
+            {{ ez_render_field(content, 'description') }}
+        </div>
+    </section>
+
 {% endblock %}

@@ -7,7 +7,7 @@
             <div class="black-title">{{ 'app.subtitle.program'|trans }}</div>
 
             <h2 class="margin">{{ ez_render_field(content, 'title_programme') }}</h2>
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
                 {{ ez_render_field(content, 'description_programme') }}
                 <hr>
             </div>
@@ -17,13 +17,16 @@
     <section id="coach" class="container-fluid no-padding">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-sm-push-6 wow fadeInRight coach-picture">
-                {{ ez_render_field(content, 'image_bio') }}
+                <div class="row">
+                    {{ ez_render_field(content, 'image_bio') }}
+                </div>
+
             </div>
             <div class="col-md-6 col-sm-6 col-sm-pull-6 text-center black-color padding-tb wow fadeInLeft">
                 <div class="black-title">{{ 'app.subtitle.coach'|trans }}</div>
                 <h2 class="margin green">{{ ez_render_field(content, 'coach_name') }}</h2>
                 <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-                    {{ ez_render_field(content, 'description_programme') }}
+                    {{ ez_render_field(content, 'text_bio') }}
                     <hr>
                 </div>
             </div>
