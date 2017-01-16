@@ -119,5 +119,5 @@ gulp.task('app-watch', function() {
     gulp.watch(paths.app.fonts, ['app-fonts']);
 });
 
-gulp.task('default', ['app-js', 'app-js-head', 'app-js-ie', 'app-css', 'app-fonts', 'app-flags']);
+gulp.task('default', ['app-js', 'app-js-head', 'app-js-ie', 'app-css', 'app-fonts', 'app-flags', 'app-img']);
 gulp.task('watch', ['default', 'app-watch']);

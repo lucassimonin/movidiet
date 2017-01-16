@@ -26,4 +26,4 @@ ezpublish:
                             movidiet.com: true
                     match: movidiet_en
             Map\Host:
-                movidiet.com: movidiet
+                movidiet.fr: movidiet
