@@ -1,0 +1,5 @@
+<div class="btn-group btn-breadcrumb">
+    <a href="{{ path( "ez_urlalias", {"locationId": blogLocationId} ) }}" class="btn btn-default home"><i class="fa fa-home" aria-hidden="true"></i></a>
+    <a href="#" class="btn btn-default cursor-default">{{ ez_render_field(content, 'category') }}</a>
+    <a href="#" class="btn btn-default">{{ ez_render_field(content, 'title') }}</a>
+</div>

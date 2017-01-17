@@ -26,6 +26,12 @@ class CoreHelper
     /** @var \Symfony\Component\DependencyInjection\Container */
     protected $container;
 
+    /** @var \eZ\Publish\API\Repository\LocationService */
+    protected $locationService;
+
+    /** @var \eZ\Publish\API\Repository\ContentService */
+    protected $contentService;
+
     /** @var \eZ\Publish\API\Repository\ContentTypeService */
     protected $contentEntityManager;
 
@@ -38,6 +44,12 @@ class CoreHelper
     /** @var \Monolog\Logger */
     protected $logger;
 
+    /** @var int */
+    protected $rootLocationId;
+
+    /** @var $configResolver \eZ\Publish\Core\MVC\ConfigResolverInterface * */
+    protected $configResolver;
+
     /**
      * Constructor
      * @param Repository $repository
@@ -48,9 +60,32 @@ class CoreHelper
     {
         $this->repository = $repository;
         $this->container = $container;
+        $this->locationService = $this->repository->getLocationService();
+        $this->contentService = $this->repository->getContentService();
+        $this->configResolver = $this->container->get('ezpublish.config.resolver');
+        $this->rootLocationId = $this->configResolver->getParameter('content.tree_root.location_id');
         $this->criteriaHelper = $this->container->get('app.criteria_helper');
         $this->searchService = $this->repository->getSearchService();
         $this->logger = $this->container->get('logger');
+    }
+
+    /**
+     * Get content website
+     * @return content
+     */
+    public function getContentHomepage()
+    {
+        // Loading root location (homepage)
+        $homeLocation = $this->locationService->loadLocation($this->rootLocationId);
+
+        // Setting API services
+
+        $contentService = $this->repository->getContentService();
+
+        // Loading homepage content to get website location
+        $homeContent = $contentService->loadContent($homeLocation->contentInfo->id);
+
+        return $homeContent;
     }
 
     /**

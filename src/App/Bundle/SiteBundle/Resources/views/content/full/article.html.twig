@@ -3,6 +3,7 @@
     {% include 'AppSiteBundle::pagelayout/page_navigation_blog.html.twig' %}
     <section id="article">
         <div class="container">
+            {% include 'AppSiteBundle::content/parts/breadcrumb_article.html.twig' %}
             <h2>{{ ez_render_field(content, 'title') }}</h2>
             {{ ez_render_field(content, 'description') }}
         </div>
