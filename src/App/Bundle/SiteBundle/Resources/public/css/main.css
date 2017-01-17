@@ -173,6 +173,7 @@ h2.formule, h2.blog, h2.contact {
 footer {
   background-color: #FFF;
   padding:10px 0;
+    border: 1px solid #eee;
 }
 footer a, footer a:hover, footer a:focus {
   color:#333;
