@@ -662,7 +662,9 @@ h2.blog {
     }
 }
 @media (min-width: 768px) {
-
+    .article-image img {
+        max-height: 120px;
+    }
 }
 @media (min-width: 992px) {
 
