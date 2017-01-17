@@ -647,7 +647,7 @@ h2.blog {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .article-image img {
         max-height: 120px;
     }
