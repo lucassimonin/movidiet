@@ -665,6 +665,9 @@ h2.blog {
     .article-image img {
         max-height: 120px;
     }
+    .article-content {
+        min-height: 250px;
+    }
 }
 @media (min-width: 992px) {
 
