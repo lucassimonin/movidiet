@@ -11,8 +11,9 @@
         </head>
     <body id="page-top" data-spy="scroll" data-target="#bs-navbar-collapse">
         {% block content %}{% endblock %}
-
-        {% include 'AppSiteBundle::pagelayout/page_footer.html.twig' %}
+        {% block footer %}
+            {% include 'AppSiteBundle::pagelayout/page_footer.html.twig' %}
+        {% endblock %}
         {% block footerScript %}
             {% include 'AppSiteBundle::pagelayout/page_footer_script.html.twig' %}
         {% endblock %}

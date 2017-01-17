@@ -24,6 +24,9 @@ ezpublish:
         movidiet_en:
             languages: [eng-GB, fre-FR]
         site_group:
+            user:
+                layout: "AppSiteBundle::pagelayout.html.twig"
+                login_template: "AppSiteBundle:user:login.html.twig"
             content:
                 tree_root:
                     # Root locationId. Default is top locationId

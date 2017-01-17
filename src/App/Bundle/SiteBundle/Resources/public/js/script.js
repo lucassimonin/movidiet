@@ -59,34 +59,32 @@ $( document ).ready(function() {
     return true;
   });
 
-
-  var initialPosition = $('#mainNav').offset().top,
-    positionTop = false;
-
   new WOW().init();
+  if($('#mainNav').length) {
+    var initialPosition = $('#mainNav').offset().top,
+        positionTop = false;
 
-  $(window).scroll(function() {
-    var height = $(window).scrollTop();
-    if(!positionTop) {
-      initialPosition = $('#mainNav').offset().top;
-    }
-    if(height  > $('#mainNav').offset().top && !positionTop) {
-      positionTop = true;
-      $('#mainNav').addClass('navbar-fixed-top');
-    }
-    if(height  <= initialPosition) {
-      $('#mainNav').removeClass('navbar-fixed-top');
-      positionTop = false;
-    }
-  });
+    $(window).scroll(function() {
+      var height = $(window).scrollTop();
+      if(!positionTop) {
+        initialPosition = $('#mainNav').offset().top;
+      }
+      if(height  > $('#mainNav').offset().top && !positionTop) {
+        positionTop = true;
+        $('#mainNav').addClass('navbar-fixed-top');
+      }
+      if(height  <= initialPosition) {
+        $('#mainNav').removeClass('navbar-fixed-top');
+        positionTop = false;
+      }
+    });
+  }
+
 
   $("form#form-contact").submit(function (e) {
     e.preventDefault();
 
     var errors = 0;
-
-
-
     // Cheking licenceId input content
     if (!$("#contact_type_name").val()) {
       $("#contact_type_name").addClass("has-error");

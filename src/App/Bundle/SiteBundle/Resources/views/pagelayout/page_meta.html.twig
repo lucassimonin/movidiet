@@ -1,10 +1,10 @@
 <title>
-    {% if not ez_is_field_empty(content, 'meta_title') %}
+    {% if content is defined and not ez_is_field_empty(content, 'meta_title') %}
         {{ ez_field_value(content, 'meta_title') }}
     {% else %}
         {{ 'app.global.meta_title'|trans }}
     {% endif %}
 </title>
-{% if not ez_is_field_empty(content, 'meta_description') %}
+{% if content is defined and not ez_is_field_empty(content, 'meta_description') %}
     <meta name="description" content="{{ ez_field_value(content, 'meta_description') }}">
 {% endif %}
