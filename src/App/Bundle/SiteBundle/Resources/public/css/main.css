@@ -444,12 +444,12 @@ header {
 #formules p {
     font-size: 15px;
     padding: 0 15px;
-    color: #868686;
+    color: #000;
 }
 
 .item-formule li {
   margin: 15px 0;
-    color: #868686;
+    color: #000;
   word-wrap: break-word;
 }
 
