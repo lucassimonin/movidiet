@@ -37,6 +37,7 @@ var paths = {
             'web/assets/vendor/font-awesome/css/font-awesome.min.css',
             'web/assets/vendor/flag-icon-css/css/flag-icon.min.css',
             'web/bundles/appsite/css/main.css',
+            'web/bundles/appsite/css/follow.css',
             'web/assets/vendor/wow/css/libs/animate.css'
         ],
         img: [

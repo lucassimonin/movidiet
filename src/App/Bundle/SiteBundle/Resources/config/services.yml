@@ -9,3 +9,6 @@ services:
             class: %app.form.type.contact.class%
             tags:
                 - { name: form.type, alias: contact_type }
+    app.security.controller:
+            class: "%app.login.controller.class%"
+            arguments: ["@templating", "@ezpublish.config.resolver", "@security.authentication_utils", "@service_container"]

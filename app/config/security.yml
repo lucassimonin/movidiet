@@ -22,6 +22,8 @@ security:
             ezpublish_rest_session: ~
             form_login:
                 require_previous_session: false
+                always_use_default_target_path: true
+                default_target_path: /followindex
             logout: ~
 
         default:

@@ -1,0 +1,41 @@
+.inputmov {
+    height: 64px;
+    color: rgba(0,0,0,0.54);
+    padding-right: 23px;
+    padding-left: 64px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: rgb(249, 249, 249);
+    box-shadow: none;
+    border: 1px solid rgba(0,0,0,0.117647);
+}
+
+.inputmov.login {
+    background: url("../img/IconUsername.svg") no-repeat 26px center;
+}
+
+.inputmov.password {
+    background: url("../img/IconLock.svg") no-repeat 26px center;
+}
+
+#login-img {
+    margin-top:100px;
+    margin-bottom: 20px;
+}
+
+.btn-login {
+    border: 1px solid #B9CE02;
+    background-color: rgb(255, 255, 255);
+    color: #B9CE02;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    margin: 20px 0 12px;
+    width:100%;
+    height: 64px;
+    border-radius: 0;
+}
+
+.btn-login:hover {
+    color: #B9CE02;
+}

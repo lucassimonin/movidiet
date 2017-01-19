@@ -1,6 +1,6 @@
 login:
     path:   /login
-    defaults:  { _controller: ezpublish.security.controller:loginAction }
+    defaults:  { _controller: app.security.controller:loginAction }
 login_check:
     path:   /login_check
 logout:

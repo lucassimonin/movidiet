@@ -1,3 +1,7 @@
 contact-form-ajax:
     path: /add-contact
     defaults: { _controller: AppSiteBundle:Home:contactForm }
+
+follow-index:
+    path: /followindex
+    defaults: { _controller: AppSiteBundle:Follow:index}
