@@ -4,4 +4,7 @@ contact-form-ajax:
 
 follow-index:
     path: /followindex
-    defaults: { _controller: AppSiteBundle:Follow:index}
+    defaults: { _controller: AppSiteBundle:Follow:index }
+follow-visit:
+    path: /visit/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:visit }

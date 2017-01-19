@@ -26,6 +26,7 @@ var paths = {
             'web/assets/vendor/scrollreveal/dist/scrollreveal.min.js',
             'web/assets/vendor/classie/classie.js',
             'web/assets/vendor/wow/dist/wow.min.js',
+            'web/bundles/appsite/js/datatables.min.js',
             'web/bundles/appsite/js/script.js'
         ],
         js_ie: [
@@ -36,6 +37,7 @@ var paths = {
             'web/assets/vendor/bootstrap/dist/css/bootstrap.css',
             'web/assets/vendor/font-awesome/css/font-awesome.min.css',
             'web/assets/vendor/flag-icon-css/css/flag-icon.min.css',
+            'web/bundles/appsite/css/datatables.min.css',
             'web/bundles/appsite/css/main.css',
             'web/bundles/appsite/css/follow.css',
             'web/assets/vendor/wow/css/libs/animate.css'
@@ -45,7 +47,8 @@ var paths = {
         ],
         fonts: [
             'web/bundles/appsite/fonts/**',
-            'web/assets/vendor/font-awesome/fonts/**'
+            'web/assets/vendor/font-awesome/fonts/**',
+            'web/assets/vendor/bootstrap/fonts/**'
         ],
         flags: [
             'web/assets/vendor/flag-icon-css/flags/**'

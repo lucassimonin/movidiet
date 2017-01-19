@@ -77,15 +77,26 @@ class CoreHelper
     {
         // Loading root location (homepage)
         $homeLocation = $this->locationService->loadLocation($this->rootLocationId);
-
         // Setting API services
-
         $contentService = $this->repository->getContentService();
 
         // Loading homepage content to get website location
-        $homeContent = $contentService->loadContent($homeLocation->contentInfo->id);
 
-        return $homeContent;
+        return $contentService->loadContent($homeLocation->contentInfo->id);
+    }
+
+
+    /**
+     * Get content Object by Id
+     * @param $contentId
+     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     */
+    public function getContentById($contentId)
+    {
+        // Setting API services
+        $contentService = $this->repository->getContentService();
+
+        return $contentService->loadContent($contentId);
     }
 
     /**

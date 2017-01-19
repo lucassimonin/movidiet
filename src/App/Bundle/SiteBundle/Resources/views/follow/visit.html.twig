@@ -1,0 +1,22 @@
+{% extends "AppSiteBundle::follow/common.html.twig" %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 panel-user">
+                <div class="info-thumb">
+                    {{ ez_render_field(params.user, 'image') }}
+                </div>
+                <div class="info-content">
+                    <h2 class="info-name">{{ ez_render_field(params.user, 'first_name') }} {{ ez_render_field(params.user, 'last_name') }}</h2>
+                    <a href="mailto:{{ ez_field_value(params.user, 'user_account').email }}" >{{ ez_field_value(params.user, 'user_account').email }}</a>
+                </div>
+                <a href="#" class="btn btn-edit"><i class="fa fa-pencil" aria-hidden="true"></i>{{ 'Modifier profil'|trans }}</a>
+
+
+            </div>
+            <div class="col-lg-12 panel-visit">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

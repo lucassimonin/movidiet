@@ -28,6 +28,9 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="btn login" href="{{ path('login') }}">Espace membre</a>
+                </li>
                 {% if not ez_is_field_empty(content, 'facebook_url') %}
                     <li>
                         <a class="btn btn-social-icon btn-fb" href="{{ ez_field_value(content, 'facebook_url') }}" target="_blank"><i class="fa fa-facebook-official"></i></a>

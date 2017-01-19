@@ -1,0 +1,77 @@
+{% extends "AppSiteBundle::pagelayout.html.twig" %}
+{% block content %}
+    {% include 'AppSiteBundle::pagelayout/page_navigation_follow.html.twig' %}
+<section class="follow toggled" id="wrapper" >
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                Menu
+                <button id="close" class="close-menu"><i class="fa fa-times" aria-hidden="true"></i></button>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-id-card" aria-hidden="true"></i>
+                    Profil
+                </a>
+            </li>
+            {% if params.admin %}
+                <li>
+                    <a href="{{ path('follow-index') }}">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Patients
+                    </a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path('follow-index') }}">
+                        <i class="fa fa-area-chart" aria-hidden="true"></i>
+                        Suivi
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('follow-index') }}">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                        Rations
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('follow-index') }}">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        Plan d'entrainement
+                    </a>
+                </li>
+            {% endif %}
+            <li>
+                <a href="#">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    Contact
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                    Changer mot de passe
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('logout') }}">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Déconnexion
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="mask" class="mask"></div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        {% block body %}
+        {% endblock %}
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

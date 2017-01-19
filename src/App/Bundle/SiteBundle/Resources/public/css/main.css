@@ -457,6 +457,11 @@ header {
   font-family: 'LatoBold';
 }
 
+.btn.login {
+    padding-top:17px;
+    padding-bottom: 17px;
+}
+
 
 .price {
   font-size: 24px;
@@ -653,6 +658,16 @@ h2.blog {
     }
     .article-content {
         min-height: 250px;
+    }
+    .navbar-default .nav>li>a, .navbar-default .nav>li>a:focus {
+        font-size: 11px;
+    }
+
+}
+@media (max-width: 768px) {
+    .btn.login {
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
 }
 

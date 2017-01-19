@@ -1,10 +1,41 @@
-{% extends "AppSiteBundle::pagelayout.html.twig" %}
-{% block content %}
-    {% include 'AppSiteBundle::pagelayout/page_navigation_follow.html.twig' %}
-    <section id="index" >
-        <div class="container text-center">
-            TEST
-
+{% extends "AppSiteBundle::follow/common.html.twig" %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <input type="text" id="search" class="inputmov search form-control" name="search" value="" autocomplete="off" placeholder="{{ 'Rechercher'|trans }}" />
+            </div>
+            <div class="col-lg-6">
+                <a href="#" class="btn btn-add"><i class="fa fa-plus" aria-hidden="true"></i>{{ 'Ajouter patient'|trans }}</a>
+            </div>
+            <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table id="patients" class="table" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Dernière visite</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% if params.users|length > 0 %}
+                                {% for user in params.users %}
+                                    <tr class="redirectToFollow" data-url="{{ path('follow-visit', {'userId': user.versionInfo.contentInfo.id}) }}">
+                                        <td>{{ ez_render_field(user, 'first_name') }} {{ ez_render_field(user, 'last_name') }}</td>
+                                        <td>{{ ez_field_value(user, 'user_account').email }}</td>
+                                        <td>{{ ez_render_field(user, 'phone') }}</td>
+                                        <td>-</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr><td colspan="4">Pas de patient à afficher.</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
 {% endblock %}
