@@ -228,6 +228,14 @@ header .header-content .header-content-inner figure {
     width:100%;
 }
 
+.navbar-toggle {
+    padding: 5px 10px;
+}
+
+.navbar-toggle i {
+    font-size: 22px;
+}
+
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
   background-color: transparent;
 }

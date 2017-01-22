@@ -45,6 +45,43 @@ class FollowController extends Controller
         return $this->render( '@AppSite/follow/visit.html.twig', array('params' => $params));
     }
 
+    public function profilAction($userId)
+    {
+        $params = $this->getUserInformation();
+        $this->coreHelper = $this->container->get('app.core_helper');
+        $params['user'] = $this->coreHelper->getContentById($userId);
+
+        return $this->render( '@AppSite/follow/profil.html.twig', array('params' => $params));
+    }
+
+    public function changePasswordAction($userId)
+    {
+        $params = $this->getUserInformation();
+        $this->coreHelper = $this->container->get('app.core_helper');
+        $params['user'] = $this->coreHelper->getContentById($userId);
+
+        return $this->render( '@AppSite/follow/changepassword.html.twig', array('params' => $params));
+    }
+
+    public function rationsAction($userId)
+    {
+        $params = $this->getUserInformation();
+        $this->coreHelper = $this->container->get('app.core_helper');
+        $params['user'] = $this->coreHelper->getContentById($userId);
+
+        return $this->render( '@AppSite/follow/rations.html.twig', array('params' => $params));
+    }
+
+    public function trainingAction($userId)
+    {
+        $params = $this->getUserInformation();
+        $this->coreHelper = $this->container->get('app.core_helper');
+        $params['user'] = $this->coreHelper->getContentById($userId);
+
+
+        return $this->render( '@AppSite/follow/training.html.twig', array('params' => $params));
+    }
+
     /**
      * Get user information
      * @return array
@@ -58,6 +95,7 @@ class FollowController extends Controller
         $user = $this->get('security.context')->getToken()->getUser()->getAPIUser();
         $params['error'] = false;
         $params['admin'] = $user->getFieldValue('administrateur')->bool;
+        $params['contact'] = $this->container->getParameter('app.email.contact');
 
         return $params;
     }

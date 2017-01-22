@@ -10,7 +10,7 @@
                 <button id="close" class="close-menu"><i class="fa fa-times" aria-hidden="true"></i></button>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ path('follow-profil', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                     <i class="fa fa-id-card" aria-hidden="true"></i>
                     Profil
                 </a>
@@ -24,32 +24,32 @@
                 </li>
             {% else %}
                 <li>
-                    <a href="{{ path('follow-index') }}">
+                    <a href="{{ path('follow-visit', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                         <i class="fa fa-area-chart" aria-hidden="true"></i>
                         Suivi
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('follow-index') }}">
+                    <a href="{{ path('follow-rations', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                         <i class="fa fa-cutlery" aria-hidden="true"></i>
                         Rations
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('follow-index') }}">
+                    <a href="{{ path('follow-training', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                         Plan d'entrainement
                     </a>
                 </li>
+                <li>
+                    <a href="mailto:{{ params.contact }}">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        Contact
+                    </a>
+                </li>
             {% endif %}
             <li>
-                <a href="#">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                    Contact
-                </a>
-            </li>
-            <li>
-                <a href="#">
+                <a href="{{ path('follow-change-password', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                     <i class="fa fa-key" aria-hidden="true"></i>
                     Changer mot de passe
                 </a>
@@ -74,4 +74,8 @@
 {% endblock %}
 
 {% block footer %}
+{% endblock %}
+
+{% block footerScript %}
+    <script src="{{ asset('assets/app/js/appfollow.js') }}" type="text/javascript" ></script>
 {% endblock %}

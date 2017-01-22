@@ -12,3 +12,4 @@ parameters:
     app.article.category.diet: 1
     app.article.category.recipe: 2
     app.cache.high.ttl: 3600
+    app.email.contact: progmovidiet@gmail.com

@@ -24,10 +24,19 @@ var paths = {
             'web/assets/vendor/jquery.easing/js/jquery.easing.min.js',
             'web/assets/vendor/bootstrap/dist/js/bootstrap.min.js',
             'web/assets/vendor/scrollreveal/dist/scrollreveal.min.js',
+
             'web/assets/vendor/classie/classie.js',
             'web/assets/vendor/wow/dist/wow.min.js',
-            'web/bundles/appsite/js/datatables.min.js',
             'web/bundles/appsite/js/script.js'
+        ],
+        js_follow: [
+            'web/assets/vendor/jquery/jquery.min.js',
+            'web/assets/vendor/jquery.easing/js/jquery.easing.min.js',
+            'web/assets/vendor/bootstrap/dist/js/bootstrap.min.js',
+            'web/assets/vendor/chart.js/dist/Chart.bundle.min.js',
+            'web/assets/vendor/classie/classie.js',
+            'web/bundles/appsite/js/follow.js',
+            'web/bundles/appsite/js/chart.js'
         ],
         js_ie: [
             'web/assets/vendor/html5shiv/dist/html5shiv.js',
@@ -63,6 +72,15 @@ gulp.task('app-js', function () {
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(appRootPath + 'js/'))
     ;
+});
+
+gulp.task('app-follow-js', function () {
+    return gulp.src(paths.app.js_follow)
+        .pipe(concat('appfollow.js'))
+        .pipe(gulpif(env === 'prod', uglify()))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(appRootPath + 'js/'))
+        ;
 });
 
 gulp.task('app-js-head', function () {
@@ -116,6 +134,7 @@ gulp.task('app-watch', function() {
     livereload.listen();
 
     gulp.watch(paths.app.js, ['app-js']);
+    gulp.watch(paths.app.js_follow, ['app-follow-js']);
     gulp.watch(paths.app.js_head, ['app-js-head']);
     gulp.watch(paths.app.js_ie, ['app-js-ie']);
     gulp.watch(paths.app.css, ['app-css']);
@@ -123,5 +142,5 @@ gulp.task('app-watch', function() {
     gulp.watch(paths.app.fonts, ['app-fonts']);
 });
 
-gulp.task('default', ['app-js', 'app-js-head', 'app-js-ie', 'app-css', 'app-fonts', 'app-flags', 'app-img']);
+gulp.task('default', ['app-follow-js', 'app-js', 'app-js-head', 'app-js-ie', 'app-css', 'app-fonts', 'app-flags', 'app-img']);
 gulp.task('watch', ['default', 'app-watch']);

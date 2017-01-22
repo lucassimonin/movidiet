@@ -5,6 +5,23 @@ contact-form-ajax:
 follow-index:
     path: /followindex
     defaults: { _controller: AppSiteBundle:Follow:index }
+
 follow-visit:
     path: /visit/{userId}
     defaults: { _controller: AppSiteBundle:Follow:visit }
+
+follow-profil:
+    path: /profil/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:profil }
+
+follow-change-password:
+    path: /changepassword/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:changePassword }
+
+follow-rations:
+    path: /ration/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:rations }
+
+follow-training:
+    path: /traning/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:training }
