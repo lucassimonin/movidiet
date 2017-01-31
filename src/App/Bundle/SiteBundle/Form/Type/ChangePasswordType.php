@@ -1,9 +1,4 @@
 <?php
-/**
- * This file is part of the MrtEcommerce package.
- *
- * @copyright Copyright (C) Mapi Research Trust
- */
 
 namespace App\Bundle\SiteBundle\Form\Type;
 
@@ -12,14 +7,30 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\Translator;
 use eZ\Publish\API\Repository\Repository;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * MyProfileType Class.
+ * ChangePasswordType Class.
  *
  * @author simoninl
  */
-class ContactType extends AbstractType
+class ChangePasswordType extends AbstractType
 {
+
+    protected $translator;
+    protected $repository;
+
+    /**
+     * Constructor
+     * @param Translator $translator
+     * @param Repository $repository
+     */
+    public function __construct(Translator $translator, Repository $repository)
+    {
+        $this->translator = $translator;
+        $this->repository = $repository;
+
+    }
     /**
      * Build form.
      *
@@ -31,19 +42,8 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('required' => true))
-            ->add('email', 'email', array('required' => true))
-            ->add('subject', 'choice', array(
-                'choices' => array(
-                    'Premier bilan',
-                    'Suivi diététique',
-                    'Forfaits diététiques',
-                    'Pack mov.idiet',
-                    'Autre'
-                ),
-                'required' => true
-            ))
-            ->add('message', 'textarea', array('required' => true));
+            ->add('newPassword', 'repeated', [ 'type' => 'password', 'invalid_message' => $this->translator->trans('app.registration.validation.password.no.match') ])
+            ->add('save', 'submit');
     }
 
     /**
@@ -53,7 +53,7 @@ class ContactType extends AbstractType
      */
     public function getName()
     {
-        return 'contact_type';
+        return 'change_password';
     }
 
     /**
@@ -65,7 +65,7 @@ class ContactType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'App\Bundle\SiteBundle\Entity\Contact'
+                'data_class' => 'App\Bundle\SiteBundle\Entity\User'
             )
         );
     }

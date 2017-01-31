@@ -1,5 +1,21 @@
+var weightChart = null,
+    massGChart = null,
+    dateChart = null,
+    date = [],
+    weight = [],
+    massG = [],
+    nb_visit = 0;
 $( document ).ready(function() {
     'use strict'; // Start of use strict
+    var visitsArray = $.parseJSON(visits);
+    $.each(visitsArray, function(i, item) {
+        date.push(item.date);
+        weight.push(item.weight);
+        massG.push(item.fatMass);
+    });
+
+    nb_visit = visitsArray.length;
+
     if($("#weightChart").length || $("#imcChart").length || $("#bodyChart").length) {
         // Chart
         window.chartColors = {
@@ -19,17 +35,12 @@ $( document ).ready(function() {
         var config = {
                 type: 'line',
                 data: {
-                    labels: ["10/01/2017", "17/01/2017", "20/01/2017", "22/01/2017"],
+                    labels: date,
                     datasets: [{
                         label: "Poids",
                         backgroundColor: window.chartColors.green,
                         borderColor: window.chartColors.green,
-                        data: [
-                            70,
-                            75,
-                            72,
-                            71
-                        ],
+                        data: weight,
                         fill: false,
                     }]
                 },
@@ -67,17 +78,12 @@ $( document ).ready(function() {
             config_imc = {
                 type: 'line',
                 data: {
-                    labels: ["10/01/2017", "17/01/2017", "20/01/2017", "22/01/2017"],
+                    labels: date,
                     datasets: [{
-                        label: "IMC",
+                        label: "Masse Graisseuse",
                         backgroundColor: window.chartColors.blue,
                         borderColor: window.chartColors.blue,
-                        data: [
-                            22,
-                            23.1,
-                            23,
-                            22.8
-                        ],
+                        data: massG,
                         fill: false,
                     }]
                 },
@@ -158,11 +164,12 @@ $( document ).ready(function() {
                     }
                 }
             };
-        new Chart(document.getElementById("weightChart").getContext("2d"), config);
+        weightChart = new Chart(document.getElementById("weightChart").getContext("2d"), config);
 
-        new Chart(document.getElementById("imcChart").getContext("2d"), config_imc);
+        massGChart = new Chart(document.getElementById("imcChart").getContext("2d"), config_imc);
 
-        new Chart(document.getElementById("bodyChart"), config_radar);
+        dateChart = new Chart(document.getElementById("bodyChart"), config_radar);
+
     }
 
 });

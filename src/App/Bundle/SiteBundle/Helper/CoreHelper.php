@@ -224,4 +224,29 @@ class CoreHelper
         return $childrensObject;
     }
 
+    public function transformFieldToSelection($value)
+    {
+        $formatSelectionValue = array(
+            $value
+        );
+        return new \eZ\Publish\Core\FieldType\Selection\Value($formatSelectionValue);
+    }
+
+    public function transformEzImage($file)
+    {
+        $document = null;
+        if (!empty($file) || !is_null($file)) {
+            $document = new \eZ\Publish\Core\FieldType\Image\Value(
+                array(
+                    'inputUri' => $file->getRealPath(),
+                    'fileSize' => $file->getClientSize(),
+                    'fileName' => $file->getClientOriginalName(),
+                    'alternativeText' => $file->getClientOriginalName()
+                )
+            );
+        }
+
+        return $document;
+    }
+
 }

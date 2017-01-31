@@ -1,44 +1,28 @@
 {% extends "AppSiteBundle::follow/common.html.twig" %}
 {% block body %}
+    {% if params.visits|length > 0 %}
+        <script type="text/javascript">
+            //<![CDATA[
+            var visits = '{{ params.visits|raw }}';
+            //]]>
+        </script>
+    {% endif %}
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 panel-user">
-                <div class="info-thumb">
-                    {{ ez_render_field(params.user, 'image') }}
+            {% include 'AppSiteBundle::follow/userinfo.html.twig' %}
+            {% if params.admin %}
+                <div class="pull-right">
+                    <button type="button" class="btn btn-addvisite" data-toggle="modal" data-target="#myModal">
+                        Ajouter une visite
+                    </button>
                 </div>
-                <div class="info-content">
-                    <h2 class="info-name">{{ ez_render_field(params.user, 'first_name') }} {{ ez_render_field(params.user, 'last_name') }}</h2>
-                    <a href="mailto:{{ ez_field_value(params.user, 'user_account').email }}" >{{ ez_field_value(params.user, 'user_account').email }}</a>
-                </div>
-                <div class="data-patient">
-                <div class="circleBlock">
-                    <div class="numberCircle circleGreen">
-                        <span>Poids</span>
-                        <strong>23.00</strong>Kg
-
-                    </div>
-                </div>
-                <div class="circleBlock">
-                    <div class="numberCircle circleRed">
-                        <span>IMC</span>
-                        <strong>23.00</strong>
-                    </div>
-                </div>
-                <div class="circleBlock">
-                    <div class="numberCircle circleBlue">
-                        <span>Taille</span>
-                        <strong>182</strong>Cm
-                    </div>
-                </div>
-                </div>
-
-
-            </div>
+            {% endif %}
             <div class="col-lg-12 panel-visit">
                 <div class="row">
+                    {% if params.visits|length > 0 %}
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#weight" aria-controls="weight" role="tab" data-toggle="tab">Poids</a></li>
-                        <li role="presentation"><a href="#imc" aria-controls="imc" role="tab" data-toggle="tab">IMC</a></li>
+                        <li role="presentation"><a href="#imc" aria-controls="imc" role="tab" data-toggle="tab">Mass. G</a></li>
                         <li role="presentation"><a href="#body" aria-controls="body" role="tab" data-toggle="tab">Mesures</a></li>
                     </ul>
                     <div class="tab-content">
@@ -52,8 +36,80 @@
                             <canvas id="bodyChart"></canvas>
                         </div>
                     </div>
+                    {% else %}
+                        {{ 'app.no_data'|trans }}
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    {% if params.admin %}
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="overlaymodal"></div>
+                {{ form_start( form, { 'attr': {'id': 'addvisit'}} ) }}
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Nouvelle visite</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12 msg_error"></div>
+                    {% form_theme form 'AppSiteBundle::form/form_theme.html.twig' %}
+                    <div class="col-lg-6">
+                        {{ form_row( form.date, {
+                            'label': 'Date'
+                        } ) }}
+                        {{ form_row( form.weight, {
+                            'label': 'Poids',
+                            'attr': {'class': 'inputmov form-control' }
+                        } ) }}
+                        {{ form_row( form.fatMass, {
+                            'label': 'Masse G.',
+                            'attr': {'class': 'inputmov form-control' }
+                        } ) }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form_row( form.arm, {
+                            'label': 'Mesure bras',
+                            'attr': {'class': 'inputmov form-control' }
+                        } ) }}
+                        {{ form_row( form.thigh, {
+                            'label': 'Mesure cuisses',
+                            'attr': {'class': 'inputmov form-control' }
+                        } ) }}
+                        {{ form_row( form.chest, {
+                            'label': 'Mesure poitrine',
+                            'attr': {'class': 'inputmov form-control' }
+                        } ) }}
+                        {{ form_row( form.hip, {
+                            'label': 'Mesure hanche',
+                            'attr': {'class': 'inputmov form-control' }
+                        } ) }}
+                        {{ form_row( form.size, {
+                            'label': 'Mesure taille',
+                            'attr': {'class': 'inputmov form-control' }
+                        } ) }}
+                    </div>
+                    {{ form_row( form.userId, {
+                        'label': false,
+                        'attr': {'class': 'hide' }
+                    } ) }}
+
+                    <div class="clear"></div>
+                </div>
+                <div class="modal-footer">
+                    <div id="spinner-modal"></div>
+                    {{ form_row( form.save, {
+                        'label': "Sauvegarder",
+                        'attr': { 'class': 'btn btn-login' }
+                    } ) }}
+                </div>
+                {{ form_end( form ) }}
+
+            </div>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}

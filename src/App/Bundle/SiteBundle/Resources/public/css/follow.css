@@ -32,12 +32,17 @@ section.follow {
     padding: 0;
 }
 
+#wrapper.bg-white, #wrapper.bg-white #page-content-wrapper {
+    background-color: #fff;
+    color: #B9CE02;
+}
+
 #login-img {
     margin-top:100px;
     margin-bottom: 20px;
 }
 
-.btn-login {
+.btn-download, .btn-login, .btn-addvisite {
     border: 1px solid #B9CE02;
     background-color: rgb(255, 255, 255);
     color: #B9CE02;
@@ -46,8 +51,22 @@ section.follow {
     cursor: pointer;
     margin: 20px 0 12px;
     width:100%;
-    height: 64px;
+
     border-radius: 0;
+}
+
+.btn-login {
+    height: 64px;
+}
+
+.btn-download:hover, .btn-download:active, .btn-download:focus, .btn-addvisite {
+    color:#36a2eb;
+    border-color: #36a2eb;
+}
+
+.btn-addvisite:hover, .btn-addvisite:active, .btn-addvisite:focus {
+    border: 1px solid #B9CE02;
+    color: #B9CE02;
 }
 
 .btn-add, .btn-edit {
@@ -58,6 +77,23 @@ section.follow {
     padding: 8px 12px;
     border-radius: 0;
 }
+.modal-content {
+    border-radius: 0;
+}
+.overlaymodal {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    position: fixed;
+    opacity: 0.1;
+    z-index: 1;
+    display: none;
+}
+
+.has-error {
+    color: #ff4343;
+    border-color: #ff4343;
+}
 
 .btn-add {
     float: right;
@@ -65,6 +101,13 @@ section.follow {
 
 .btn-edit {
     margin-left: auto;
+}
+
+.msg_error {
+    background: #f19c9c;
+    color: #333;
+    margin-bottom: 15px;
+    display: none;
 }
 
 .btn-add i, .btn-edit i {
@@ -182,8 +225,26 @@ body {
     border: 0;
 }
 
+.ezrichtext-field h4 {
+    color: #b9ce02;
+    text-transform: capitalize;
+    font-size: 17px;
+}
+
+.ezrichtext-field h3 {
+    text-transform: capitalize;
+}
+
+.ezrichtext-field p {
+    font-size: 15px;
+}
+
 .panel-user {
     display: flex;
+    background-color: #fff;
+}
+
+.panel-basic {
     background-color: #fff;
 }
 
@@ -194,10 +255,6 @@ body {
 
 .tab-pane {
     padding: 20px;
-}
-
-.panel-visit {
-    margin-top: 20px;
 }
 
 .nav-tabs>li>a, .nav>li>a:hover, .nav>li>a:focus {
@@ -227,6 +284,7 @@ body {
 .nav-tabs>li.active a, .nav-tabs>li.active a:hover, .nav-tabs>li.active a:focus, .nav-tabs>li.active a:active {
     color: #B9CE02;
     border-left-width: 0px;
+    border-bottom: none;
 }
 
 .nav-tabs>li.active:first-child a {
@@ -308,6 +366,10 @@ body {
     background: #fff;
     width: 100px;
     height: 100px;
+    text-align: center;
+}
+
+.center {
     text-align: center;
 }
 
@@ -405,6 +467,23 @@ body {
     color: #fff;
     background: none;
 }
+
+#addpatient .inputmov, #addvisit .inputmov {
+    padding-left: 12px;
+    height: 50px;
+}
+
+#add_patient_image {
+    box-shadow: none;
+    height: 50px;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+label {
+    color: #b9ce02;
+}
+
 
 @media(min-width:768px) {
 

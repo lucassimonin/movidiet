@@ -80,6 +80,7 @@ class HomeController extends Controller
         $contentService = $repository->getContentService();
         $locationService = $repository->getLocationService();
         $contentTypeService = $repository->getContentTypeService();
+        $this->coreHelper = $this->container->get('app.core_helper');
         $result = [
             'error_code' => 0
         ];
@@ -99,11 +100,8 @@ class HomeController extends Controller
                 $contentCreateStruct->setField('name', $formData->name);
                 $contentCreateStruct->setField('message', $formData->message);
                 $contentCreateStruct->setField('email', $formData->email);
-                $formatSelectionValue = array(
-                    $formData->subject
-                );
-                $formatSelectionValueObject = new \eZ\Publish\Core\FieldType\Selection\Value($formatSelectionValue);
-                $contentCreateStruct->setField('subject', $formatSelectionValueObject);
+
+                $contentCreateStruct->setField('subject', $this->coreHelper->transformFieldToSelection($formData->subject));
 
                 $locationCreateStruct = $locationService->newLocationCreateStruct( $this->container->getParameter('app.contacts.locationid') );
 

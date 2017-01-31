@@ -19,3 +19,8 @@ app.start_to: à partir de
 app.sporttitle: Sport
 app.recipetitle: Recette
 app.diettitle: Nutrition
+app.change_password.title: Changer mot de passe
+app.registration.validation.password.no.match: Les mots de passe saisis ne correspondent pas
+app.change_password.success: Mot de passe modifié
+app.user_not_exist: Ce patient n'existe pas
+app.no_data: Aucune donnée à afficher.

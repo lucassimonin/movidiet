@@ -1,7 +1,19 @@
 {% extends "AppSiteBundle::pagelayout.html.twig" %}
+
 {% block content %}
-    {% include 'AppSiteBundle::pagelayout/page_navigation_follow.html.twig' %}
-<section class="follow toggled" id="wrapper" >
+
+{% include 'AppSiteBundle::pagelayout/page_navigation_follow.html.twig' %}
+<section class="follow toggled {% block class_section %}{% endblock %}" id="wrapper" >
+    {% if app.session.started %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-{{ flashMessage.alert }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                {{ flashMessage.message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -9,12 +21,7 @@
                 Menu
                 <button id="close" class="close-menu"><i class="fa fa-times" aria-hidden="true"></i></button>
             </li>
-            <li>
-                <a href="{{ path('follow-profil', {'userId': params.user.versionInfo.contentInfo.id}) }}">
-                    <i class="fa fa-id-card" aria-hidden="true"></i>
-                    Profil
-                </a>
-            </li>
+
             {% if params.admin %}
                 <li>
                     <a href="{{ path('follow-index') }}">
@@ -22,21 +29,53 @@
                         Patients
                     </a>
                 </li>
+                {% if params.user is defined %}
+                    <li>
+                        <a href="{{ path('follow-profil', {'userId': params.user.versionInfo.contentInfo.id}) }}">
+                            <i class="fa fa-id-card" aria-hidden="true"></i>
+                            Profil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('follow-visit', {'userId': params.user.versionInfo.contentInfo.id}) }}">
+                            <i class="fa fa-area-chart" aria-hidden="true"></i>
+                            Suivi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('follow-rations', {'userId': params.user.versionInfo.contentInfo.id}) }}">
+                            <i class="fa fa-cutlery" aria-hidden="true"></i>
+                            Rations
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('follow-training', {'userId': params.user.versionInfo.contentInfo.id}) }}">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            Plan d'entrainement
+                        </a>
+                    </li>
+                {% endif %}
             {% else %}
                 <li>
-                    <a href="{{ path('follow-visit', {'userId': params.user.versionInfo.contentInfo.id}) }}">
+                    <a href="{{ path('follow-profil-patient') }}">
+                        <i class="fa fa-id-card" aria-hidden="true"></i>
+                        Profil
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('follow-visit-patient') }}">
                         <i class="fa fa-area-chart" aria-hidden="true"></i>
                         Suivi
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('follow-rations', {'userId': params.user.versionInfo.contentInfo.id}) }}">
+                    <a href="{{ path('follow-rations-patient') }}">
                         <i class="fa fa-cutlery" aria-hidden="true"></i>
                         Rations
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('follow-training', {'userId': params.user.versionInfo.contentInfo.id}) }}">
+                    <a href="{{ path('follow-training-patient') }}">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                         Plan d'entrainement
                     </a>
@@ -49,7 +88,7 @@
                 </li>
             {% endif %}
             <li>
-                <a href="{{ path('follow-change-password', {'userId': params.user.versionInfo.contentInfo.id}) }}">
+                <a href="{{ path('follow-change-password') }}">
                     <i class="fa fa-key" aria-hidden="true"></i>
                     Changer mot de passe
                 </a>

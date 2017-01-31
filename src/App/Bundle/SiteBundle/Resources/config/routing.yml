@@ -6,22 +6,47 @@ follow-index:
     path: /followindex
     defaults: { _controller: AppSiteBundle:Follow:index }
 
-follow-visit:
-    path: /visit/{userId}
+follow-visit-patient:
+    path: /visit
     defaults: { _controller: AppSiteBundle:Follow:visit }
 
-follow-profil:
-    path: /profil/{userId}
+follow-visit:
+    path: /visit-patient/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:visit }
+
+follow-profil-patient:
+    path: /profil
     defaults: { _controller: AppSiteBundle:Follow:profil }
 
+follow-profil:
+    path: /profil-patient/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:profil }
+
+follow-addpatient:
+    path: /addpatient
+    defaults: { _controller: AppSiteBundle:Follow:addPatient }
+
 follow-change-password:
-    path: /changepassword/{userId}
+    path: /changepassword
     defaults: { _controller: AppSiteBundle:Follow:changePassword }
 
-follow-rations:
-    path: /ration/{userId}
+follow-rations-patient:
+    path: /ration
     defaults: { _controller: AppSiteBundle:Follow:rations }
 
-follow-training:
-    path: /traning/{userId}
+follow-rations:
+    path: /ration-patient/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:rations }
+
+follow-training-patient:
+    path: /traning
     defaults: { _controller: AppSiteBundle:Follow:training }
+
+follow-training:
+    path: /traning-patient/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:training }
+
+add-visit:
+    path: /add-visit
+    defaults: { _controller: AppSiteBundle:Follow:AddVisit}
+    methods:  [POST]
