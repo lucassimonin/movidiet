@@ -42,6 +42,11 @@ section.follow {
     margin-bottom: 20px;
 }
 
+.datepicker table tr td.active.active, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled.disabled, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover.active, .datepicker table tr td.active.disabled:hover.disabled, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active.disabled:hover[disabled], .datepicker table tr td.active.disabled[disabled], .datepicker table tr td.active:active, .datepicker table tr td.active:hover, .datepicker table tr td.active:hover.active, .datepicker table tr td.active:hover.disabled, .datepicker table tr td.active:hover:active, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active:hover[disabled], .datepicker table tr td.active[disabled] {
+    background-color: #B9CE02;
+    background-image: linear-gradient(to bottom, #cec98e,#B9CE02);
+}
+
 .btn-download, .btn-login, .btn-addvisite {
     border: 1px solid #B9CE02;
     background-color: rgb(255, 255, 255);
@@ -131,6 +136,14 @@ table {
     font-weight: 400;
     padding: 15px 25px;
     border: none;
+}
+
+.msg_nodata {
+    vertical-align: top;
+}
+
+.datepicker-days table thead {
+    background-color: transparent;
 }
 
 .table>tbody>tr {

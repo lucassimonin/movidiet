@@ -17,9 +17,9 @@
             </div>
         </div>
         <div class="circleBlock">
-            <div class="numberCircle circleRed">
+            <div id="color-fat" class="numberCircle {{ params.colorFatMass }}">
                 <span>Mass. G</span>
-                <strong class="massGUser">23</strong>%
+                <strong class="massGUser">{{ ez_field_value(params.user, 'fat_mass') }}</strong>%
             </div>
         </div>
         <div class="circleBlock">

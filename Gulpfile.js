@@ -33,6 +33,7 @@ var paths = {
             'web/assets/vendor/jquery/jquery.min.js',
             'web/assets/vendor/jquery.easing/js/jquery.easing.min.js',
             'web/assets/vendor/bootstrap/dist/js/bootstrap.min.js',
+            'web/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
             'web/assets/vendor/jquery-ui/jquery-ui.min.js',
             'web/assets/vendor/chart.js/dist/Chart.bundle.min.js',
             'web/assets/vendor/spin.js/spin.min.js',
@@ -49,6 +50,7 @@ var paths = {
             'web/assets/vendor/font-awesome/css/font-awesome.min.css',
             'web/assets/vendor/flag-icon-css/css/flag-icon.min.css',
             'web/assets/vendor/jquery-ui/themes/base/jquery-ui.min.css',
+            'web/assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
             'web/bundles/appsite/css/main.css',
             'web/bundles/appsite/css/follow.css',
             'web/assets/vendor/wow/css/libs/animate.css'

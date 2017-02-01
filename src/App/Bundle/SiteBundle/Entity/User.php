@@ -29,7 +29,9 @@ class User
     public $phone;
     public $height;
     public $weight;
+    public $fatMass;
     public $formule;
+    public $sex;
 
     public $isAdmin;
 
@@ -96,6 +98,24 @@ class User
     {
         $this->height = $height;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFatMass()
+    {
+        return $this->fatMass;
+    }
+
+    /**
+     * @param mixed $fatMass
+     */
+    public function setFatMass($fatMass)
+    {
+        $this->fatMass = $fatMass;
+    }
+
+
 
 
 
@@ -308,6 +328,24 @@ class User
     {
         $this->formule = $formule;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSex()
+    {
+        return $this->sex;
+    }
+
+    /**
+     * @param mixed $sex
+     */
+    public function setSex($sex)
+    {
+        $this->sex = $sex;
+    }
+
+
 
     /**
      * @return mixed

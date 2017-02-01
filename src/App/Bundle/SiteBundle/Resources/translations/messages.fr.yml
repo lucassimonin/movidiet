@@ -24,3 +24,4 @@ app.registration.validation.password.no.match: Les mots de passe saisis ne corre
 app.change_password.success: Mot de passe modifié
 app.user_not_exist: Ce patient n'existe pas
 app.no_data: Aucune donnée à afficher.
+app.create_user.success: Patient créé

@@ -35,12 +35,6 @@ $( document ).ready(function() {
         window.location.href = $(this).data("url");
     });
 
-    if($(".js-datepicker").length) {
-        $(".js-datepicker").datepicker({
-            dateFormat: "yy-mm-dd"
-        });
-    }
-
     if($("#addvisit").length) {
         $(document).on("submit", "#addvisit", function(e) {
             e.preventDefault();
@@ -99,14 +93,21 @@ $( document ).ready(function() {
                     $("#add_visit_save").removeClass("hidden");
                     if (data.error_code === 0) {
                         $(".msg_error").html("").hide();
-                        weightChart.data.labels[nb_visit] = data.data.date;
-                        weightChart.data.datasets[0].data[nb_visit] = data.data.weight;
-                        weightChart.update();
-                        massGChart.data.labels[nb_visit] = data.data.date;
-                        massGChart.data.datasets[0].data[nb_visit] = data.data.massG;
-                        massGChart.update();
+                        if($(".msg_nodata").length == 0) {
+                            weightChart.data.labels[nb_visit] = data.data.date;
+                            weightChart.data.datasets[0].data[nb_visit] = data.data.weight;
+                            weightChart.update();
+                            massGChart.data.labels[nb_visit] = data.data.date;
+                            massGChart.data.datasets[0].data[nb_visit] = data.data.massG;
+                            massGChart.update();
+                        } else {
+                            $(".msg_nodata").remove();
+                            createChart([data.data.date], [data.data.weight], [data.data.massG]);
+                        }
+
                         $('.weightUser').html(data.data.weight);
-                        $('.massGUser').html(data.data.massG)
+                        $('.massGUser').html(data.data.massG);
+                        $("#color-fat").removeClass($("#color-fat").attr("class")).addClass("numberCircle " + data.data.colorFatMass);
 
                         $('#addvisit .close').click();
                         // Update chart & show message

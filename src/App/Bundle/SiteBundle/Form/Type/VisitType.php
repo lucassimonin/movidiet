@@ -49,12 +49,17 @@ class VisitType extends AbstractType
         $builder
             ->add('date', 'date', array(
                 'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
 
                 // do not render as type="date", to avoid HTML5 date pickers
                 'html5' => false,
 
                 // add a class that can be selected in JavaScript
-                'attr' => ['class' => 'js-datepicker inputmov form-control'],
+                'attr' => [
+                    'class' => 'datepicker inputmov form-control',
+                    'data-provide' => 'datepicker',
+                    'data-date-format' => 'dd-mm-yyyy'
+                ]
             ))
             ->add('weight', 'text')
             ->add('fatMass', 'text')

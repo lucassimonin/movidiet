@@ -24,7 +24,7 @@ class FollowController extends Controller
      * @param array $params
      * @return mixed
      */
-    public function indexAction($locationId, $viewType, $layout = false, array $params = array())
+    public function indexAction()
     {
 
         $params = $this->getUserInformation();
@@ -67,7 +67,7 @@ class FollowController extends Controller
                         'notice',
                         array(
                             'alert' => 'success',
-                            'message' => $this->get('translator')->trans('app.change_password.success')
+                            'message' => $this->get('translator')->trans('app.create_user.success')
                         )
                     );
                     unset($user);
@@ -100,20 +100,26 @@ class FollowController extends Controller
         if ($userId != null) {
             $params['user'] = $this->coreHelper->getContentById($userId);
         }
+        $user = new User();
+        $userHelper  = $this->container->get('app.user_helper');
+        $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
+        $params['colorFatMass'] = $userHelper->getColorFatMass($user);
+
+
         $em = $this->getDoctrine()->getManager();
-        $visits = $em->getRepository('AppSiteBundle:Visit')->findBy(array('userId' => $userId), array('date' => 'ASC'));
+        $visits = $em->getRepository('AppSiteBundle:Visit')->findBy(array('userId' => $params['user']->versionInfo->contentInfo->id), array('date' => 'ASC'));
         $params['visits'] = array();
         if(count($visits) > 0 ) {
             foreach($visits as $visit) {
                 $visitArray = $visit->_toArray();
                 $params['visits'][] = array('date' => $visit->getDate()->format('d-m-Y'),
-                                            'weight' => intval($visitArray['weight']),
-                                            'fatMass' => intval($visitArray['fatMass']),
-                                            'arm' => intval($visitArray['arm']),
-                                            'thigh' => intval($visitArray['thigh']),
-                                            'chest' => intval($visitArray['chest']),
-                                            'hip' => intval($visitArray['hip']),
-                                            'size' => intval($visitArray['size']));
+                                            'weight' => floatval($visitArray['weight']),
+                                            'fatMass' => floatval($visitArray['fatMass']),
+                                            'arm' => floatval($visitArray['arm']),
+                                            'thigh' => floatval($visitArray['thigh']),
+                                            'chest' => floatval($visitArray['chest']),
+                                            'hip' => floatval($visitArray['hip']),
+                                            'size' => floatval($visitArray['size']));
 
             }
             $params['visits'] = json_encode($params['visits']);
@@ -132,6 +138,10 @@ class FollowController extends Controller
         if ($userId != null && $params['admin']) {
             $params['user'] = $this->coreHelper->getContentById($userId);
         }
+        $user = new User();
+        $userHelper  = $this->container->get('app.user_helper');
+        $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
+        $params['colorFatMass'] = $userHelper->getColorFatMass($user);
 
         return $this->render( '@AppSite/follow/profil.html.twig', array('params' => $params));
     }
@@ -185,6 +195,10 @@ class FollowController extends Controller
         if ($userId != null && $params['admin']) {
             $params['user'] = $this->coreHelper->getContentById($userId);
         }
+        $user = new User();
+        $userHelper  = $this->container->get('app.user_helper');
+        $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
+        $params['colorFatMass'] = $userHelper->getColorFatMass($user);
 
         return $this->render( '@AppSite/follow/rations.html.twig', array('params' => $params));
     }
@@ -199,6 +213,11 @@ class FollowController extends Controller
         if ($userId != null) {
             $params['user'] = $this->coreHelper->getContentById($userId);
         }
+
+        $user = new User();
+        $userHelper  = $this->container->get('app.user_helper');
+        $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
+        $params['colorFatMass'] = $userHelper->getColorFatMass($user);
 
 
         return $this->render( '@AppSite/follow/training.html.twig', array('params' => $params));
@@ -226,9 +245,12 @@ class FollowController extends Controller
 
             $userAdd = new User();
             $userAdd->setWeight($visit->getWeight());
+            $userAdd->setFatMass($visit->getFatMass());
             $userAdd->setId($visit->getUserId());
             $userHelper = $this->get('app.user_helper');
             $userHelper->update($userAdd);
+
+
 
             $visit->setVisitJson(base64_encode($visit->_toJson()));
 
@@ -236,10 +258,12 @@ class FollowController extends Controller
 
             // tells Doctrine you want to (eventually) save the Product (no queries yet)
             $em->persist($visit);
-            $result['data'] = array('date' => $visit->getDate()->format('d-m-Y'), 'weight' => $visit->getWeight(), 'massG' => $visit->getFatMass());
 
             // actually executes the queries (i.e. the INSERT query)
             $em->flush();
+
+            $userHelper->loadUserObjectByEzApiUser($userAdd, $visit->getUserId());
+            $result['data'] = array('date' => $visit->getDate()->format('d-m-Y'), 'weight' => $visit->getWeight(), 'massG' => $visit->getFatMass(), 'colorFatMass' => $userHelper->getColorFatMass($userAdd));
 
             return new JsonResponse($result);
         }

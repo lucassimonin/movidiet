@@ -249,4 +249,49 @@ class CoreHelper
         return $document;
     }
 
+    /**
+     * Returns options by a selection
+     *
+     * @param string $contentTypeIdentifier
+     * @param string $fieldIdentifier
+     *
+     * @return boolean|string
+     */
+    public function getOptionsBySelectionField($contentTypeIdentifier, $fieldIdentifier)
+    {
+        $contentTypeService = $this->repository->getContentTypeService();
+        $contentType = $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
+
+        $fieldDefinition = $contentType->getFieldDefinition($fieldIdentifier);
+        $options = $fieldDefinition->fieldSettings['options'];
+
+        return $options;
+    }
+
+    /**
+     * Returns value from selection by key
+     *
+     * @param string $contentTypeIdentifier
+     * @param string $fieldIdentifier
+     * @param ing    $key
+     *
+     * @return boolean|string
+     */
+    public function getValueFromEzSelectionKey($contentTypeIdentifier, $fieldIdentifier, $key)
+    {
+        $contentTypeService = $this->repository->getContentTypeService();
+        $contentType = $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
+
+        $fieldDefinition = $contentType->getFieldDefinition($fieldIdentifier);
+        $options = $fieldDefinition->fieldSettings['options'];
+
+        $value = false;
+
+        if (isset($options[$key])) {
+            $value = $options[$key];
+        }
+
+        return $value;
+    }
+
 }

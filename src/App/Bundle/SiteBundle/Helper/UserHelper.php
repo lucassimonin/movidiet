@@ -11,6 +11,7 @@ namespace App\Bundle\SiteBundle\Helper;
 use App\Bundle\SiteBundle\Entity\User;
 use eZ\Publish\API\Repository\Repository;
 use Symfony\Component\DependencyInjection\Container;
+use DateTime;
 
 class UserHelper
 {
@@ -79,6 +80,7 @@ class UserHelper
             $userCreateStruct->setField('height', $user->height);
             $userCreateStruct->setField('weight', $user->weight);
             $userCreateStruct->setField('formule', $coreHelper->transformFieldToSelection($user->formule));
+            $userCreateStruct->setField('sex', $coreHelper->transformFieldToSelection($user->sex));
             $userCreateStruct->setField('image',  $coreHelper->transformEzImage($user->image));
 
             if (is_null($locationId)) {
@@ -167,8 +169,8 @@ class UserHelper
             if (!is_null($user->weight)) {
                 $contentUpdateStruct->setField('weight', $user->weight);
             }
-            if (!is_null($user->formule)) {
-                $contentUpdateStruct->setField('formule', $user->formule);
+            if (!is_null($user->fatMass)) {
+                $contentUpdateStruct->setField('fat_mass', $user->fatMass);
             }
 
             $userUpdateStruct->contentUpdateStruct = $contentUpdateStruct;
@@ -207,6 +209,11 @@ class UserHelper
         $user->setPhone((string) $userStruct->getFieldValue('phone'));
         $user->setCity((string) $userStruct->getFieldValue('city'));
         $user->setBirthday((string) $userStruct->getFieldValue('birthday_date'));
+        $user->setWeight(floatval((string) $userStruct->getFieldValue('weight')));
+        $user->setHeight((string) $userStruct->getFieldValue('height'));
+        $user->setFatMass(floatval((string) $userStruct->getFieldValue('fat_mass')));
+        $coreHelper = $this->container->get('app.core_helper');
+        $user->setSex($coreHelper->getValueFromEzSelectionKey('user', 'sex', $userStruct->getFieldValue('sex')->selection[0]));
     }
 
     private function generateRandomLogin($email)
@@ -217,6 +224,95 @@ class UserHelper
         }
 
         return $uniqueString;
+    }
+
+    public function getColorFatMass(User $user)
+    {
+        $age = $this->getAge($user);
+        $sex = $user->getSex();
+        $fatMass = $user->getFatMass();
+        $color = 'circleGrey';
+        if ($fatMass != null && $fatMass > 0 &&  $sex != null && $age != null) {
+            if ($sex == 'Homme') {
+                if ($age > 16 && $age < 30) {
+                    if ($fatMass < 9.2 || $fatMass >= 26.2) {
+                        $color = 'circleRed';
+                    } elseif ($fatMass >= 9.2 && $fatMass < 14.7 || $fatMass > 21.1 && $fatMass < 26.2) {
+                        $color = 'circleOrange';
+                    } elseif ($fatMass >= 14.7 && $fatMass < 21.1) {
+                        $color = 'circleGreen';
+                    }
+                } elseif ($age >= 30 && $age < 40) {
+                    if ($fatMass < 12.2 || $fatMass >= 27.2) {
+                        $color = 'circleRed';
+                    } elseif ($fatMass >= 12.2 && $fatMass < 16.2 || $fatMass >= 22.5 && $fatMass < 27.2) {
+                        $color = 'circleOrange';
+                    } elseif ($fatMass >= 16.2 && $fatMass < 22.5) {
+                        $color = 'circleGreen';
+                    }
+                } elseif ($age >= 40 && $age < 50) {
+                    if ($fatMass < 12.2 || $fatMass >= 31.2) {
+                        $color = 'circleRed';
+                    } elseif ($fatMass >= 12.2 && $fatMass < 17.7 || $fatMass >= 25.9 && $fatMass < 31.2) {
+                        $color = 'circleOrange';
+                    } elseif ($fatMass >= 17.7 && $fatMass < 25.9) {
+                        $color = 'circleGreen';
+                    }
+                } elseif ($age >= 50) {
+                    if ($fatMass < 12.5 || $fatMass >= 31.6) {
+                        $color = 'circleRed';
+                    } elseif ($fatMass >= 12.5 && $fatMass < 18.6 || $fatMass >= 26.5 && $fatMass < 31.6) {
+                        $color = 'circleOrange';
+                    } elseif ($fatMass >= 18.6 && $fatMass < 26.5) {
+                        $color = 'circleGreen';
+                    }
+                }
+            } else {
+                if ($age > 16 && $age < 30) {
+                    if ($fatMass < 15.4 || $fatMass >= 31.2) {
+                        $color = 'circleRed';
+                    } elseif ($fatMass >= 15.4 && $fatMass < 19.5 || $fatMass > 26.5 && $fatMass < 31.2) {
+                        $color = 'circleOrange';
+                    } elseif ($fatMass >= 19.5 && $fatMass < 26.5) {
+                        $color = 'circleGreen';
+                    }
+                } elseif ($age >= 30 && $age < 40) {
+                    if ($fatMass < 17 || $fatMass >= 22.5) {
+                        $color = 'circleRed';
+                    } elseif ($fatMass >= 17 && $fatMass < 20.9 || $fatMass >= 26.9 && $fatMass < 32.5) {
+                        $color = 'circleOrange';
+                    } elseif ($fatMass >= 20.9 && $fatMass < 26.9) {
+                        $color = 'circleGreen';
+                    }
+                } elseif ($age >= 40 && $age < 50) {
+                    if ($fatMass < 12.2 || $fatMass >= 31.2) {
+                        $color = 'circleRed';
+                    } elseif ($fatMass >= 12.2 && $fatMass < 23.4 || $fatMass >= 29.6 && $fatMass < 31.2) {
+                        $color = 'circleOrange';
+                    } elseif ($fatMass >= 23.4 && $fatMass < 29.6) {
+                        $color = 'circleGreen';
+                    }
+                } elseif ($age >= 50) {
+                    if ($fatMass < 21.4 || $fatMass >= 36.7) {
+                        $color = 'circleRed';
+                    } elseif ($fatMass >= 21.4 && $fatMass < 24.8 || $fatMass >= 31.9 && $fatMass < 36.7) {
+                        $color = 'circleOrange';
+                    } elseif ($fatMass >= 24.8 && $fatMass < 31.9) {
+                        $color = 'circleGreen';
+                    }
+                }
+            }
+        }
+
+        return $color;
+    }
+
+    public function getAge(User $user)
+    {
+        $from = new DateTime($user->getBirthday());
+        $to   = new DateTime('today');
+
+        return $from->diff($to)->y;;
     }
 
 }
