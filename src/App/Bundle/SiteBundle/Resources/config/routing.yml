@@ -50,3 +50,11 @@ add-visit:
     path: /add-visit
     defaults: { _controller: AppSiteBundle:Follow:AddVisit}
     methods:  [POST]
+
+edit-profil-patient:
+    path: /edit-profil
+    defaults: { _controller: AppSiteBundle:Follow:editProfil }
+
+edit-profil:
+    path: /edit-profil/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:editProfil }

@@ -1,5 +1,9 @@
 'use strict';
 
+var addLineIntable = function(data) {
+    return "<tr><td>" + data.data.date + "</td><td>" + data.data.arm + "</td><td>" + data.data.thigh + "</td><td>" + data.data.chest + "</td><td>" + data.data.size + "</td><td>" + data.data.hip + "</td></tr>";
+}
+
 var resetVisitForm = function () {
     $("#add_visit_weight").removeClass("has-error");
     $("#add_visit_fatMass").removeClass("has-error");
@@ -23,6 +27,21 @@ var resetValueVisitForm = function () {
 }
 
 $( document ).ready(function() {
+
+    if($("#add_visit_date").length) {
+        $("#add_visit_date").datepicker({
+            format: "dd-mm-yyyy",
+            startDate: new Date()
+        });
+    }
+
+    if($("#add_patient_birthday").length) {
+        $("#add_patient_birthday").datepicker({
+            format: "dd-mm-yyyy",
+            endDate: new Date()
+        });
+    }
+
     $(document).on("click", "#menu-toggle, .mask, #close, #menu-toggle-mobile", function() {
         $("#wrapper").toggleClass("toggled");
         if($("#wrapper").hasClass("toggled")) {
@@ -92,6 +111,7 @@ $( document ).ready(function() {
                     $("#spinner-modal").html("");
                     $("#add_visit_save").removeClass("hidden");
                     if (data.error_code === 0) {
+                        var dataSet = [data.data.arm, data.data.chest, data.data.size, data.data.hip, data.data.thigh];
                         $(".msg_error").html("").hide();
                         if($(".msg_nodata").length == 0) {
                             weightChart.data.labels[nb_visit] = data.data.date;
@@ -100,10 +120,19 @@ $( document ).ready(function() {
                             massGChart.data.labels[nb_visit] = data.data.date;
                             massGChart.data.datasets[0].data[nb_visit] = data.data.massG;
                             massGChart.update();
+                            dateChart.data.datasets[1] = createDataSet("Dernière mesure", window.chartColors.green, dataSet);
+                            dateChart.update();
                         } else {
                             $(".msg_nodata").remove();
-                            createChart([data.data.date], [data.data.weight], [data.data.massG]);
+                            createChart([data.data.date], [data.data.weight], [data.data.massG], dataSet, null);
+
                         }
+                        nb_visit++;
+                        $("#visits").parent(".table-responsive").removeClass("hide");
+                        $("#visits").children("tbody").append(addLineIntable(data));
+                        resetValueVisitForm();
+
+
 
                         $('.weightUser').html(data.data.weight);
                         $('.massGUser').html(data.data.massG);

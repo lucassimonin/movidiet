@@ -2,57 +2,40 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 panel-user">
-                <div class="info-thumb">
-                    {{ ez_render_field(params.user, 'image') }}
-                </div>
-                <div class="info-content">
-                    <h2 class="info-name">{{ ez_render_field(params.user, 'first_name') }} {{ ez_render_field(params.user, 'last_name') }}</h2>
-                    <a href="mailto:{{ ez_field_value(params.user, 'user_account').email }}" >{{ ez_field_value(params.user, 'user_account').email }}</a>
-                </div>
-                <div class="data-patient">
-                <div class="circleBlock">
-                    <div class="numberCircle circleGreen">
-                        <span>Poids</span>
-                        <strong>23.00</strong>Kg
+            {% include 'AppSiteBundle::follow/userinfo.html.twig' %}
 
-                    </div>
-                </div>
-                <div class="circleBlock">
-                    <div class="numberCircle circleRed">
-                        <span>IMC</span>
-                        <strong>23.00</strong>
-                    </div>
-                </div>
-                <div class="circleBlock">
-                    <div class="numberCircle circleBlue">
-                        <span>Taille</span>
-                        <strong>182</strong>Cm
-                    </div>
-                </div>
+                <div class="pull-right">
+                    <a href="{% if params.admin %}{{ path('edit-profil', {'userId': params.user.versionInfo.contentInfo.id}) }}{% else %}{{ path('edit-profil-patient') }}{% endif %}" class="btn btn-download" >
+                        Modifier profil
+                    </a>
                 </div>
 
-
-            </div>
-            <div class="col-lg-12 panel-visit">
-                <div class="row">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#weight" aria-controls="weight" role="tab" data-toggle="tab">Poids</a></li>
-                        <li role="presentation"><a href="#imc" aria-controls="imc" role="tab" data-toggle="tab">IMC</a></li>
-                        <li role="presentation"><a href="#body" aria-controls="body" role="tab" data-toggle="tab">Mesures</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="weight">
-                            <canvas id="weightChart" ></canvas>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="imc">
-                            <canvas id="imcChart"></canvas>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="body">
-                            <canvas id="bodyChart"></canvas>
-                        </div>
-                    </div>
+            <div class="col-lg-12 panel-visit panel-basic">
+                <div class="col-lg-6">
+                    <h3>Informations personnelles</h3>
+                    <label>Email :</label>
+                    <div>{{ ez_field_value(params.user, 'user_account').email }}</div>
+                    <label>Sexe :</label>
+                    <div>{{ ez_render_field(params.user, 'sex') }}</div>
+                    <label>Date de naissance :</label>
+                    <div>{{ ez_render_field(params.user, 'birthday_date') }}</div>
+                    <label>Addresse :</label>
+                    <div>{{ ez_render_field(params.user, 'street') }}</div>
+                    <label>Téléphone :</label>
+                    <div>{{ ez_render_field(params.user, 'phone') }}</div>
+                    <label>Code postal :</label>
+                    <div>{{ ez_render_field(params.user, 'postal_code') }}</div>
+                    <label>Ville :</label>
+                    <div>{{ ez_render_field(params.user, 'city') }}</div>
+                    <label>Pays :</label>
+                    <div>{{ ez_render_field(params.user, 'country') }}</div>
                 </div>
+                <div class="col-lg-6">
+                    <h3>Autres informations</h3>
+                    <label>Formule :</label>
+                    <div>{{ ez_render_field(params.user, 'formule') }}</div>
+                </div>
+
             </div>
         </div>
     </div>

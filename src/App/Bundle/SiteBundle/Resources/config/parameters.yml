@@ -6,4 +6,5 @@ parameters:
     app.form.type.changepassword.class: App\Bundle\SiteBundle\Form\Type\ChangePasswordType
     app.form.type.addpatient.class: App\Bundle\SiteBundle\Form\Type\AddPatientType
     app.form.type.addvisit.class: App\Bundle\SiteBundle\Form\Type\VisitType
+    app.form.type.editpatient.class: App\Bundle\SiteBundle\Form\Type\EditPatientType
     app.login.controller.class: App\Bundle\SiteBundle\Controller\LoginController

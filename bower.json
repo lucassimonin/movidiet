@@ -15,7 +15,6 @@
     "classie": "^1.0.1",
     "jquery-backstretch": "^2.0.4",
     "chart.js": "^2.4.0",
-    "jquery-ui": "^1.12.1",
     "spin.js": "^2.3.2",
     "bootstrap-datepicker": "^1.6.4"
   },

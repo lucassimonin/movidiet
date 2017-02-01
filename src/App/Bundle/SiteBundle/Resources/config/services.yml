@@ -22,6 +22,11 @@ services:
             arguments: [@translator.default, @ezpublish.api.repository]
             tags:
                 - { name: form.type, alias: add_patient }
+    app.form.type.editpatient:
+            class: %app.form.type.editpatient.class%
+            arguments: [@translator.default, @ezpublish.api.repository]
+            tags:
+                - { name: form.type, alias: edit_patient }
     app.form.type.addvisit:
             class: %app.form.type.addvisit.class%
             arguments: [@translator.default, @ezpublish.api.repository]

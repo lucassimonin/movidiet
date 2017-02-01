@@ -34,7 +34,6 @@ var paths = {
             'web/assets/vendor/jquery.easing/js/jquery.easing.min.js',
             'web/assets/vendor/bootstrap/dist/js/bootstrap.min.js',
             'web/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
-            'web/assets/vendor/jquery-ui/jquery-ui.min.js',
             'web/assets/vendor/chart.js/dist/Chart.bundle.min.js',
             'web/assets/vendor/spin.js/spin.min.js',
             'web/assets/vendor/classie/classie.js',
@@ -49,7 +48,6 @@ var paths = {
             'web/assets/vendor/bootstrap/dist/css/bootstrap.css',
             'web/assets/vendor/font-awesome/css/font-awesome.min.css',
             'web/assets/vendor/flag-icon-css/css/flag-icon.min.css',
-            'web/assets/vendor/jquery-ui/themes/base/jquery-ui.min.css',
             'web/assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
             'web/bundles/appsite/css/main.css',
             'web/bundles/appsite/css/follow.css',
@@ -57,9 +55,6 @@ var paths = {
         ],
         img: [
             'web/bundles/appsite/images/**'
-        ],
-        img_jqueryui: [
-            'web/assets/vendor/jquery-ui/themes/base/images/**'
         ],
         fonts: [
             'web/bundles/appsite/fonts/**',
@@ -123,12 +118,6 @@ gulp.task('app-img', function() {
         .pipe(gulp.dest(appRootPath + 'img/'))
     ;
 });
-gulp.task('app-img-jqueryui', function() {
-    return gulp.src(paths.app.img_jqueryui)
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(appRootPath + 'css/images/'))
-        ;
-});
 gulp.task('app-fonts', function() {
     return gulp.src(paths.app.fonts)
         .pipe(sourcemaps.write('./'))
@@ -152,9 +141,8 @@ gulp.task('app-watch', function() {
     gulp.watch(paths.app.js_ie, ['app-js-ie']);
     gulp.watch(paths.app.css, ['app-css']);
     gulp.watch(paths.app.img, ['app-img']);
-    gulp.watch(paths.app.img, ['app-img-jqueryui']);
     gulp.watch(paths.app.fonts, ['app-fonts']);
 });
 
-gulp.task('default', ['app-follow-js', 'app-img-jqueryui', 'app-js', 'app-js-head', 'app-js-ie', 'app-css', 'app-fonts', 'app-flags', 'app-img']);
+gulp.task('default', ['app-follow-js', 'app-js', 'app-js-head', 'app-js-ie', 'app-css', 'app-fonts', 'app-flags', 'app-img']);
 gulp.task('watch', ['default', 'app-watch']);

@@ -29,7 +29,7 @@
                         Patients
                     </a>
                 </li>
-                {% if params.user is defined %}
+                {% if params.user is defined and params.no_menu is not defined  %}
                     <li>
                         <a href="{{ path('follow-profil', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                             <i class="fa fa-id-card" aria-hidden="true"></i>

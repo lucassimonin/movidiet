@@ -17,10 +17,10 @@ class User
     public $firstName;
     public $lastName;
     public $email;
+    public $account;
     public $password;
     public $newPassword;
     public $image;
-    public $picture;
     public $birthday;
     public $street;
     public $postalCode;
@@ -115,6 +115,24 @@ class User
         $this->fatMass = $fatMass;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+
+    /**
+     * @param mixed $account
+     */
+    public function setAccount($account)
+    {
+        $this->account = $account;
+    }
+
+
+
 
 
 
@@ -199,22 +217,6 @@ class User
     public function setNewPassword($newPassword)
     {
         $this->newPassword = $newPassword;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPicture()
-    {
-        return $this->picture;
-    }
-
-    /**
-     * @param mixed $picture
-     */
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
     }
 
     /**

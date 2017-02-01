@@ -23,10 +23,6 @@
                         'attr': {'placeholder': 'Durant', 'classBlock': 'col-sm-6', 'class': 'inputmov form-control' }
                     } ) }}
                     </div>
-
-                    {{ form_row( form.birthday, {
-                        'label': 'Date de naissance'
-                    } ) }}
                     {{ form_row( form.phone, {
                         'label': 'Téléphone',
                         'attr': {'placeholder': '04XXXXXXXX', 'class': 'inputmov form-control' }
@@ -55,30 +51,9 @@
                     'label': 'Email',
                     'attr': {'placeholder': 'exemple@domaine.com', 'class': 'inputmov form-control' }
                 } ) }}
-                {{ form_row( form.account, {
-                    'label': 'Compte',
-                    'attr': {'placeholder': '', 'class': 'inputmov form-control' }
-                } ) }}
-                {{ form_row( form.password.first, {
-                    'label': 'Mot de passe',
-                    'attr': {'placeholder': 'Mot de passe', 'class': 'inputmov form-control' }
-                } ) }}
-
-                {{ form_row( form.password.second, {
-                    'label': 'Confirmer le mot de passe',
-                    'attr': {'placeholder': 'Confirmer le mot de passe', 'class': 'inputmov form-control' }
-                } ) }}
-                {{ form_row( form.formule, {
-                    'label': 'Formule',
-                    'attr': {'class': 'inputmov form-control' }
-                } ) }}
                 {{ form_row( form.sex, {
                     'label': 'Sexe',
                     'attr': {'class': 'inputmov form-control' }
-                } ) }}
-                {{ form_row( form.height, {
-                    'label': 'Taille (Cm)',
-                    'attr': {'placeholder': 'Taille', 'class': 'inputmov form-control' }
                 } ) }}
             </div>
 

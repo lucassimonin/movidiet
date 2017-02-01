@@ -62,7 +62,7 @@ class UserHelper
             $language = self::DEFAULT_LANGUAGE;
 
             $userCreateStruct = $userService->newUserCreateStruct(
-                $this->generateRandomLogin($user->email),
+                $user->account,
                 $user->email,
                 $user->password,
                 $language
@@ -111,10 +111,11 @@ class UserHelper
      * @SuppressWarnings(PHPMD.NPathComplexity) heavy business rules
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength) +100
      */
-    public function update(User $user)
+    public function update(User $user, $updateUser = false)
     {
         $logger = $this->container->get('logger');
         $userService = $this->repository->getUserService();
+        $coreHelper = $this->container->get('app.core_helper');
 
         try {
             $adminId = self::DEFAULT_ADMIN_ID;
@@ -137,41 +138,50 @@ class UserHelper
             if (!is_null($user->password)) {
                 $userUpdateStruct->password = $user->password;
             }
+            if($updateUser) {
+                // Custom fields
+                if (!is_null($user->street)) {
+                    $contentUpdateStruct->setField('street', $user->street);
+                }
+                if (!is_null($user->lastName)) {
+                    $contentUpdateStruct->setField('last_name', $user->lastName);
+                }
+                if (!is_null($user->firstName)) {
+                    $contentUpdateStruct->setField('first_name', $user->firstName);
+                }
+                if (!is_null($user->country) && !empty($user->country)) {
+                    $contentUpdateStruct->setField('country', $user->country);
+                }
+                if (!is_null($user->birthday)) {
+                    $contentUpdateStruct->setField('birthday_date', $user->birthday);
+                }
+                if (!is_null($user->phone)) {
+                    $contentUpdateStruct->setField('phone', $user->phone);
+                }
+                if (!is_null($user->postalCode)) {
+                    $contentUpdateStruct->setField('postal_code', $user->postalCode);
+                }
+                if (!is_null($user->city)) {
+                    $contentUpdateStruct->setField('city', $user->city);
+                }
+                if (!is_null($user->height)) {
+                    $contentUpdateStruct->setField('height', (string)$user->height);
+                }
+                if (!is_null($user->weight)) {
+                    $contentUpdateStruct->setField('weight', (string)$user->weight);
+                }
+                if (!is_null($user->fatMass)) {
+                    $contentUpdateStruct->setField('fat_mass', (string)$user->fatMass);
+                }
 
-            // Custom fields
-            if (!is_null($user->street)) {
-                $contentUpdateStruct->setField('street', $user->street);
+                if(!is_null($user->image)) {
+                    $contentUpdateStruct->setField('image',  $coreHelper->transformEzImage($user->image));
+                }
+                if(!is_null($user->sex)) {
+                    $contentUpdateStruct->setField('sex', $coreHelper->transformFieldToSelection($user->sex));
+                }
             }
-            if (!is_null($user->lastName)) {
-                $contentUpdateStruct->setField('last_name', $user->lastName);
-            }
-            if (!is_null($user->firstName)) {
-                $contentUpdateStruct->setField('first_name', $user->firstName);
-            }
-            if (!is_null($user->country) && !empty($user->country)) {
-                $contentUpdateStruct->setField('country', [$user->country]);
-            }
-            if (!is_null($user->birthday)) {
-                $contentUpdateStruct->setField('birthday_date', $user->birthday);
-            }
-            if (!is_null($user->phone)) {
-                $contentUpdateStruct->setField('phone', $user->phone);
-            }
-            if (!is_null($user->postalCode)) {
-                $contentUpdateStruct->setField('postal_code', $user->postalCode);
-            }
-            if (!is_null($user->city)) {
-                $contentUpdateStruct->setField('city', $user->city);
-            }
-            if (!is_null($user->height)) {
-                $contentUpdateStruct->setField('height', $user->height);
-            }
-            if (!is_null($user->weight)) {
-                $contentUpdateStruct->setField('weight', $user->weight);
-            }
-            if (!is_null($user->fatMass)) {
-                $contentUpdateStruct->setField('fat_mass', $user->fatMass);
-            }
+
 
             $userUpdateStruct->contentUpdateStruct = $contentUpdateStruct;
             $userService->updateUser($ezUser, $userUpdateStruct);

@@ -49,6 +49,7 @@ class AddPatientType extends AbstractType
         $builder
             ->add('firstName', 'text')
             ->add('lastName', 'text')
+            ->add('account', 'text')
             ->add('email', 'email')
             ->add('birthday', 'date', array(
                 'widget' => 'single_text',
@@ -59,9 +60,7 @@ class AddPatientType extends AbstractType
 
                 // add a class that can be selected in JavaScript
                 'attr' => [
-                    'class' => 'datepicker inputmov form-control',
-                    'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy'
+                    'class' => 'datepicker inputmov form-control'
                 ]
             ))
             ->add('image', 'file', array('required' => false))

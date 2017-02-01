@@ -3,7 +3,7 @@
     {% if params.visits|length > 0 %}
         <script type="text/javascript">
             //<![CDATA[
-            var visits = '{{ params.visits|raw }}';
+            var visits = '{{ params.visits_json|raw }}';
             //]]>
         </script>
     {% endif %}
@@ -43,6 +43,33 @@
                                 <span class="msg_nodata">{{ 'app.no_data'|trans }}</span>
                             {% endif %}
                             <canvas id="bodyChart"></canvas>
+
+                            <div class="table-responsive {% if params.visits|length == 0 %}hide{% endif %}">
+                                <table id="visits" class="table" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Bras</th>
+                                        <th>Cuisses</th>
+                                        <th>Poitrine</th>
+                                        <th>Taille</th>
+                                        <th>Hanches</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for visit in params.visits %}
+                                            <tr>
+                                                <td>{{ visit.date }}</td>
+                                                <td>{{ visit.arm }}</td>
+                                                <td>{{ visit.thigh }}</td>
+                                                <td>{{ visit.chest }}</td>
+                                                <td>{{ visit.size }}</td>
+                                                <td>{{ visit.hip }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 

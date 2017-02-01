@@ -16,7 +16,6 @@
                             <th>Nom</th>
                             <th>Email</th>
                             <th>Téléphone</th>
-                            <th>Dernière visite</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -26,7 +25,6 @@
                                         <td>{{ ez_render_field(user, 'first_name') }} {{ ez_render_field(user, 'last_name') }}</td>
                                         <td>{{ ez_field_value(user, 'user_account').email }}</td>
                                         <td>{{ ez_render_field(user, 'phone') }}</td>
-                                        <td>-</td>
                                     </tr>
                                 {% endfor %}
                             {% else %}

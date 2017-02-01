@@ -15,11 +15,11 @@ use eZ\Publish\API\Repository\Repository;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * ForgotPasswordNewPasswordType Class.
+ * AddPatientType Class.
  *
  * @author simoninl
  */
-class VisitType extends AbstractType
+class EditPatientType extends AbstractType
 {
 
     protected $translator;
@@ -47,26 +47,22 @@ class VisitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date', 'date', array(
-                'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
-
-                // do not render as type="date", to avoid HTML5 date pickers
-                'html5' => false,
-
-                // add a class that can be selected in JavaScript
-                'attr' => [
-                    'class' => 'datepicker inputmov form-control'
-                ]
+            ->add('firstName', 'text')
+            ->add('lastName', 'text')
+            ->add('email', 'email')
+            ->add('image', 'file', array('required' => false))
+            ->add('street', 'text')
+            ->add('country', 'text')
+            ->add('phone', 'text')
+            ->add('postalCode', 'text')
+            ->add('city', 'text')
+            ->add('sex', 'choice', array(
+                'choices' => array(
+                    'Homme',
+                    'Femme',
+                ),
+                'required' => true
             ))
-            ->add('weight', 'text')
-            ->add('fatMass', 'text')
-            ->add('arm', 'text')
-            ->add('thigh', 'text')
-            ->add('chest', 'text')
-            ->add('hip', 'text')
-            ->add('size', 'text')
-            ->add('userId', 'text')
             ->add('save', 'submit');
     }
 
@@ -77,7 +73,7 @@ class VisitType extends AbstractType
      */
     public function getName()
     {
-        return 'add_visit';
+        return 'edit_patient';
     }
 
     /**
@@ -89,7 +85,7 @@ class VisitType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'App\Bundle\SiteBundle\Entity\Visit'
+                'data_class' => 'App\Bundle\SiteBundle\Entity\User'
             )
         );
     }

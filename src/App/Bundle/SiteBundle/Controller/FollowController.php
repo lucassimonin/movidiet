@@ -55,7 +55,6 @@ class FollowController extends Controller
         }
 
         $user = new User();
-        $userHelper  = $this->container->get('app.user_helper');
         $form = $this->createForm($this->get('app.form.type.addpatient'), $user, array());
 
         if ($request->isMethod('POST')) {
@@ -76,6 +75,8 @@ class FollowController extends Controller
                 }
             }
         }
+
+        $params['no_menu'] = true;
 
         return $this->render( '@AppSite/follow/addpatient.html.twig', array('params' => $params, 'form' => $form->createView()));
 
@@ -122,7 +123,7 @@ class FollowController extends Controller
                                             'size' => floatval($visitArray['size']));
 
             }
-            $params['visits'] = json_encode($params['visits']);
+            $params['visits_json'] = json_encode($params['visits']);
         }
 
         return $this->render( '@AppSite/follow/visit.html.twig', array('params' => $params, 'form' => $form));
@@ -248,7 +249,7 @@ class FollowController extends Controller
             $userAdd->setFatMass($visit->getFatMass());
             $userAdd->setId($visit->getUserId());
             $userHelper = $this->get('app.user_helper');
-            $userHelper->update($userAdd);
+            $userHelper->update($userAdd, true);
 
 
 
@@ -263,11 +264,66 @@ class FollowController extends Controller
             $em->flush();
 
             $userHelper->loadUserObjectByEzApiUser($userAdd, $visit->getUserId());
-            $result['data'] = array('date' => $visit->getDate()->format('d-m-Y'), 'weight' => $visit->getWeight(), 'massG' => $visit->getFatMass(), 'colorFatMass' => $userHelper->getColorFatMass($userAdd));
+            $result['data'] = array('date' => $visit->getDate()->format('d-m-Y'),
+                                    'weight' => $visit->getWeight(),
+                                    'massG' => $visit->getFatMass(),
+                                    'colorFatMass' => $userHelper->getColorFatMass($userAdd),
+                                    'arm' => $visit->getArm(),
+                                    'chest' => $visit->getChest(),
+                                    'hip' => $visit->getHip(),
+                                    'thigh' => $visit->getThigh(),
+                                    'size' => $visit->getSize()
+                                    );
 
             return new JsonResponse($result);
         }
     }
+
+    public function editProfilAction(Request $request, $userId = null)
+    {
+        $params = $this->getUserInformation();
+        if($params['error']) {
+            return $params['response'];
+        }
+
+        $this->coreHelper = $this->container->get('app.core_helper');
+        if ($userId != null && $params['admin']) {
+            $params['user'] = $this->coreHelper->getContentById($userId);
+        }
+
+
+        $this->coreHelper = $this->container->get('app.core_helper');
+        $userHelper  = $this->container->get('app.user_helper');
+        $user = new User();
+
+        $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
+
+        $form = $this->createForm($this->get('app.form.type.editpatient'), $user, array());
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $user->setPassword($user->newPassword);
+                $userHelper = $this->get('app.user_helper');
+                if ($userHelper->update($user, true)) {
+                    $this->get('session')->getFlashBag()->add(
+                        'notice',
+                        array(
+                            'alert' => 'success',
+                            'message' => $this->get('translator')->trans('app.change_password.success')
+                        )
+                    );
+                    unset($user);
+
+                    return $this->redirect($this->generateUrl('follow-index'));
+                }
+            }
+        }
+
+        return $this->render( '@AppSite/follow/editpatient.html.twig', array('params' => $params, 'form' => $form->createView()));
+    }
+
+
 
     /**
      * Get user information

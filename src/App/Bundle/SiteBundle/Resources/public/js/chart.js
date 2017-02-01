@@ -4,21 +4,33 @@ var weightChart = null,
     date = [],
     weight = [],
     massG = [],
+    measureFirst = null,
+    measureSecond = null,
     nb_visit = 0;
 
+window.chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(185, 206, 2)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(231,233,237)'
+};
 
-var createChart = function(date, weight, massG) {
-    // Chart
-    window.chartColors = {
-        red: 'rgb(255, 99, 132)',
-        orange: 'rgb(255, 159, 64)',
-        yellow: 'rgb(255, 205, 86)',
-        green: 'rgb(185, 206, 2)',
-        blue: 'rgb(54, 162, 235)',
-        purple: 'rgb(153, 102, 255)',
-        grey: 'rgb(231,233,237)'
+var createDataSet = function(label, colorGraphic, data) {
+    return {
+        label: label,
+        borderColor: colorGraphic,
+
+        pointBackgroundColor: colorGraphic,
+        data: data
     };
+}
 
+
+var createChart = function(date, weight, massG, firstDataSet, secondDataSet) {
+    // Chart
     var config = {
             type: 'line',
             data: {
@@ -110,31 +122,7 @@ var createChart = function(date, weight, massG) {
             type: 'radar',
             data: {
                 labels: ["Bras", "Poitrine", "Taille", "Hanches", "Cuisses"],
-                datasets: [{
-                    label: "Dernière mesure",
-                    borderColor: window.chartColors.green,
-                    backgroundColor: color(window.chartColors.green).alpha(0.2).rgbString(),
-                    pointBackgroundColor: window.chartColors.green,
-                    data: [
-                        30,
-                        94,
-                        90,
-                        99,
-                        45
-                    ]
-                }, {
-                    label: "Première mesure",
-                    borderColor: window.chartColors.blue,
-                    backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                    pointBackgroundColor: window.chartColors.blue,
-                    data: [
-                        33,
-                        97,
-                        86,
-                        90,
-                        50
-                    ]
-                }]
+                datasets: []
             },
             options: {
                 responsive: true,
@@ -151,6 +139,14 @@ var createChart = function(date, weight, massG) {
                 }
             }
         };
+    if(firstDataSet != null) {
+        config_radar.data.datasets[0] = createDataSet("Première mesure", window.chartColors.blue, firstDataSet);
+    }
+
+    if(secondDataSet != null) {
+        config_radar.data.datasets[1] = createDataSet("Dernière mesure", window.chartColors.green, secondDataSet);
+    }
+
     weightChart = new Chart(document.getElementById("weightChart").getContext("2d"), config);
 
     massGChart = new Chart(document.getElementById("imcChart").getContext("2d"), config_imc);
@@ -167,10 +163,16 @@ $( document ).ready(function() {
             weight.push(item.weight);
             massG.push(item.fatMass);
         });
+        measureFirst = [visitsArray[0].arm, visitsArray[0].chest, visitsArray[0].size, visitsArray[0].hip, visitsArray[0].thigh];
+
+        if(visitsArray.length > 1) {
+            var index = visitsArray.length - 1;
+            measureSecond = [visitsArray[index].arm, visitsArray[index].chest, visitsArray[index].size, visitsArray[index].hip, visitsArray[index].thigh];
+        }
 
         nb_visit = visitsArray.length;
 
-        createChart(date, weight, massG);
+        createChart(date, weight, massG, measureFirst, measureSecond);
 
 
 
