@@ -310,7 +310,7 @@ class FollowController extends Controller
                         'notice',
                         array(
                             'alert' => 'success',
-                            'message' => $this->get('translator')->trans('app.change_password.success')
+                            'message' => $this->get('translator')->trans('app.edit_patient.success')
                         )
                     );
                     unset($user);

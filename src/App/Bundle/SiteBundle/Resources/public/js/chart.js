@@ -156,7 +156,7 @@ var createChart = function(date, weight, massG, firstDataSet, secondDataSet) {
 
 $( document ).ready(function() {
     'use strict'; // Start of use strict
-    if($(".msg_nodata").length == 0) {
+    if($(".msg_nodata").length == 0 && $("#weightChart").length) {
         var visitsArray = $.parseJSON(visits);
         $.each(visitsArray, function(i, item) {
             date.push(item.date);
