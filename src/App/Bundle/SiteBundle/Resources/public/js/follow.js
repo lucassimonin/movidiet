@@ -265,8 +265,10 @@ $( document ).ready(function() {
                             $("#trainings").parent(".table-responsive").removeClass("hide");
                             $("#trainings").children("tbody").append(addLineInNewAgenda(data, 1));
                         } else if($("#day_" + data.data.dayInt).length === 0) { // No data in this day
-                            if(data.data.dayInt == 0 || data.data.dayInt == 6) { // Monday or sunday
+                            if( data.data.dayInt == 6) { // Monday or sunday
                                 $("#trainings").children("tbody").append(addLineInNewAgenda(data, 1));
+                            }else if(data.data.dayInt == 0) {
+                                $("#trainings").children("tbody").prepend(addLineInNewAgenda(data, 1));
                             } else {
                                     var i = data.data.dayInt - 1;
                                 while(objectBefore == null) {
@@ -286,7 +288,7 @@ $( document ).ready(function() {
                                     iSelect = i;
                                 }
                             });
-                            if (($(".day_" + data.data.dayInt).length - 1) == iSelect) {
+                            if (($(".day_" + data.data.dayInt).length - 1) == iSelect && objectBefore != null) {
                                 $(".day_" + data.data.dayInt + '.last-activity').removeClass('last-activity');
                                 $(addLineInNextAgenda(data, true)).insertAfter(objectBefore);
                             } else if (objectBefore == null) {
@@ -299,7 +301,7 @@ $( document ).ready(function() {
                             }
 
                             $("#day_" + data.data.dayInt).children(".agenda-date").attr("rowspan", $(".day_" + data.data.dayInt).length);
-                            $('.activity').html($(".day_" + data.data.dayInt).length + " activités");
+                            $("#day_" + data.data.dayInt).children(".agenda-date").children('.activity').html($(".day_" + data.data.dayInt).length + " activités");
                         }
                         $('#addtraining .close').click();
                     } else {
