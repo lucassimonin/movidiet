@@ -444,7 +444,8 @@ class FollowController extends Controller
                                     'activity' => $training->getActivity(),
                                     'color' => $training->getColor(),
                                     'startTime' => $training->getStartTime(),
-                                    'endTime' => $training->getEndTime());
+                                    'endTime' => $training->getEndTime(),
+                                    'id' => $training->getId());
 
         }
 

@@ -30,10 +30,10 @@ var addLineInNewAgenda = function(data, nbLine) {
     if(nbLine > 1) {
         labelActivity = labelActivity + 's';
     }
-    return "<tr id='day_" + data.data.dayInt + "' class='day_" + data.data.dayInt + " last-activity' data-starttime='" + data.data.startTime + "' data-endtime='" + data.data.endTime + "' >" +
+    var dataString = "<tr id='day_" + data.data.dayInt + "' class='day_" + data.data.dayInt + " last-activity' data-starttime='" + data.data.startTime + "' data-endtime='" + data.data.endTime + "' >" +
         "<td class='agenda-date' class='active' rowspan='1'> " +
             "<div class='dayofweek'>" + data.data.dayString + "</div>" +
-            "<div class='shortdate text-muted'>" + nbLine +  " <span class='activity'>" + labelActivity + "</span></div>" +
+            "<div class='shortdate text-muted activity'>" + nbLine +  " " + labelActivity + "</div>" +
         "</td>" +
         "<td class='agenda-time' style='background-color:" + data.data.color + "'>" +
         formatTime(data.data.startTime) + '-' + formatTime(data.data.endTime) +
@@ -41,7 +41,14 @@ var addLineInNewAgenda = function(data, nbLine) {
         "<td class='agenda-events' style='background-color:" + data.data.color + "'>" +
             "<div class='agenda-event'>" +
             data.data.activity +
-        "</div></td></tr>";
+        "</div></td>";
+
+        if($("#admin").length) {
+            dataString = dataString + "<td class='action-delete'><button type='button' class='btn btn-remove' data-id='" + data.data.id + "' data-toggle='modal' data-target='#removeModal'>Supprimer</button></td>";
+        }
+    dataString = dataString + "</tr>";
+
+    return dataString;
 }
 
 var addLineInNextAgenda = function(data, last) {
@@ -49,14 +56,21 @@ var addLineInNextAgenda = function(data, last) {
     if(last) {
         classAdd = 'last-activity';
     }
-    return "<tr class='day_" + data.data.dayInt +  " " + classAdd + " ' data-starttime='" + data.data.startTime + "' data-endtime='" + data.data.endTime + "' >" +
+    var dataString = "<tr class='day_" + data.data.dayInt +  " " + classAdd + " ' data-starttime='" + data.data.startTime + "' data-endtime='" + data.data.endTime + "' >" +
         "<td class='agenda-time' style='background-color:" + data.data.color + "'>" +
         formatTime(data.data.startTime) + '-' + formatTime(data.data.endTime) +
         "</td>" +
         "<td class='agenda-events' style='background-color:" + data.data.color + "'>" +
         "<div class='agenda-event'>" +
         data.data.activity +
-        "</div></td></tr>";
+        "</div></td>";
+    if($("#admin").length) {
+        dataString = dataString + "<td class='action-delete'><button type='button' class='btn btn-remove' data-id='" + data.data.id + "' data-toggle='modal' data-target='#removeModal'>Supprimer</button></td>";
+    }
+
+    dataString = dataString + "</tr>";
+
+    return dataString;
 }
 
 var resetVisitForm = function () {
