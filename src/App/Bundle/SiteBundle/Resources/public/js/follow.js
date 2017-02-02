@@ -1,7 +1,62 @@
 'use strict';
 
+var formatTime = function(unixTimestamp) {
+    var dt = new Date(unixTimestamp * 1000);
+
+    var hours = dt.getHours();
+    var minutes = dt.getMinutes();
+    var seconds = dt.getSeconds();
+
+    // the above dt.get...() functions return a single digit
+    // so I prepend the zero here when needed
+    if (hours < 10)
+        hours = '0' + hours;
+
+    if (minutes < 10)
+        minutes = '0' + minutes;
+
+    if (seconds < 10)
+        seconds = '0' + seconds;
+
+    return hours + ":" + minutes;
+}
+
 var addLineIntable = function(data) {
     return "<tr><td>" + data.data.date + "</td><td>" + data.data.arm + "</td><td>" + data.data.thigh + "</td><td>" + data.data.chest + "</td><td>" + data.data.size + "</td><td>" + data.data.hip + "</td></tr>";
+}
+
+var addLineInNewAgenda = function(data, nbLine) {
+    var labelActivity = 'activité';
+    if(nbLine > 1) {
+        labelActivity = labelActivity + 's';
+    }
+    return "<tr id='day_" + data.data.dayInt + "' class='day_" + data.data.dayInt + " last-activity' data-starttime='" + data.data.startTime + "' data-endtime='" + data.data.endTime + "' >" +
+        "<td class='agenda-date' class='active' rowspan='1'> " +
+            "<div class='dayofweek'>" + data.data.dayString + "</div>" +
+            "<div class='shortdate text-muted'>" + nbLine +  " <span class='activity'>" + labelActivity + "</span></div>" +
+        "</td>" +
+        "<td class='agenda-time' style='background-color:" + data.data.color + "'>" +
+        formatTime(data.data.startTime) + '-' + formatTime(data.data.endTime) +
+        "</td>" +
+        "<td class='agenda-events' style='background-color:" + data.data.color + "'>" +
+            "<div class='agenda-event'>" +
+            data.data.activity +
+        "</div></td></tr>";
+}
+
+var addLineInNextAgenda = function(data, last) {
+    var classAdd = '';
+    if(last) {
+        classAdd = 'last-activity';
+    }
+    return "<tr class='day_" + data.data.dayInt +  " " + classAdd + " ' data-starttime='" + data.data.startTime + "' data-endtime='" + data.data.endTime + "' >" +
+        "<td class='agenda-time' style='background-color:" + data.data.color + "'>" +
+        formatTime(data.data.startTime) + '-' + formatTime(data.data.endTime) +
+        "</td>" +
+        "<td class='agenda-events' style='background-color:" + data.data.color + "'>" +
+        "<div class='agenda-event'>" +
+        data.data.activity +
+        "</div></td></tr>";
 }
 
 var resetVisitForm = function () {
@@ -24,6 +79,16 @@ var resetValueVisitForm = function () {
     $("#add_visit_hip").val("");
     $("#add_visit_size").val("");
     $("#add_visit_date").val("");
+}
+
+var resetTrainingForm = function () {
+    $("#add_training_activity").removeClass("has-error");
+    $("#add_training_color").removeClass("has-error");
+}
+
+var resetValueTrainingForm = function () {
+    $("#add_training_activity").val("");
+    $("#add_training_color").val("");
 }
 
 $( document ).ready(function() {
@@ -125,15 +190,11 @@ $( document ).ready(function() {
                         } else {
                             $(".msg_nodata").remove();
                             createChart([data.data.date], [data.data.weight], [data.data.massG], dataSet, null);
-
                         }
                         nb_visit++;
                         $("#visits").parent(".table-responsive").removeClass("hide");
                         $("#visits").children("tbody").append(addLineIntable(data));
                         resetValueVisitForm();
-
-
-
                         $('.weightUser').html(data.data.weight);
                         $('.massGUser').html(data.data.massG);
                         $("#color-fat").removeClass($("#color-fat").attr("class")).addClass("numberCircle " + data.data.colorFatMass);
@@ -146,6 +207,92 @@ $( document ).ready(function() {
                 });
             }
 
+            return false;
+        });
+    }
+
+    if($("#addtraining").length) {
+        $(document).on("submit", "#addtraining", function(e) {
+            e.preventDefault();
+            var errors = 0;
+            resetTrainingForm();
+            if (!$("#add_training_activity").val()) {
+                $("#add_training_activity").addClass("has-error");
+                errors++;
+            }
+            if (!$("#add_training_color").val()) {
+                $("#add_training_color").addClass("has-error");
+                errors++;
+            }
+
+            if (errors === 0) {
+                var formData = new FormData($(this)[0]);
+                $("#add_training_save").addClass("hidden");
+                var spinner = new Spinner().spin();
+                $("#spinner-modal").append(spinner.el);
+                $(".overlaymodal").show();
+
+                $.ajax({
+                    url: "/add-training",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false
+                }).done(function (data) {
+                    $(".overlaymodal").hide();
+                    $("#spinner-modal").html("");
+                    $("#add_training_save").removeClass("hidden");
+                    if (data.error_code === 0) {
+                        resetValueTrainingForm();
+                        var objectBefore = null;
+                        // No data
+                        if($("#trainings").parent(".table-responsive").hasClass("hide")) {
+                            $(".msg_nodata").remove();
+                            $("#trainings").parent(".table-responsive").removeClass("hide");
+                            $("#trainings").children("tbody").append(addLineInNewAgenda(data, 1));
+                        } else if($("#day_" + data.data.dayInt).length === 0) { // No data in this day
+                            if(data.data.dayInt == 0 || data.data.dayInt == 6) { // Monday or sunday
+                                $("#trainings").children("tbody").append(addLineInNewAgenda(data, 1));
+                            } else {
+                                    var i = data.data.dayInt - 1;
+                                while(objectBefore == null) {
+                                    if($("#day_" + i).length) {
+                                        objectBefore = "day_" + i;
+                                    }
+                                    i--;
+                                }
+                                $(addLineInNewAgenda(data, 1)).insertAfter( "." + objectBefore + '.last-activity' );
+                            }
+
+                        } else if ($("#day_" + data.data.dayInt).length > 0) {
+                            var iSelect = 0;
+                            $(".day_" + data.data.dayInt).each(function (i, elt) {
+                                if (parseInt(data.data.startTime) >= parseInt($(elt).data('endtime'))) {
+                                    objectBefore = elt;
+                                    iSelect = i;
+                                }
+                            });
+                            if (($(".day_" + data.data.dayInt).length - 1) == iSelect) {
+                                $(".day_" + data.data.dayInt + '.last-activity').removeClass('last-activity');
+                                $(addLineInNextAgenda(data, true)).insertAfter(objectBefore);
+                            } else if (objectBefore == null) {
+                                var beforeElement = $("#day_" + data.data.dayInt);
+                                $(addLineInNewAgenda(data, $(".day_" + data.data.dayInt).length)).insertBefore("#day_" + data.data.dayInt);
+                                beforeElement.children('.agenda-date').remove();
+                                beforeElement.attr("id", "");
+                            } else {
+                                $(addLineInNextAgenda(data, false)).insertAfter( objectBefore );
+                            }
+
+                            $("#day_" + data.data.dayInt).children(".agenda-date").attr("rowspan", $(".day_" + data.data.dayInt).length);
+                            $('.activity').html($(".day_" + data.data.dayInt).length + " activités");
+                        }
+                        $('#addtraining .close').click();
+                    } else {
+                        $(".msg_error").html(data.message).show();
+                    }
+                });
+            }
             return false;
         });
     }
@@ -168,6 +315,23 @@ $( document ).ready(function() {
                 }
             }
         }
+    });
+
+
+    $(document).on("click", ".btn-remove", function() {
+       $(".valid-delete").data("idactivity", $(this).data("id"));
+    });
+
+    $(document).on("click", ".valid-delete", function() {
+        var trainingId = $(this).data("idactivity"),
+            userContentId = $(this).data("userid");
+        $.ajax({
+            url: "/remove-training",
+            method: "POST",
+            data: {userId: userContentId, activityId: trainingId}
+        }).done(function (data) {
+            location.reload();
+        });
     });
 
 });

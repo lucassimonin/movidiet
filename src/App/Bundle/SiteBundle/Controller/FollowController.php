@@ -2,6 +2,7 @@
 
 namespace App\Bundle\SiteBundle\Controller;
 
+use App\Bundle\SiteBundle\Entity\Training;
 use App\Bundle\SiteBundle\Entity\User;
 use App\Bundle\SiteBundle\Entity\Visit;
 use App\Bundle\SiteBundle\Helper\CoreHelper;
@@ -204,26 +205,6 @@ class FollowController extends Controller
         return $this->render( '@AppSite/follow/rations.html.twig', array('params' => $params));
     }
 
-    public function trainingAction($userId = null)
-    {
-        $params = $this->getUserInformation();
-        if($params['error']) {
-            return $params['response'];
-        }
-        $this->coreHelper = $this->container->get('app.core_helper');
-        if ($userId != null) {
-            $params['user'] = $this->coreHelper->getContentById($userId);
-        }
-
-        $user = new User();
-        $userHelper  = $this->container->get('app.user_helper');
-        $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
-        $params['colorFatMass'] = $userHelper->getColorFatMass($user);
-
-
-        return $this->render( '@AppSite/follow/training.html.twig', array('params' => $params));
-    }
-
     public function AddVisitAction(Request $request)
     {
         $this->coreHelper = $this->container->get('app.core_helper');
@@ -321,6 +302,153 @@ class FollowController extends Controller
         }
 
         return $this->render( '@AppSite/follow/editpatient.html.twig', array('params' => $params, 'form' => $form->createView()));
+    }
+
+    public function trainingAction($userId = null)
+    {
+        $params = $this->getUserInformation();
+        if($params['error']) {
+            return $params['response'];
+        }
+        $this->coreHelper = $this->container->get('app.core_helper');
+        if ($userId != null) {
+            $params['user'] = $this->coreHelper->getContentById($userId);
+        }
+        $form = null;
+        if($params['admin']) {
+            $training = new Training();
+            $training->setUserId($userId);
+            $form = $this->createForm($this->get('app.form.type.addtraining'), $training, array());
+            $form = $form->createView();
+        }
+
+        $user = new User();
+        $userHelper  = $this->container->get('app.user_helper');
+        $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
+        $params['colorFatMass'] = $userHelper->getColorFatMass($user);
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppSiteBundle:Training')
+            ->createQueryBuilder('t')
+            ->where('t.userId = :user')
+            ->setParameter('user', $params['user']->versionInfo->contentInfo->id)
+            ->addOrderBy('t.day', 'ASC')
+            ->addOrderBy('t.startTime', 'ASC')
+            ->getQuery();
+        $trainings = $query->getResult();
+        $params['trainings'] = array();
+        $day = null;
+        if(count($trainings) > 0 ) {
+            foreach($trainings as $training) {
+                $params['trainings'][$training->intToDay()][] = array('dayString' => $training->intToDay(),
+                                                  'dayInt' => intval($training->getDay()),
+                                                  'activity' => $training->getActivity(),
+                                                  'color' => $training->getColor(),
+                                                  'startTime' => intval($training->getStartTime()),
+                                                  'endTime' => intval($training->getEndTime()),
+                                                  'id' => $training->getId());
+
+            }
+        }
+
+        return $this->render( '@AppSite/follow/training.html.twig', array('params' => $params, 'form' => $form));
+    }
+
+    public function RemoveTrainingAction(Request $request)
+    {
+        $this->coreHelper = $this->container->get('app.core_helper');
+        $training = new Training();
+        $result = [
+            'error_code' => 0
+        ];
+
+        if ($request->getMethod() == 'POST') {
+
+            $userId = intval($request->get('userId'));
+            $activityId = intval($request->get('activityId'));
+            $em = $this->getDoctrine()->getManager();
+            $training = $em->getRepository('AppSiteBundle:Training')->find($activityId);
+
+
+            if($training == null || $training != null && intval($training->getUserId()) != $userId) {
+                $this->get('session')->getFlashBag()->add(
+                    'notice',
+                    array(
+                        'alert' => 'danger',
+                        'message' => $this->get('translator')->trans('app.training_not_exist')
+                    )
+                );
+
+                return new JsonResponse($result);
+            }
+            $em->remove($training);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                array(
+                    'alert' => 'success',
+                    'message' => $this->get('translator')->trans('app.training_remove.success')
+                )
+            );
+        }
+
+        return new JsonResponse($result);
+    }
+
+    public function AddTrainingAction(Request $request)
+    {
+        $this->coreHelper = $this->container->get('app.core_helper');
+        $training = new Training();
+        $result = [
+            'error_code' => 0
+        ];
+
+        $form = $this->createForm($this->get('app.form.type.addtraining'), $training, array());
+        if ($request->getMethod() == 'POST') {
+            // Getting data
+            $form->handleRequest($request);
+            $user = null;
+            try {
+                $user = $this->coreHelper->getContentById($training->getUserId());
+            } catch (\Exception $e) {
+                $result['error_code'] = 1;
+                $result['message'] = $this->get('translator')->trans('app.user_not_exist');
+            }
+
+            if($training->getStartTime() >= $training->getEndTime()) {
+                $result['error_code'] = 1;
+                $result['message'] = $this->get('translator')->trans('app.start_more_than_end');
+
+                return new JsonResponse($result);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $alreadyTraining = $em->getRepository('AppSiteBundle:Training')
+                ->getExistingTraining($training->getUserId(), $training->getDay(), $training->getStartTime(), $training->getEndTime());
+
+            if(count($alreadyTraining) > 0) {
+                $result['error_code'] = 1;
+                $result['message'] = $this->get('translator')->trans('app.already_an_activity');
+
+                return new JsonResponse($result);
+            }
+
+            // tells Doctrine you want to (eventually) save the Product (no queries yet)
+            $em->persist($training);
+
+            // actually executes the queries (i.e. the INSERT query)
+            $em->flush();
+
+            $result['data'] = array('dayString' => $training->intToDay(),
+                                    'dayInt' => $training->getDay(),
+                                    'activity' => $training->getActivity(),
+                                    'color' => $training->getColor(),
+                                    'startTime' => $training->getStartTime(),
+                                    'endTime' => $training->getEndTime());
+
+        }
+
+        return new JsonResponse($result);
     }
 
 

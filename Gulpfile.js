@@ -9,7 +9,7 @@ var debug = require('gulp-debug');
 var livereload = require('gulp-livereload');
 var order = require('gulp-order');
 var merge = require('merge-stream');
-var env = 'dev';
+var env = 'prod';
 
 var appRootPath = 'web/assets/app/';
 

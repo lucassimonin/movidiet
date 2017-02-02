@@ -32,6 +32,11 @@ services:
             arguments: [@translator.default, @ezpublish.api.repository]
             tags:
                 - { name: form.type, alias: add_visit }
+    app.form.type.addtraining:
+            class: %app.form.type.addtraining.class%
+            arguments: [@translator.default, @ezpublish.api.repository]
+            tags:
+                - { name: form.type, alias: add_training }
     app.security.controller:
             class: "%app.login.controller.class%"
             arguments: ["@templating", "@ezpublish.config.resolver", "@security.authentication_utils", "@service_container"]

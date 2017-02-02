@@ -34,6 +34,8 @@
                     <h3>Autres informations</h3>
                     <label>Formule :</label>
                     <div>{{ ez_render_field(params.user, 'formule') }}</div>
+                    <label>Compte :</label>
+                    <div>{{ ez_field_value(params.user, 'user_account').login }}</div>
                 </div>
 
             </div>

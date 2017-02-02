@@ -51,6 +51,16 @@ add-visit:
     defaults: { _controller: AppSiteBundle:Follow:AddVisit}
     methods:  [POST]
 
+add-training:
+    path: /add-training
+    defaults: { _controller: AppSiteBundle:Follow:AddTraining}
+    methods:  [POST]
+
+remove-training:
+    path: /remove-training
+    defaults: { _controller: AppSiteBundle:Follow:RemoveTraining}
+    methods:  [POST]
+
 edit-profil-patient:
     path: /edit-profil
     defaults: { _controller: AppSiteBundle:Follow:editProfil }

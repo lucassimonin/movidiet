@@ -67,11 +67,13 @@ section.follow {
 .btn-download:hover, .btn-download:active, .btn-download:focus, .btn-addvisite {
     color:#36a2eb;
     border-color: #36a2eb;
+    outline-style:none;
 }
 
 .btn-addvisite:hover, .btn-addvisite:active, .btn-addvisite:focus {
     border: 1px solid #B9CE02;
     color: #B9CE02;
+    outline-style:none;
 }
 
 .btn-add, .btn-edit {
@@ -81,6 +83,7 @@ section.follow {
     height: 40px;
     padding: 8px 12px;
     border-radius: 0;
+    outline-style:none;
 }
 .modal-content {
     border-radius: 0;
@@ -155,6 +158,13 @@ table {
     background-color: #F9F9F9;
 }
 
+#trainings>tbody>tr:hover {
+    cursor: default;
+    background-color: #fff;
+}
+
+
+
 .table>tbody>tr>td {
     border-bottom: 1px solid rgba(0,0,0,0.117647);
     padding: 25px 25px !important;
@@ -168,6 +178,11 @@ table thead {
 
 .btn-login:hover {
     color: #B9CE02;
+    outline-style:none;
+}
+
+.btn:active, .btn:hover, .btn:focus {
+    outline-style:none;
 }
 
 body {
@@ -481,7 +496,7 @@ body {
     background: none;
 }
 
-#addpatient .inputmov, #addvisit .inputmov {
+#addpatient .inputmov, #addvisit .inputmov, #addtraining .inputmov {
     padding-left: 12px;
     height: 50px;
 }
@@ -493,11 +508,39 @@ body {
     padding-left: 0;
 }
 
+#add_training_startTime, #add_training_endTime {
+    box-shadow: none;
+    height: 50px;
+    padding-left: 0;
+}
+
+#add_training_startTime select, #add_training_endTime select {
+   border:1px solid #333;
+}
+
 label {
     color: #b9ce02;
 }
 
-.agenda .agenda-date { width: 170px; }
+#trainings>tbody>tr>td {
+    border-bottom: none;
+    border:none;
+}
+
+.agenda #trainings>tbody>tr>td.action-delete {
+    width:10%;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+
+}
+
+td.action-delete button {
+    background-color: #FF6961;
+}
+
+
+
+.agenda #trainings>tbody>tr>td.agenda-date { width: 170px; border-bottom: 1px solid #eee; }
 .agenda .agenda-date .dayofmonth {
     width: 40px;
     font-size: 36px;
@@ -507,7 +550,11 @@ label {
     margin-right: 10px;
 }
 .agenda .agenda-date .shortdate {
-    font-size: 0.75em;
+    font-size: 0.9em;
+}
+
+.agenda .agenda-date .dayofweek {
+    font-size: 2em;
 }
 
 

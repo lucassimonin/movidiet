@@ -111,7 +111,7 @@ var createChart = function(date, weight, massG, firstDataSet, secondDataSet) {
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Value'
+                            labelString: '%'
                         }
                     }]
                 }

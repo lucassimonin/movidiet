@@ -12,7 +12,7 @@
             {% include 'AppSiteBundle::follow/userinfo.html.twig' %}
             {% if params.admin %}
                 <div class="pull-right">
-                    <button type="button" class="btn btn-addvisite" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-addvisite" data-toggle="modal" data-target="#visitModal">
                         Ajouter une visite
                     </button>
                 </div>
@@ -78,7 +78,7 @@
         </div>
     </div>
     {% if params.admin %}
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="visitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="overlaymodal"></div>
@@ -86,7 +86,7 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Nouvelle visite</h4>
+                    <h4 class="modal-title" id="visitModalLabel">Nouvelle visite</h4>
                 </div>
                 <div class="modal-body">
                     <div class="col-lg-12 msg_error"></div>
