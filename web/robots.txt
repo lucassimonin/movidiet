@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /ez
+Disallow: /login
+Disallow: /followindex
+Disallow: /addpatient
+Disallow: /visit-patient/*
+Disallow: /profil-patient/*
+Disallow: /ration-patient/*
+Disallow: /traning-patient/*
+Sitemap: https://movidiet.fr/sitemap.xml

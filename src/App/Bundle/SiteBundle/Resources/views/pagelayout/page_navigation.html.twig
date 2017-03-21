@@ -33,12 +33,12 @@
                 </li>
                 {% if not ez_is_field_empty(content, 'facebook_url') %}
                     <li>
-                        <a class="btn btn-social-icon btn-fb" href="{{ ez_field_value(content, 'facebook_url') }}" target="_blank"><i class="fa fa-facebook-official"></i></a>
+                        <a rel="nofollow" class="btn btn-social-icon btn-fb" href="{{ ez_field_value(content, 'facebook_url') }}" target="_blank"><i class="fa fa-facebook-official"></i></a>
                     </li>
                 {% endif %}
                 {% if not ez_is_field_empty(content, 'instagram_url') %}
                     <li>
-                        <a class="btn btn-social-icon btn-instagram" href="{{ ez_field_value(content, 'instagram_url') }}" target="_blank"><i class="fa fa-instagram"></i></a>
+                        <a rel="nofollow" class="btn btn-social-icon btn-instagram" href="{{ ez_field_value(content, 'instagram_url') }}" target="_blank"><i class="fa fa-instagram"></i></a>
                     </li>
                 {% endif %}
             </ul>
