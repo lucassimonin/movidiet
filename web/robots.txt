@@ -7,4 +7,9 @@ Disallow: /visit-patient/*
 Disallow: /profil-patient/*
 Disallow: /ration-patient/*
 Disallow: /traning-patient/*
+Disallow: /changepassword
+Disallow: /visit
+Disallow: /ration
+Disallow: /traning
+Disallow: /logout
 Sitemap: https://movidiet.fr/sitemap.xml
