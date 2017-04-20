@@ -6,6 +6,7 @@ use App\Bundle\SiteBundle\Helper\CoreHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use eZ\Publish\Core\MVC\Symfony\View\View;
 use App\Bundle\SiteBundle\Entity\Contact;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -16,13 +17,10 @@ class HomeController extends Controller
 
     /**
      * Homepage action
-     * @param $locationId
-     * @param $viewType
-     * @param bool $layout
-     * @param array $params
-     * @return mixed
+     * @param View $view
+     * @return View
      */
-    public function indexAction($locationId, $viewType, $layout = false, array $params = array())
+    public function indexAction(View $view)
     {
         $this->coreHelper = $this->container->get('app.core_helper');
         $formuleItemContentTypeIdentifier = $this->container->getParameter('app.formule.content_type.identifier');
@@ -54,24 +52,21 @@ class HomeController extends Controller
 
         $contact = new Contact();
         $form = $this->createForm($this->get('app.form.type.contact'), $contact, array());
-        $params['form'] = $form->createView();
-
-        $params['articles'] = $articles;
-        $params['blogLocationId'] = $this->container->getParameter('app.blog.locationid');
-        $params['formules'] = $this->coreHelper->getChildrenObject([$formuleItemContentTypeIdentifier], $formulesLocationId);
-        $response = $this->get('ez_content')->viewLocation(
-            $locationId,
-            $viewType,
-            $layout,
-            $params
-        );
-
-        $response->headers->set('X-Location-Id', $locationId);
-        $response->setEtag(md5(json_encode($params)));
+        $response = new Response();
+        $response->headers->set('X-Location-Id', $view->getLocation()->id);
         $response->setPublic();
         $response->setSharedMaxAge($this->container->getParameter('app.cache.high.ttl'));
 
-        return $response;
+        $view->setResponse($response);
+
+        $view->addParameters([
+            'form' => $form->createView(),
+            'articles' => $articles,
+            'blogLocationId' => $this->container->getParameter('app.blog.locationid'),
+            'formules' => $this->coreHelper->getChildrenObject([$formuleItemContentTypeIdentifier], $formulesLocationId)
+        ]);
+
+        return $view;
     }
 
     public function contactFormAction(Request $request)
@@ -94,7 +89,7 @@ class HomeController extends Controller
                 $contactContentTypeIdentifier = $this->container->getParameter('app.contact.content_type.identifier');
                 $formData = $form->getData();
 
-                $contentType = $contentTypeService->loadContentTypeByIdentifier( 'contact' );
+                $contentType = $contentTypeService->loadContentTypeByIdentifier( $contactContentTypeIdentifier );
                 $contentCreateStruct = $contentService->newContentCreateStruct( $contentType, 'fre-FR' );
 
                 $contentCreateStruct->setField('name', $formData->name);
@@ -106,7 +101,7 @@ class HomeController extends Controller
                 $locationCreateStruct = $locationService->newLocationCreateStruct( $this->container->getParameter('app.contacts.locationid') );
 
                 $draft = $contentService->createContent( $contentCreateStruct, array( $locationCreateStruct ) );
-                $content = $contentService->publishVersion( $draft->versionInfo );
+                $contentService->publishVersion( $draft->versionInfo );
             }
         }
 

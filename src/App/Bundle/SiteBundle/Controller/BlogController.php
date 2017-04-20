@@ -4,8 +4,8 @@ namespace App\Bundle\SiteBundle\Controller;
 
 use App\Bundle\SiteBundle\Helper\CoreHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use eZ\Publish\Core\MVC\Symfony\View\View;
 
 class BlogController extends Controller
 {
@@ -14,13 +14,10 @@ class BlogController extends Controller
 
     /**
      * Index blog
-     * @param $locationId
-     * @param $viewType
-     * @param bool $layout
-     * @param array $params
-     * @return mixed
+     * @param View $view
+     * @return View
      */
-    public function indexAction($locationId, $viewType, $layout = false, array $params = array())
+    public function indexAction(View $view)
     {
         $this->coreHelper = $this->container->get('app.core_helper');
         $blogLimitArticle = $this->container->getParameter('app.blog.article.limit');
@@ -33,47 +30,46 @@ class BlogController extends Controller
         //Recipe
         $params['recipe_articles'] = $this->coreHelper->getLatestArticles($this->container->getParameter('app.article.category.recipe'), $blogLimitArticle);
 
-        $response = $this->get('ez_content')->viewLocation(
-            $locationId,
-            $viewType,
-            $layout,
-            $params
-        );
+        $response = new Response();
 
-        $response->headers->set('X-Location-Id', $locationId);
+        $response->headers->set('X-Location-Id', $view->getLocation()->id);
         $response->setEtag(md5(json_encode($params)));
         $response->setPublic();
         $response->setSharedMaxAge($this->container->getParameter('app.cache.high.ttl'));
 
-        return $response;
+        $view->setResponse($response);
+
+        $view->addParameters([
+            'params' => $params,
+        ]);
+
+        return $view;
     }
 
     /**
      * Show article
-     * @param $locationId
-     * @param $viewType
-     * @param bool $layout
-     * @param array $params
-     * @return mixed
+     * @param View $view
+     * @return View
      */
-    public function showAction($locationId, $viewType, $layout = false, array $params = array())
+    public function showAction(View $view)
     {
         $this->coreHelper = $this->container->get('app.core_helper');
         $params['blogLocationId'] = $this->container->getParameter('app.blog.locationid');
         $params['home'] = $this->coreHelper->getContentHomepage();
 
-        $response = $this->get('ez_content')->viewLocation(
-            $locationId,
-            $viewType,
-            $layout,
-            $params
-        );
+        $response = new Response();
 
-        $response->headers->set('X-Location-Id', $locationId);
+        $response->headers->set('X-Location-Id', $view->getLocation()->id);
         $response->setEtag(md5(json_encode($params)));
         $response->setPublic();
         $response->setSharedMaxAge($this->container->getParameter('app.cache.high.ttl'));
 
-        return $response;
+        $view->setResponse($response);
+
+        $view->addParameters([
+            'params' => $params,
+        ]);
+
+        return $view;
     }
 }

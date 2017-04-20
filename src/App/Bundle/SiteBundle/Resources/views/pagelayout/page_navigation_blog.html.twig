@@ -5,18 +5,18 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse">
                 <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="{{ path( "ez_urlalias", {"locationId": blogLocationId} ) }}">{{ 'app.global.title'|trans|raw }} Blog</a>
+            <a class="navbar-brand" href="{{ path( "ez_urlalias", {"locationId": params.blogLocationId} ) }}">{{ 'app.global.title'|trans|raw }} Blog</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-            {% if not ez_is_field_empty(home, 'facebook_url') %}
+            {% if not ez_is_field_empty(params.home, 'facebook_url') %}
                 <li>
-                    <a class="btn btn-social-icon btn-fb" href="{{ ez_field_value(home, 'facebook_url') }}" target="_blank"><i class="fa fa-facebook-official"></i></a>
+                    <a class="btn btn-social-icon btn-fb" href="{{ ez_field_value(params.home, 'facebook_url') }}" target="_blank"><i class="fa fa-facebook-official"></i></a>
                 </li>
             {% endif %}
-            {% if not ez_is_field_empty(home, 'instagram_url') %}
+            {% if not ez_is_field_empty(params.home, 'instagram_url') %}
                 <li>
-                    <a class="btn btn-social-icon btn-instagram" href="{{ ez_field_value(home, 'instagram_url') }}" target="_blank"><i class="fa fa-instagram"></i></a>
+                    <a class="btn btn-social-icon btn-instagram" href="{{ ez_field_value(params.home, 'instagram_url') }}" target="_blank"><i class="fa fa-instagram"></i></a>
                 </li>
             {% endif %}
         </ul>

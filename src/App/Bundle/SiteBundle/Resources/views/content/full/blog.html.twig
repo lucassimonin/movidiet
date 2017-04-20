@@ -1,9 +1,9 @@
 {% extends "AppSiteBundle::pagelayout.html.twig" %}
 {% block content %}
     {% include 'AppSiteBundle::pagelayout/page_navigation_blog.html.twig' %}
-    {% include 'AppSiteBundle::content/parts/blog_partfull.html.twig' with {'articles': recipe_articles, 'bgcolor': 'bggreen', 'title': 'app.recipetitle'} %}
-    {% include 'AppSiteBundle::content/parts/blog_partfull.html.twig' with {'articles': diet_articles, 'bgcolor': '', 'title': 'app.diettitle'}  %}
-    {% include 'AppSiteBundle::content/parts/blog_partfull.html.twig' with {'articles': sport_articles, 'bgcolor': 'bggreen', 'title': 'app.sporttitle'} %}
+    {% include 'AppSiteBundle::content/parts/blog_partfull.html.twig' with {'articles': params.recipe_articles, 'bgcolor': 'bggreen', 'title': 'app.recipetitle'} %}
+    {% include 'AppSiteBundle::content/parts/blog_partfull.html.twig' with {'articles': params.diet_articles, 'bgcolor': '', 'title': 'app.diettitle'}  %}
+    {% include 'AppSiteBundle::content/parts/blog_partfull.html.twig' with {'articles': params.sport_articles, 'bgcolor': 'bggreen', 'title': 'app.sporttitle'} %}
 
 
 {% endblock %}
