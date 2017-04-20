@@ -20,7 +20,7 @@ var paths = {
             'web/assets/vendor/lazysizes/lazysizes.min.js'
         ],
         js: [
-            'web/assets/vendor/jquery/jquery.min.js',
+            'web/assets/vendor/jquery/dist/jquery.min.js',
             'web/assets/vendor/jquery.easing/js/jquery.easing.min.js',
             'web/assets/vendor/bootstrap/dist/js/bootstrap.min.js',
             'web/assets/vendor/scrollreveal/dist/scrollreveal.min.js',
