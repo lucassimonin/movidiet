@@ -108,4 +108,12 @@ class HomeController extends Controller
         return new JsonResponse($result);
 
     }
+
+    /**
+     * Get condition general
+     */
+    public function conditionsGeneralesAction()
+    {
+        return $this->render('@AppSite/content/full/conditions.html.twig');
+    }
 }

@@ -68,3 +68,9 @@ edit-profil-patient:
 edit-profil:
     path: /edit-profil/{userId}
     defaults: { _controller: AppSiteBundle:Follow:editProfil }
+
+condition-general:
+    path: /conditions-generales
+    methods: [GET]
+    defaults:
+        _controller: AppBundle:Guru:conditionsGenerales
