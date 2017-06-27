@@ -73,4 +73,4 @@ condition-general:
     path: /conditions-generales
     methods: [GET]
     defaults:
-        _controller: AppBundle:Guru:conditionsGenerales
+        _controller: AppSiteBundle:Home:conditionsGenerales
