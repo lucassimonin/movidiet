@@ -114,6 +114,6 @@ class HomeController extends Controller
      */
     public function conditionsGeneralesAction()
     {
-        return $this->render('@AppSite/content/full/conditions.html.twig', ['blogLocationId' => $this->container->getParameter('app.blog.locationid')]);
+        return $this->render('@AppSite/content/full/conditions.html.twig');
     }
 }
