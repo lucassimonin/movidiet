@@ -108,6 +108,9 @@ assetic:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: gmail
+    transport: smtp
     username:  momar.diop1@gmail.com
     password:  MDPstewart7
+    encryption: ssl
+    auth_mode: login
+    host: smtp.gmail.com
