@@ -104,7 +104,7 @@ class HomeController extends Controller
 
                 $contentService->publishVersion( $draft->versionInfo );
                 $message = new \Swift_Message('Hello Email', $this->renderView(
-                    'emails/contact.html.twig',
+                    '@AppSite/emails/contact.html.twig',
                     array('object' => $draft)
                 ),'text/html');
                 $message->setFrom('movidiet@no_reply.com');
