@@ -108,8 +108,6 @@ assetic:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
+    transport: gmail
+    username:  momar.diop1@gmail.com
+    password:  MDPstewart7
