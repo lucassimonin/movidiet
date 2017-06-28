@@ -101,7 +101,15 @@ class HomeController extends Controller
                 $locationCreateStruct = $locationService->newLocationCreateStruct( $this->container->getParameter('app.contacts.locationid') );
 
                 $draft = $contentService->createContent( $contentCreateStruct, array( $locationCreateStruct ) );
+
                 $contentService->publishVersion( $draft->versionInfo );
+                $message = new \Swift_Message('Hello Email', $this->renderView(
+                    'emails/contact.html.twig',
+                    array('object' => $draft)
+                ),'text/html');
+                $message->setFrom('movidiet@no_reply.com');
+                $message->setTo('recipient@example.com');
+                $this->get('mailer')->send($message);
             }
         }
 
