@@ -109,8 +109,7 @@ $( document ).ready(function() {
 
     if($("#add_visit_date").length) {
         $("#add_visit_date").datepicker({
-            format: "dd-mm-yyyy",
-            startDate: new Date()
+            format: "dd-mm-yyyy"
         });
     }
 
