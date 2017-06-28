@@ -107,7 +107,7 @@ class HomeController extends Controller
                     '@AppSite/emails/contact.html.twig',
                     array('object' => $draft)
                 ),'text/html');
-                $message->setFrom('movidiet@gmail.com');
+                $message->setFrom('movidiet@noReply');
                 $message->setTo('lsimonin2@gmail.com');
                 $this->get('mailer')->send($message);
             }
