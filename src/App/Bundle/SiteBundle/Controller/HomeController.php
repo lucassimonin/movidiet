@@ -103,13 +103,13 @@ class HomeController extends Controller
                 $draft = $contentService->createContent( $contentCreateStruct, array( $locationCreateStruct ) );
 
                 $contentService->publishVersion( $draft->versionInfo );
-                $message = new \Swift_Message('Hello Email', $this->renderView(
+               /* $message = new \Swift_Message('Hello Email', $this->renderView(
                     '@AppSite/emails/contact.html.twig',
                     array('object' => $draft)
                 ),'text/html');
                 $message->setFrom('movidiet@noReply');
                 $message->setTo('lsimonin2@gmail.com');
-                $this->get('mailer')->send($message);
+                $this->get('mailer')->send($message);*/
             }
         }
 
