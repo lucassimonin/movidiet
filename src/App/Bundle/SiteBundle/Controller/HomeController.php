@@ -21,11 +21,30 @@ class HomeController extends Controller
      * @param View $view
      * @return View
      */
-    public function indexAction(View $view)
+    public function indexAction(View $view) : View
+    {
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $response = new Response();
+        $response->headers->set('X-Location-Id', $view->getLocation()->id);
+        $response->setPublic();
+        $response->setSharedMaxAge($this->container->getParameter('app.cache.high.ttl'));
+        $view->setResponse($response);
+        $view->addParameters([
+            'form' => $form->createView(),
+            'blogLocationId' => $this->container->getParameter('app.blog.locationid'),
+        ]);
+
+        return $view;
+    }
+
+    /**
+     * BlogAction
+     * @return Response
+     */
+    public function blogAction() : Response
     {
         $this->coreHelper = $this->container->get('app.core_helper');
-        $formuleItemContentTypeIdentifier = $this->container->getParameter('app.formule.content_type.identifier');
-        $formulesLocationId = $this->container->getParameter('app.formules.locationid');
         $articles = [];
         // Sport
         $article = $this->coreHelper->getLatestArticles($this->container->getParameter('app.article.category.sport'));
@@ -51,23 +70,29 @@ class HomeController extends Controller
             }
         }
 
-        $contact = new Contact();
-        $form = $this->createForm(ContactType::class, $contact);
-        $response = new Response();
-        $response->headers->set('X-Location-Id', $view->getLocation()->id);
-        $response->setPublic();
-        $response->setSharedMaxAge($this->container->getParameter('app.cache.high.ttl'));
+        return $this->render(
+            '@AppSite/content/parts/blog.html.twig',
+            [
+                'articles' => $articles,
+                'blogLocationId' => $this->container->getParameter('app.blog.locationid')
+            ]
+        );
+    }
 
-        $view->setResponse($response);
+    /**
+     * Formule action
+     * @return Response
+     */
+    public function formuleAction() : Response
+    {
+        $this->coreHelper = $this->container->get('app.core_helper');
+        $formuleItemContentTypeIdentifier = $this->container->getParameter('app.formule.content_type.identifier');
+        $formulesLocationId = $this->container->getParameter('app.formules.locationid');
 
-        $view->addParameters([
-            'form' => $form->createView(),
-            'articles' => $articles,
-            'blogLocationId' => $this->container->getParameter('app.blog.locationid'),
-            'formules' => $this->coreHelper->getChildrenObject([$formuleItemContentTypeIdentifier], $formulesLocationId)
-        ]);
-
-        return $view;
+        return $this->render(
+            '@AppSite/content/parts/formules.html.twig',
+            array('formules' => $this->coreHelper->getChildrenObject([$formuleItemContentTypeIdentifier], $formulesLocationId))
+        );
     }
 
     /**
@@ -75,7 +100,7 @@ class HomeController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function contactFormAction(Request $request)
+    public function contactFormAction(Request $request) : JsonResponse
     {
         $repository = $this->container->get( 'ezpublish.api.repository' );
         $contentService = $repository->getContentService();

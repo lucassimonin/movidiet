@@ -32,11 +32,8 @@
             </div>
         </div>
     </section>
-    {% if formules|length > 0 %}
-        {% include 'AppSiteBundle::content/parts/formules.html.twig' %}
-    {% endif %}
-    {% if articles|length > 0 %}
-        {% include 'AppSiteBundle::content/parts/blog.html.twig' %}
-    {% endif %}
+    {{ render(controller('AppSiteBundle:Home:formule')) }}
+    {{ render(controller('AppSiteBundle:Home:blog')) }}
+
     {% include 'AppSiteBundle::content/parts/contact.html.twig' %}
 {% endblock %}

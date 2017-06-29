@@ -1,26 +1,28 @@
-<section id="blog">
-    <div class="container">
-        <h2 class="green text-center text-uppercase blog">- {{ 'app.subtitle.blog'|trans }} -</h2>
-        {% for article in articles %}
-            <div class="col-sm-4 wow fadeInUp article-item">
-                <div class="article-image">
-                    {{ ez_render_field(article, 'image', {
-                        parameters: {
-                            alias: 'article_image'
-                        }
-                    }) }}
-                </div>
-                <div class="article-content">
-                    <h4>{{ ez_render_field(article, 'title') }}</h4>
-                    {{ ez_render_field(article, 'short_description') }}
-                    <div class="text-center bnt-container bnt-container-article">
-                        <a target="_blank" href="{{ path( "ez_urlalias", {"contentId": article.contentInfo.id} ) }}" class="article-btn">{{ 'app.blog.btn.article'|trans }}</a>
+{% if articles|length > 0 %}
+    <section id="blog">
+        <div class="container">
+            <h2 class="green text-center text-uppercase blog">- {{ 'app.subtitle.blog'|trans }} -</h2>
+            {% for article in articles %}
+                <div class="col-sm-4 wow fadeInUp article-item">
+                    <div class="article-image">
+                        {{ ez_render_field(article, 'image', {
+                            parameters: {
+                                alias: 'article_image'
+                            }
+                        }) }}
+                    </div>
+                    <div class="article-content">
+                        <h4>{{ ez_render_field(article, 'title') }}</h4>
+                        {{ ez_render_field(article, 'short_description') }}
+                        <div class="text-center bnt-container bnt-container-article">
+                            <a target="_blank" href="{{ path( "ez_urlalias", {"contentId": article.contentInfo.id} ) }}" class="article-btn">{{ 'app.blog.btn.article'|trans }}</a>
+                        </div>
                     </div>
                 </div>
+            {% endfor %}
+            <div class="text-center col-sm-12 btn-container-showall">
+                <a target="_blank" href="{{ path( "ez_urlalias", {"locationId": blogLocationId} ) }}" class="formule-btn">{{ 'app.blog.btn.all_article'|trans }}</a>
             </div>
-        {% endfor %}
-        <div class="text-center col-sm-12 btn-container-showall">
-            <a target="_blank" href="{{ path( "ez_urlalias", {"locationId": blogLocationId} ) }}" class="formule-btn">{{ 'app.blog.btn.all_article'|trans }}</a>
         </div>
-    </div>
-</section>
+    </section>
+{% endif %}
