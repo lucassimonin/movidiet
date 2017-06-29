@@ -11,6 +11,8 @@ namespace App\Bundle\SiteBundle\EventListener;
 
 use eZ\Publish\API\Repository\LocationService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use eZ\Publish\Core\MVC\Symfony\Event\ContentCacheClearEvent;
+use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 
 class ClearLocationsListener implements EventSubscriberInterface
 {
