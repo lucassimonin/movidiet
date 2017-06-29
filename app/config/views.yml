@@ -1,0 +1,20 @@
+ezpublish:
+    system:
+        default:
+            content_view:
+                full:
+                    homepage:
+                        controller: "AppSiteBundle:Home:index"
+                        template: "AppSiteBundle:content/full:homepage.html.twig"
+                        match:
+                            Identifier\ContentType: [homepage]
+                    blog:
+                        controller: "AppSiteBundle:Blog:index"
+                        template: "AppSiteBundle:content/full:blog.html.twig"
+                        match:
+                            Identifier\ContentType: [blog_container]
+                    article:
+                        controller: "AppSiteBundle:Blog:show"
+                        template: "AppSiteBundle:content/full:article.html.twig"
+                        match:
+                            Identifier\ContentType: [article]

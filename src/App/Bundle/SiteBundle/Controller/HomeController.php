@@ -2,6 +2,7 @@
 
 namespace App\Bundle\SiteBundle\Controller;
 
+use App\Bundle\SiteBundle\Form\Type\ContactType;
 use App\Bundle\SiteBundle\Helper\CoreHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ class HomeController extends Controller
         $this->coreHelper = $this->container->get('app.core_helper');
         $formuleItemContentTypeIdentifier = $this->container->getParameter('app.formule.content_type.identifier');
         $formulesLocationId = $this->container->getParameter('app.formules.locationid');
-        $articles = array();
+        $articles = [];
         // Sport
         $article = $this->coreHelper->getLatestArticles($this->container->getParameter('app.article.category.sport'));
         if( $article != null) {
@@ -51,7 +52,7 @@ class HomeController extends Controller
         }
 
         $contact = new Contact();
-        $form = $this->createForm($this->get('app.form.type.contact'), $contact, array());
+        $form = $this->createForm(ContactType::class, $contact);
         $response = new Response();
         $response->headers->set('X-Location-Id', $view->getLocation()->id);
         $response->setPublic();
@@ -81,36 +82,33 @@ class HomeController extends Controller
         ];
 
         $contact = new Contact();
-        $form = $this->createForm($this->get('app.form.type.contact'), $contact, array());
+        $form = $this->createForm(ContactType::class, $contact);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 // Getting content type identifier for license
                 $contactContentTypeIdentifier = $this->container->getParameter('app.contact.content_type.identifier');
                 $formData = $form->getData();
-
                 $contentType = $contentTypeService->loadContentTypeByIdentifier( $contactContentTypeIdentifier );
                 $contentCreateStruct = $contentService->newContentCreateStruct( $contentType, 'fre-FR' );
-
                 $contentCreateStruct->setField('name', $formData->name);
                 $contentCreateStruct->setField('message', $formData->message);
                 $contentCreateStruct->setField('email', $formData->email);
-
                 $contentCreateStruct->setField('subject', $this->coreHelper->transformFieldToSelection($formData->subject));
-
                 $locationCreateStruct = $locationService->newLocationCreateStruct( $this->container->getParameter('app.contacts.locationid') );
-
-                $draft = $contentService->createContent( $contentCreateStruct, array( $locationCreateStruct ) );
-
+                $draft = $contentService->createContent( $contentCreateStruct, [$locationCreateStruct] );
                 $contentService->publishVersion( $draft->versionInfo );
-               /* $message = new \Swift_Message('Hello Email', $this->renderView(
-                    '@AppSite/emails/contact.html.twig',
-                    array('object' => $draft)
-                ),'text/html');
-                $message->setFrom('movidiet@noReply');
-                $message->setTo('lsimonin2@gmail.com');
-                $this->get('mailer')->send($message);*/
+            } else {
+                $result = [
+                    'error_code' => 1,
+                    'msg' => 'not valid form'
+                ];
             }
+        } else {
+            $result = [
+                'error_code' => 1,
+                'msg' => 'not POST method'
+            ];
         }
 
         return new JsonResponse($result);

@@ -12,10 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
  * CommonController Class.
  *
  * @author simoninl
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
- * @SuppressWarnings(PHPMD.ExcessiveClassLength)
- * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class CommonController extends Controller
 {
@@ -23,8 +19,9 @@ class CommonController extends Controller
     /**
      * languagesAction
      *
+     * @param Request $request
      * @param RouteReference $routeRef
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function languagesAction(Request $request, RouteReference $routeRef )
     {
@@ -36,7 +33,7 @@ class CommonController extends Controller
         );
 
         return $this->render( '@AppSite/content/parts/languages.html.twig',
-            array('currentLanguage' => $currentEzLanguage, 'routeRef' => $routeRef)
+            ['currentLanguage' => $currentEzLanguage, 'routeRef' => $routeRef]
         );
     }
 

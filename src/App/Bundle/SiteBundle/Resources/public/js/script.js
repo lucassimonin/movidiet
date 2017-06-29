@@ -45,11 +45,11 @@ var isEmail = function(myVar){
 var resetForm = function() {
   $('.form-control').val('');
 }
-
+var xhr = null;
 $( document ).ready(function() {
 
   $(document).on('click', '.go-contact', function(){
-    $("#contact_type_subject").val($(this).data('id'));
+    $("#contact_subject").val($(this).data('id'));
 
     return true;
   });
@@ -76,41 +76,35 @@ $( document ).ready(function() {
   }
 
 
-  $("form#form-contact").submit(function (e) {
+  $("#form-contact").submit(function (e) {
     e.preventDefault();
-
+      if( xhr != null ) {
+          xhr.abort();
+          xhr = null;
+      }
     var errors = 0;
-    // Cheking licenceId input content
-    if (!$("#contact_type_name").val()) {
-      $("#contact_type_name").addClass("has-error");
+    if (!$("#contact_name").val()) {
+      $("#contact_name").addClass("has-error");
       errors++;
     }
 
-    if ($("#contact_type_email").val() && !isEmail($("#contact_type_email").val())) {
-      $("#contact_type_email").addClass("has-error");
+    if ($("#contact_email").val() && !isEmail($("#contact_email").val())) {
+      $("#contact_email").addClass("has-error");
       errors++;
     }
 
-    // Cheking expirationDate input content
-    if (!$("#contact_type_message").val()) {
-      $("#contact_type_message").addClass("has-error");
+    if (!$("#contact_message").val()) {
+      $("#contact_message").addClass("has-error");
       errors++;
     }
 
-    // if there are no errors we can post the form
     if (errors === 0) {
-      var formData = new FormData($(this)[0]);
-      // Starting spinner
       $("#btn-contact").attr("disabled", true);
-      // Posting ajax + form with documents
-      $.ajax({
+        xhr = $.ajax({
         url: "/add-contact",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false
+        method: "POST",
+        data: $("#form-contact").serialize()
       }).done(function (data) {
-        // Handling return (error_code = 0 means no errors)
         if (data.error_code === 0) {
           $('.msg').html('Message envoyé !');
           resetForm();

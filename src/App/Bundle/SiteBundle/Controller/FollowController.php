@@ -5,6 +5,11 @@ namespace App\Bundle\SiteBundle\Controller;
 use App\Bundle\SiteBundle\Entity\Training;
 use App\Bundle\SiteBundle\Entity\User;
 use App\Bundle\SiteBundle\Entity\Visit;
+use App\Bundle\SiteBundle\Form\Type\AddPatientType;
+use App\Bundle\SiteBundle\Form\Type\ChangePasswordType;
+use App\Bundle\SiteBundle\Form\Type\EditPatientType;
+use App\Bundle\SiteBundle\Form\Type\TrainingType;
+use App\Bundle\SiteBundle\Form\Type\VisitType;
 use App\Bundle\SiteBundle\Helper\CoreHelper;
 use Doctrine\DBAL\Types\DateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,10 +24,6 @@ class FollowController extends Controller
 
     /**
      * Homepage action
-     * @param $locationId
-     * @param $viewType
-     * @param bool $layout
-     * @param array $params
      * @return mixed
      */
     public function indexAction()
@@ -43,7 +44,7 @@ class FollowController extends Controller
         $usersContentTypeId = $this->container->getParameter('app.users.content_type.identifier');
         $params['users'] = $this->coreHelper->getChildrenObject([$usersContentTypeId], $usersLocationId);
 
-        return $this->render( '@AppSite/follow/index.html.twig', array('params' => $params));
+        return $this->render( '@AppSite/follow/index.html.twig', ['params' => $params]);
     }
 
     public function addPatientAction(Request $request)
@@ -56,7 +57,9 @@ class FollowController extends Controller
         }
 
         $user = new User();
-        $form = $this->createForm($this->get('app.form.type.addpatient'), $user, array());
+        $form = $this->createForm(AddPatientType::class, $user, [
+            'invalid_message' => $this->get('translator')->trans('app.registration.validation.password.no.match')
+        ]);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -65,10 +68,10 @@ class FollowController extends Controller
                 if ($userHelper->save($user)) {
                     $this->get('session')->getFlashBag()->add(
                         'notice',
-                        array(
+                        [
                             'alert' => 'success',
                             'message' => $this->get('translator')->trans('app.create_user.success')
-                        )
+                        ]
                     );
                     unset($user);
 
@@ -79,7 +82,7 @@ class FollowController extends Controller
 
         $params['no_menu'] = true;
 
-        return $this->render( '@AppSite/follow/addpatient.html.twig', array('params' => $params, 'form' => $form->createView()));
+        return $this->render( '@AppSite/follow/addpatient.html.twig', ['params' => $params, 'form' => $form->createView()]);
 
     }
 
@@ -95,7 +98,7 @@ class FollowController extends Controller
         if($params['admin']) {
             $visit = new Visit();
             $visit->setUserId($userId);
-            $form = $this->createForm($this->get('app.form.type.addvisit'), $visit, array());
+            $form = $this->createForm(VisitType::class, $visit);
             $form = $form->createView();
         }
         $this->coreHelper = $this->container->get('app.core_helper');
@@ -109,25 +112,26 @@ class FollowController extends Controller
 
 
         $em = $this->getDoctrine()->getManager();
-        $visits = $em->getRepository('AppSiteBundle:Visit')->findBy(array('userId' => $params['user']->versionInfo->contentInfo->id), array('date' => 'ASC'));
-        $params['visits'] = array();
+        $visits = $em->getRepository('AppSiteBundle:Visit')->findBy(['userId' => $params['user']->versionInfo->contentInfo->id], ['date' => 'ASC']);
+        $params['visits'] = [];
         if(count($visits) > 0 ) {
             foreach($visits as $visit) {
                 $visitArray = $visit->_toArray();
-                $params['visits'][] = array('date' => $visit->getDate()->format('d-m-Y'),
+                $params['visits'][] = ['date' => $visit->getDate()->format('d-m-Y'),
                                             'weight' => floatval($visitArray['weight']),
                                             'fatMass' => floatval($visitArray['fatMass']),
                                             'arm' => floatval($visitArray['arm']),
                                             'thigh' => floatval($visitArray['thigh']),
                                             'chest' => floatval($visitArray['chest']),
                                             'hip' => floatval($visitArray['hip']),
-                                            'size' => floatval($visitArray['size']));
+                                            'size' => floatval($visitArray['size'])
+                ];
 
             }
             $params['visits_json'] = json_encode($params['visits']);
         }
 
-        return $this->render( '@AppSite/follow/visit.html.twig', array('params' => $params, 'form' => $form));
+        return $this->render( '@AppSite/follow/visit.html.twig', ['params' => $params, 'form' => $form]);
     }
 
     public function profilAction($userId = null)
@@ -145,7 +149,7 @@ class FollowController extends Controller
         $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
         $params['colorFatMass'] = $userHelper->getColorFatMass($user);
 
-        return $this->render( '@AppSite/follow/profil.html.twig', array('params' => $params));
+        return $this->render( '@AppSite/follow/profil.html.twig', ['params' => $params]);
     }
 
     public function changePasswordAction(Request $request)
@@ -162,7 +166,9 @@ class FollowController extends Controller
 
         $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
 
-        $form = $this->createForm($this->get('app.form.type.changepassword'), $user, array());
+        $form = $this->createForm(ChangePasswordType::class, $user, [
+            'invalid_message' => $this->get('translator')->trans('app.registration.validation.password.no.match')
+        ]);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -172,10 +178,10 @@ class FollowController extends Controller
                 if ($userHelper->update($user)) {
                     $this->get('session')->getFlashBag()->add(
                         'notice',
-                        array(
+                        [
                             'alert' => 'success',
                             'message' => $this->get('translator')->trans('app.change_password.success')
-                        )
+                        ]
                     );
                     unset($user);
 
@@ -184,7 +190,7 @@ class FollowController extends Controller
             }
         }
 
-        return $this->render( '@AppSite/follow/changepassword.html.twig', array('params' => $params, 'form' => $form->createView()));
+        return $this->render( '@AppSite/follow/changepassword.html.twig', ['params' => $params, 'form' => $form->createView()]);
     }
 
     public function rationsAction($userId = null)
@@ -202,7 +208,7 @@ class FollowController extends Controller
         $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
         $params['colorFatMass'] = $userHelper->getColorFatMass($user);
 
-        return $this->render( '@AppSite/follow/rations.html.twig', array('params' => $params));
+        return $this->render( '@AppSite/follow/rations.html.twig', ['params' => $params]);
     }
 
     public function AddVisitAction(Request $request)
@@ -213,9 +219,8 @@ class FollowController extends Controller
             'error_code' => 0
         ];
 
-        $form = $this->createForm($this->get('app.form.type.addvisit'), $visit, array());
+        $form = $this->createForm(VisitType::class, $visit);
         if ($request->getMethod() == 'POST') {
-            // Getting data
             $form->handleRequest($request);
             $user = null;
             try {
@@ -231,21 +236,12 @@ class FollowController extends Controller
             $userAdd->setId($visit->getUserId());
             $userHelper = $this->get('app.user_helper');
             $userHelper->update($userAdd, true);
-
-
-
             $visit->setVisitJson(base64_encode($visit->_toJson()));
-
             $em = $this->getDoctrine()->getManager();
-
-            // tells Doctrine you want to (eventually) save the Product (no queries yet)
             $em->persist($visit);
-
-            // actually executes the queries (i.e. the INSERT query)
             $em->flush();
-
             $userHelper->loadUserObjectByEzApiUser($userAdd, $visit->getUserId());
-            $result['data'] = array('date' => $visit->getDate()->format('d-m-Y'),
+            $result['data'] = ['date' => $visit->getDate()->format('d-m-Y'),
                                     'weight' => $visit->getWeight(),
                                     'massG' => $visit->getFatMass(),
                                     'colorFatMass' => $userHelper->getColorFatMass($userAdd),
@@ -254,7 +250,7 @@ class FollowController extends Controller
                                     'hip' => $visit->getHip(),
                                     'thigh' => $visit->getThigh(),
                                     'size' => $visit->getSize()
-                                    );
+                                ];
 
             return new JsonResponse($result);
         }
@@ -279,7 +275,7 @@ class FollowController extends Controller
 
         $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
 
-        $form = $this->createForm($this->get('app.form.type.editpatient'), $user, array());
+        $form = $this->createForm(EditPatientType::class, $user);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -289,10 +285,10 @@ class FollowController extends Controller
                 if ($userHelper->update($user, true)) {
                     $this->get('session')->getFlashBag()->add(
                         'notice',
-                        array(
+                        [
                             'alert' => 'success',
                             'message' => $this->get('translator')->trans('app.edit_patient.success')
-                        )
+                        ]
                     );
                     unset($user);
 
@@ -301,7 +297,7 @@ class FollowController extends Controller
             }
         }
 
-        return $this->render( '@AppSite/follow/editpatient.html.twig', array('params' => $params, 'form' => $form->createView()));
+        return $this->render( '@AppSite/follow/editpatient.html.twig', ['params' => $params, 'form' => $form->createView()]);
     }
 
     public function trainingAction($userId = null)
@@ -318,7 +314,7 @@ class FollowController extends Controller
         if($params['admin']) {
             $training = new Training();
             $training->setUserId($userId);
-            $form = $this->createForm($this->get('app.form.type.addtraining'), $training, array());
+            $form = $this->createForm(TrainingType::class, $training);
             $form = $form->createView();
         }
 
@@ -326,7 +322,6 @@ class FollowController extends Controller
         $userHelper  = $this->container->get('app.user_helper');
         $userHelper->loadUserObjectByEzApiUser($user, $params['user']->versionInfo->contentInfo->id);
         $params['colorFatMass'] = $userHelper->getColorFatMass($user);
-
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('AppSiteBundle:Training')
             ->createQueryBuilder('t')
@@ -336,47 +331,44 @@ class FollowController extends Controller
             ->addOrderBy('t.startTime', 'ASC')
             ->getQuery();
         $trainings = $query->getResult();
-        $params['trainings'] = array();
+        $params['trainings'] = [];
         $day = null;
         if(count($trainings) > 0 ) {
             foreach($trainings as $training) {
-                $params['trainings'][$training->intToDay()][] = array('dayString' => $training->intToDay(),
+                $params['trainings'][$training->intToDay()][] = ['dayString' => $training->intToDay(),
                                                   'dayInt' => intval($training->getDay()),
                                                   'activity' => $training->getActivity(),
                                                   'color' => $training->getColor(),
                                                   'startTime' => intval($training->getStartTime()),
                                                   'endTime' => intval($training->getEndTime()),
-                                                  'id' => $training->getId());
+                                                  'id' => $training->getId()
+                ];
 
             }
         }
 
-        return $this->render( '@AppSite/follow/training.html.twig', array('params' => $params, 'form' => $form));
+        return $this->render( '@AppSite/follow/training.html.twig', ['params' => $params, 'form' => $form]);
     }
 
     public function RemoveTrainingAction(Request $request)
     {
         $this->coreHelper = $this->container->get('app.core_helper');
-        $training = new Training();
         $result = [
             'error_code' => 0
         ];
 
         if ($request->getMethod() == 'POST') {
-
             $userId = intval($request->get('userId'));
             $activityId = intval($request->get('activityId'));
             $em = $this->getDoctrine()->getManager();
             $training = $em->getRepository('AppSiteBundle:Training')->find($activityId);
-
-
             if($training == null || $training != null && intval($training->getUserId()) != $userId) {
                 $this->get('session')->getFlashBag()->add(
                     'notice',
-                    array(
+                    [
                         'alert' => 'danger',
                         'message' => $this->get('translator')->trans('app.training_not_exist')
-                    )
+                    ]
                 );
 
                 return new JsonResponse($result);
@@ -385,10 +377,10 @@ class FollowController extends Controller
             $em->flush();
             $this->get('session')->getFlashBag()->add(
                 'notice',
-                array(
+                [
                     'alert' => 'success',
                     'message' => $this->get('translator')->trans('app.training_remove.success')
-                )
+                ]
             );
         }
 
@@ -402,50 +394,41 @@ class FollowController extends Controller
         $result = [
             'error_code' => 0
         ];
-
-        $form = $this->createForm($this->get('app.form.type.addtraining'), $training, array());
+        $form = $this->createForm(TrainingType::class, $training);
         if ($request->getMethod() == 'POST') {
-            // Getting data
             $form->handleRequest($request);
             $user = null;
             try {
-                $user = $this->coreHelper->getContentById($training->getUserId());
+                $this->coreHelper->getContentById($training->getUserId());
             } catch (\Exception $e) {
                 $result['error_code'] = 1;
                 $result['message'] = $this->get('translator')->trans('app.user_not_exist');
             }
-
             if($training->getStartTime() >= $training->getEndTime()) {
                 $result['error_code'] = 1;
                 $result['message'] = $this->get('translator')->trans('app.start_more_than_end');
 
                 return new JsonResponse($result);
             }
-
             $em = $this->getDoctrine()->getManager();
             $alreadyTraining = $em->getRepository('AppSiteBundle:Training')
                 ->getExistingTraining($training->getUserId(), $training->getDay(), $training->getStartTime(), $training->getEndTime());
-
             if(count($alreadyTraining) > 0) {
                 $result['error_code'] = 1;
                 $result['message'] = $this->get('translator')->trans('app.already_an_activity');
 
                 return new JsonResponse($result);
             }
-
-            // tells Doctrine you want to (eventually) save the Product (no queries yet)
             $em->persist($training);
-
-            // actually executes the queries (i.e. the INSERT query)
             $em->flush();
-
-            $result['data'] = array('dayString' => $training->intToDay(),
-                                    'dayInt' => $training->getDay(),
-                                    'activity' => $training->getActivity(),
-                                    'color' => $training->getColor(),
-                                    'startTime' => $training->getStartTime(),
-                                    'endTime' => $training->getEndTime(),
-                                    'id' => $training->getId());
+            $result['data'] = ['dayString' => $training->intToDay(),
+                                'dayInt' => $training->getDay(),
+                                'activity' => $training->getActivity(),
+                                'color' => $training->getColor(),
+                                'startTime' => $training->getStartTime(),
+                                'endTime' => $training->getEndTime(),
+                                'id' => $training->getId()
+            ];
 
         }
 
@@ -462,7 +445,7 @@ class FollowController extends Controller
     {
         $securityContext = $this->container->get('security.authorization_checker');
         if (!$securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return array('error' => true, 'response' => new RedirectResponse($this->container->get('router')->generate('login')));
+            return ['error' => true, 'response' => new RedirectResponse($this->container->get('router')->generate('login'))];
         }
         $user = $this->get('security.context')->getToken()->getUser()->getAPIUser();
         $params['error'] = false;

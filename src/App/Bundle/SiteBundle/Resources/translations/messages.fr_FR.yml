@@ -30,3 +30,11 @@ app.already_an_activity: Une activité existe déjà pour ce jour et horaire là
 app.start_more_than_end: Problème l'heure de début est supérieur ou égale à l'heure de fin.
 app.training_not_exist: Problème avec l'activité que vous essayez de supprimer.
 app.training_remove.success: Activité supprimée
+app.form.name: Nom
+app.form.email: Email
+app.form.first_check: Premier bilan
+app.form.follow: Suivi diététique
+app.form.forfait: Forfaits diététiques
+app.form.pack: Pack mov.idiet
+app.form.other: Autre
+app.form.your_msg: Votre message

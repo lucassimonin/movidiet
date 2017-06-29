@@ -1,4 +1,8 @@
 parameters:
+    app.core_helper.class: App\Bundle\SiteBundle\Helper\CoreHelper
+    app.criteria_helper.class: App\Bundle\SiteBundle\Helper\CriteriaHelper
+    app.user_helper.class: App\Bundle\SiteBundle\Helper\UserHelper
+    app.login.controller.class: App\Bundle\SiteBundle\Controller\LoginController
     app.blog.locationid: 63
     app.formules.locationid: 64
     app.contacts.locationid: 72

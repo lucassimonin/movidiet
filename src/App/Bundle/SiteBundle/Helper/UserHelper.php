@@ -223,7 +223,9 @@ class UserHelper
         $user->setHeight((string) $userStruct->getFieldValue('height'));
         $user->setFatMass(floatval((string) $userStruct->getFieldValue('fat_mass')));
         $coreHelper = $this->container->get('app.core_helper');
-        $user->setSex($coreHelper->getValueFromEzSelectionKey('user', 'sex', $userStruct->getFieldValue('sex')->selection[0]));
+        if(!empty($userStruct->getFieldValue('sex')->selection)) {
+            $user->setSex($coreHelper->getValueFromEzSelectionKey('user', 'sex', $userStruct->getFieldValue('sex')->selection[0]));
+        }
     }
 
     private function generateRandomLogin($email)

@@ -1,5 +1,6 @@
 contact-form-ajax:
     path: /add-contact
+    methods: [POST]
     defaults: { _controller: AppSiteBundle:Home:contactForm }
 
 follow-index:

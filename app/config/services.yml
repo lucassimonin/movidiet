@@ -1,0 +1,13 @@
+services:
+    app.core_helper:
+             class: "%app.core_helper.class%"
+             arguments: ["@ezpublish.api.repository", "@service_container"]
+    app.user_helper:
+             class: "%app.user_helper.class%"
+             arguments: ["@ezpublish.api.repository", "@service_container"]
+    app.criteria_helper:
+            class: "%app.criteria_helper.class%"
+            arguments: ["@ezpublish.siteaccess"]
+    app.security.controller:
+            class: "%app.login.controller.class%"
+            arguments: ["@templating", "@ezpublish.config.resolver", "@security.authentication_utils", "@service_container"]

@@ -74,41 +74,41 @@ var addLineInNextAgenda = function(data, last) {
 }
 
 var resetVisitForm = function () {
-    $("#add_visit_weight").removeClass("has-error");
-    $("#add_visit_fatMass").removeClass("has-error");
-    $("#add_visit_arm").removeClass("has-error");
-    $("#add_visit_thigh").removeClass("has-error");
-    $("#add_visit_chest").removeClass("has-error");
-    $("#add_visit_hip").removeClass("has-error");
-    $("#add_visit_size").removeClass("has-error");
-    $("#add_visit_date").removeClass("has-error");
+    $("#visit_weight").removeClass("has-error");
+    $("#visit_fatMass").removeClass("has-error");
+    $("#visit_arm").removeClass("has-error");
+    $("#visit_thigh").removeClass("has-error");
+    $("#visit_chest").removeClass("has-error");
+    $("#visit_hip").removeClass("has-error");
+    $("#visit_size").removeClass("has-error");
+    $("#visit_date").removeClass("has-error");
 }
 
 var resetValueVisitForm = function () {
-    $("#add_visit_weight").val("");
-    $("#add_visit_fatMass").val("");
-    $("#add_visit_arm").val("");
-    $("#add_visit_thigh").val("");
-    $("#add_visit_chest").val("");
-    $("#add_visit_hip").val("");
-    $("#add_visit_size").val("");
-    $("#add_visit_date").val("");
+    $("#visit_weight").val("");
+    $("#visit_fatMass").val("");
+    $("#visit_arm").val("");
+    $("#visit_thigh").val("");
+    $("#visit_chest").val("");
+    $("#visit_hip").val("");
+    $("#visit_size").val("");
+    $("#visit_date").val("");
 }
 
 var resetTrainingForm = function () {
-    $("#add_training_activity").removeClass("has-error");
-    $("#add_training_color").removeClass("has-error");
+    $("#training_activity").removeClass("has-error");
+    $("#training_color").removeClass("has-error");
 }
 
 var resetValueTrainingForm = function () {
-    $("#add_training_activity").val("");
-    $("#add_training_color").val("");
+    $("#training_activity").val("");
+    $("#training_color").val("");
 }
 
 $( document ).ready(function() {
 
-    if($("#add_visit_date").length) {
-        $("#add_visit_date").datepicker({
+    if($("#visit_date").length) {
+        $("#visit_date").datepicker({
             format: "dd-mm-yyyy"
         });
     }
@@ -138,56 +138,53 @@ $( document ).ready(function() {
             var errors = 0;
             resetVisitForm();
 
-            if (!$("#add_visit_weight").val()) {
-                $("#add_visit_weight").addClass("has-error");
+            if (!$("#visit_weight").val()) {
+                $("#visit_weight").addClass("has-error");
                 errors++;
             }
-            if (!$("#add_visit_fatMass").val()) {
-                $("#add_visit_fatMass").addClass("has-error");
+            if (!$("#visit_fatMass").val()) {
+                $("#visit_fatMass").addClass("has-error");
                 errors++;
             }
-            if (!$("#add_visit_arm").val()) {
-                $("#add_visit_arm").addClass("has-error");
+            if (!$("#visit_arm").val()) {
+                $("#visit_arm").addClass("has-error");
                 errors++;
             }
-            if (!$("#add_visit_thigh").val()) {
-                $("#add_visit_thigh").addClass("has-error");
+            if (!$("#visit_thigh").val()) {
+                $("#visit_thigh").addClass("has-error");
                 errors++;
             }
-            if (!$("#add_visit_chest").val()) {
-                $("#add_visit_chest").addClass("has-error");
+            if (!$("#visit_chest").val()) {
+                $("#visit_chest").addClass("has-error");
                 errors++;
             }
-            if (!$("#add_visit_hip").val()) {
-                $("#add_visit_hip").addClass("has-error");
+            if (!$("#visit_hip").val()) {
+                $("#visit_hip").addClass("has-error");
                 errors++;
             }
-            if (!$("#add_visit_size").val()) {
-                $("#add_visit_size").addClass("has-error");
+            if (!$("#visit_size").val()) {
+                $("#visit_size").addClass("has-error");
                 errors++;
             }
-            if (!$("#add_visit_date").val()) {
-                $("#add_visit_date").addClass("has-error");
+            if (!$("#visit_date").val()) {
+                $("#visit_date").addClass("has-error");
                 errors++;
             }
 
             if (errors === 0) {
-                var formData = new FormData($(this)[0]);
-                $("#add_visit_save").addClass("hidden");
+                $("#visit_save").addClass("hidden");
                 var spinner = new Spinner().spin();
                 $("#spinner-modal").append(spinner.el);
                 $(".overlaymodal").show();
 
                 $.ajax({
                     url: "/add-visit",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false
+                    method: "POST",
+                    data: $("#addvisit").serialize()
                 }).done(function (data) {
                     $(".overlaymodal").hide();
                     $("#spinner-modal").html("");
-                    $("#add_visit_save").removeClass("hidden");
+                    $("#visit_save").removeClass("hidden");
                     if (data.error_code === 0) {
                         var dataSet = [data.data.arm, data.data.chest, data.data.size, data.data.hip, data.data.thigh];
                         $(".msg_error").html("").hide();
@@ -229,32 +226,29 @@ $( document ).ready(function() {
             e.preventDefault();
             var errors = 0;
             resetTrainingForm();
-            if (!$("#add_training_activity").val()) {
-                $("#add_training_activity").addClass("has-error");
+            if (!$("#training_activity").val()) {
+                $("#training_activity").addClass("has-error");
                 errors++;
             }
-            if (!$("#add_training_color").val()) {
-                $("#add_training_color").addClass("has-error");
+            if (!$("#training_color").val()) {
+                $("#training_color").addClass("has-error");
                 errors++;
             }
 
             if (errors === 0) {
-                var formData = new FormData($(this)[0]);
-                $("#add_training_save").addClass("hidden");
+                $("#training_save").addClass("hidden");
                 var spinner = new Spinner().spin();
                 $("#spinner-modal").append(spinner.el);
                 $(".overlaymodal").show();
 
                 $.ajax({
                     url: "/add-training",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false
+                    method: "POST",
+                    data: $("#addtraining").serialize()
                 }).done(function (data) {
                     $(".overlaymodal").hide();
                     $("#spinner-modal").html("");
-                    $("#add_training_save").removeClass("hidden");
+                    $("#training_save").removeClass("hidden");
                     if (data.error_code === 0) {
                         resetValueTrainingForm();
                         var objectBefore = null;

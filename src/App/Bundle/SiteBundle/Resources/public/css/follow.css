@@ -508,13 +508,13 @@ body {
     padding-left: 0;
 }
 
-#add_training_startTime, #add_training_endTime {
+#training_startTime, #training_endTime {
     box-shadow: none;
     height: 50px;
     padding-left: 0;
 }
 
-#add_training_startTime select, #add_training_endTime select {
+#training_startTime select, #training_endTime select {
    border:1px solid #333;
 }
 

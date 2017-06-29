@@ -8,11 +8,15 @@
 namespace App\Bundle\SiteBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\Translator;
-use eZ\Publish\API\Repository\Repository;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * AddPatientType Class.
@@ -21,21 +25,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class AddPatientType extends AbstractType
 {
-
-    protected $translator;
-    protected $repository;
-
-    /**
-     * Constructor
-     * @param Translator $translator
-     * @param Repository $repository
-     */
-    public function __construct(Translator $translator, Repository $repository)
-    {
-        $this->translator = $translator;
-        $this->repository = $repository;
-
-    }
     /**
      * Build form.
      *
@@ -47,11 +36,11 @@ class AddPatientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', 'text')
-            ->add('lastName', 'text')
-            ->add('account', 'text')
-            ->add('email', 'email')
-            ->add('birthday', 'date', array(
+            ->add('firstName', TextType::class)
+            ->add('lastName', TextType::class)
+            ->add('account', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('birthday', DateType::class, array(
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
 
@@ -63,14 +52,14 @@ class AddPatientType extends AbstractType
                     'class' => 'datepicker inputmov form-control'
                 ]
             ))
-            ->add('image', 'file', array('required' => false))
-            ->add('street', 'text')
-            ->add('country', 'text')
-            ->add('phone', 'text')
-            ->add('postalCode', 'text')
-            ->add('city', 'text')
-            ->add('height', 'text')
-            ->add('formule', 'choice', array(
+            ->add('image', FileType::class, array('required' => false))
+            ->add('street', TextType::class)
+            ->add('country', TextType::class)
+            ->add('phone', TextType::class)
+            ->add('postalCode', TextType::class)
+            ->add('city', TextType::class)
+            ->add('height', TextType::class)
+            ->add('formule', ChoiceType::class, array(
                 'choices' => array(
                     'Suivi diététique',
                     'Forfaits diététiques',
@@ -78,38 +67,21 @@ class AddPatientType extends AbstractType
                 ),
                 'required' => true
             ))
-            ->add('sex', 'choice', array(
+            ->add('sex', ChoiceType::class, array(
                 'choices' => array(
                     'Homme',
                     'Femme',
                 ),
                 'required' => true
             ))
-            ->add('password', 'repeated', [ 'type' => 'password', 'invalid_message' => $this->translator->trans('app.registration.validation.password.no.match') ])
-            ->add('save', 'submit');
+            ->add('password', RepeatedType::class, [ 'type' => 'password', 'invalid_message' => $options['invalid_message'] ])
+            ->add('save', SubmitType::class);
     }
 
-    /**
-     * Return registration form name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return 'add_patient';
-    }
-
-    /**
-     * ConfigureOptions, gets data registration class.
-     *
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'App\Bundle\SiteBundle\Entity\User'
-            )
-        );
+        $resolver->setDefaults([
+            'invalid_message' => null
+        ]);
     }
 }
