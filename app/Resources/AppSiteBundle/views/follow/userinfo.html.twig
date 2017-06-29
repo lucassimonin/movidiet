@@ -11,20 +11,20 @@
     <div class="data-patient box-user">
         <div class="circleBlock">
             <div class="numberCircle circleGreen">
-                <span>Poids</span><br>
+                <span>{{ 'app.visit.weight'|trans }}</span><br>
                 <strong class="weightUser">{{ ez_field_value(params.user, 'weight') }}</strong>Kg
 
             </div>
         </div>
         <div class="circleBlock">
             <div id="color-fat" class="numberCircle {{ params.colorFatMass }}">
-                <span>Mass. G</span><br>
+                <span>{{ 'app.visit.mass_g'|trans }}</span><br>
                 <strong class="massGUser">{{ ez_field_value(params.user, 'fat_mass') }}</strong>%
             </div>
         </div>
         <div class="circleBlock">
             <div class="numberCircle circleBlue">
-                <span>Taille</span><br>
+                <span>{{ 'app.visit.weight'|trans }}</span><br>
                 <strong class="sizeUser">{{ ez_field_value(params.user, 'height') }}</strong>Cm
             </div>
         </div>

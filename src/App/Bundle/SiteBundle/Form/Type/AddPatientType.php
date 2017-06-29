@@ -52,28 +52,28 @@ class AddPatientType extends AbstractType
                     'class' => 'datepicker inputmov form-control'
                 ]
             ))
-            ->add('image', FileType::class, array('required' => false))
+            ->add('image', FileType::class, ['required' => false])
             ->add('street', TextType::class)
             ->add('country', TextType::class)
             ->add('phone', TextType::class)
             ->add('postalCode', TextType::class)
             ->add('city', TextType::class)
             ->add('height', TextType::class)
-            ->add('formule', ChoiceType::class, array(
-                'choices' => array(
-                    'Suivi diététique',
-                    'Forfaits diététiques',
-                    'Pack mov.idiet'
-                ),
+            ->add('formule', ChoiceType::class, [
+                'choices' => [
+                    'app.form.follow',
+                    'app.form.forfait',
+                    'app.form.pack'
+                ],
                 'required' => true
-            ))
-            ->add('sex', ChoiceType::class, array(
-                'choices' => array(
-                    'Homme',
-                    'Femme',
-                ),
+            ])
+            ->add('sex', ChoiceType::class, [
+                'choices' => [
+                    'app.patient.man',
+                    'app.patient.woman',
+                ],
                 'required' => true
-            ))
+            ])
             ->add('password', RepeatedType::class, [ 'type' => 'password', 'invalid_message' => $options['invalid_message'] ])
             ->add('save', SubmitType::class);
     }

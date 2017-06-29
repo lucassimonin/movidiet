@@ -3,19 +3,20 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-6">
-                <input type="text" id="search" class="inputmov search form-control" name="search" value="" autocomplete="off" placeholder="{{ 'Rechercher'|trans }}" />
+                <input type="text" id="search" class="inputmov search form-control" name="search" value="" autocomplete="off" placeholder="{{ 'app.search'|trans }}" />
             </div>
             <div class="col-xs-6">
-                <a href="{{ path('follow-addpatient') }}" class="btn btn-add"><i class="fa fa-plus" aria-hidden="true"></i>{{ 'Ajouter patient'|trans }}</a>
+                <a href="{{ path('follow-addpatient') }}" class="btn btn-add"><i class="fa fa-plus" aria-hidden="true"></i>{{ 'app.add_patient'|trans }}</a>
             </div>
             <div class="col-xs-12">
                 <div class="table-responsive">
                     <table id="patients" class="table" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>Nom</th>
-                            <th>Email</th>
-                            <th>Téléphone</th>
+                            <th>{{ 'app.form.name'|trans }}</th>
+                            <th>{{ 'app.form.email'|trans }}</th>
+                            <th>{{ 'app.form.phone'|trans }}</th>
+                            <th>{{ 'app.form.action'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -25,10 +26,11 @@
                                         <td>{{ ez_render_field(user, 'first_name') }} {{ ez_render_field(user, 'last_name') }}</td>
                                         <td>{{ ez_field_value(user, 'user_account').email }}</td>
                                         <td>{{ ez_render_field(user, 'phone') }}</td>
+                                        <td><a href="#">{{ 'app.disabled'|trans }}</a></td>
                                     </tr>
                                 {% endfor %}
                             {% else %}
-                                <tr><td colspan="4">Pas de patient à afficher.</td></tr>
+                                <tr><td colspan="4">{{ 'app.no_patient'|trans }}</td></tr>
                             {% endif %}
                         </tbody>
                     </table>

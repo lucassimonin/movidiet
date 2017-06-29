@@ -1,0 +1,132 @@
+app.global.title: 'Mov.i<span class="green">Diet</span>'
+app.global.meta_title: Mov.iDiet
+app.title.program: Programme
+app.title.coach: Coach
+app.title.formule: Formules
+app.title.blog: Blog
+app.title.contact: Contact
+app.subtitle.program: Le programme Mov.iDiet
+app.subtitle.coach: Votre coach
+app.subtitle.formule: Des programmes adaptés à vos besoins
+app.subtitle.formule_two: Nos Formules
+app.formule.btn: me contacter
+app.subtitle.blog: Le blog
+app.blog.btn.article: Lire l'article
+app.blog.btn.all_article: Voir tous les articles
+app.subtitle.contact: Contactez moi
+app.devis: Devis gratuit sur demande
+app.start_to: à partir de
+app.sporttitle: Sport
+app.recipetitle: Recette
+app.diettitle: Nutrition
+app.change_password.title: Changer mot de passe
+app.registration.validation.password.no.match: Les mots de passe saisis ne correspondent pas
+app.change_password.success: Mot de passe modifié
+app.user_not_exist: Ce patient n'existe pas
+app.no_data: Aucune donnée à afficher.
+app.create_user.success: Patient créé
+app.edit_patient.success: Modifications effectuées
+app.already_an_activity: Une activité existe déjà pour ce jour et horaire là.
+app.start_more_than_end: Problème l'heure de début est supérieur ou égale à l'heure de fin.
+app.training_not_exist: Problème avec l'activité que vous essayez de supprimer.
+app.training_remove.success: Activité supprimée
+app.form.name: Nom
+app.form.email: Email
+app.form.phone: Téléphone
+app.form.first_check: Premier bilan
+app.form.follow: Suivi diététique
+app.form.forfait: Forfaits diététiques
+app.form.pack: Pack mov.idiet
+app.form.other: Autre
+app.form.your_msg: Votre message
+app.form.action: Action
+app.search: Rechercher
+app.add_patient: Ajouter patient
+app.no_patient: Pas de patient à afficher.
+app.disabled: Désactiver
+app.send: Envoyer
+app.legale: Mentions légales
+app.save: Sauvegarder
+app.member_space: Espace membre
+app.follow: Suivi
+app.patients: Patients
+app.profile: Profil
+app.rations: Rations
+app.training_plan: Plan d'entrainement
+app.contact: Contact
+app.change_pswd: Changer mot de passe
+app.disconnect: Déconnexion
+app.add_visit: Ajouter une visite
+app.new_visit: Nouvelle visite
+app.visit.weight: Poids
+app.visit.mass_g: Mass. G
+app.visit.weight: Taille
+app.visit.mesure: Mesures
+app.visit.date: Date
+app.visit.arm: Bras
+app.visit.thigh: Cuisses
+app.visit.chest: Poitrine
+app.visit.size: Taille
+app.visit.hip: Hanches
+app.visit.mesure_arm: Mesure bras
+app.visit.mesure_thigh: Mesure cuisses
+app.visit.mesure_chest: Mesure poitrine
+app.visit.mesure_size: Mesure taille
+app.visit.mesure_hip: Mesure hanches
+app.patient.update: Modifier profil
+app.patient.info: Informations personnelles
+app.patient.other_info: Autres informations
+app.patient.photo: Photo
+app.patient.name.label: Nom
+app.patient.name.placeholder: Durant
+app.patient.firstname.label: Prénom
+app.patient.firstname.placeholder: Laurent
+app.patient.birthday.label: Date de naissance
+app.patient.phone.label: Téléphone
+app.patient.phone.placeholder: 04XXXXXXXX
+app.patient.street.label: Rue
+app.patient.street.placeholder: Rue
+app.patient.postal.label: Code postale
+app.patient.postal.placeholder: 34000
+app.patient.city.label: Ville
+app.patient.city.placeholder: Montpellier...
+app.patient.country.label: Pays
+app.patient.country.placeholder: France...
+app.patient.email.label: Email
+app.patient.adress.label: Adresse
+app.patient.email.placeholder: exemple@domaine.com
+app.patient.account.label: Compte
+app.patient.pswd.label: Mot de passe
+app.patient.repswd.label: Confirmer le mot de passe
+app.patient.sex.label: Sexe
+app.patient.formule.label: Formule
+app.patient.height.label: Taille (Cm)
+app.patient.man: Homme
+app.patient.woman: Femme
+app.monday: Lundi
+app.tuesday: Mardi
+app.wednesday: Mercredi
+app.thursday: Jeudi
+app.friday: Vendredi
+app.saturday: Samedi
+app.sunday: Dimanche
+app.delete: Supprimer
+app.cancel: Annuler
+app.yes: Oui
+app.download: Télécharger votre livret
+app.ration_day: Rations journalière
+app.training.my_training: Mon entrainement
+app.training.add_activity: Ajouter une activité
+app.training.new_activity: Nouvelle activité
+app.training.time: Horaire
+app.training.activity: Activité
+app.training.delete_activity: Supprimer activité
+app.training.question_activity: Voulez vous supprimer cette activité ?
+app.training.day: Jour
+app.training.start_activity: Début d'activité
+app.training.end_activity: Fin d'activité
+app.training.color: Coleur (Hexadécimal)
+
+
+
+

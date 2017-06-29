@@ -8,6 +8,11 @@
 namespace App\Bundle\SiteBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\Translator;
@@ -31,22 +36,22 @@ class EditPatientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', 'text')
-            ->add('lastName', 'text')
-            ->add('email', 'email')
-            ->add('image', 'file', array('required' => false))
-            ->add('street', 'text')
-            ->add('country', 'text')
-            ->add('phone', 'text')
-            ->add('postalCode', 'text')
-            ->add('city', 'text')
-            ->add('sex', 'choice', array(
-                'choices' => array(
-                    'Homme',
-                    'Femme',
-                ),
+            ->add('firstName', TextType::class)
+            ->add('lastName', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('image', FileType::class, ['required' => false])
+            ->add('street', TextType::class)
+            ->add('country', TextType::class)
+            ->add('phone', TextType::class)
+            ->add('postalCode', TextType::class)
+            ->add('city', TextType::class)
+            ->add('sex', ChoiceType::class, [
+                'choices' => [
+                    'app.patient.man',
+                    'app.patient.woman',
+                ],
                 'required' => true
-            ))
-            ->add('save', 'submit');
+            ])
+            ->add('save', SubmitType::class);
     }
 }

@@ -26,32 +26,32 @@
                 <li>
                     <a href="{{ path('follow-index') }}">
                         <i class="fa fa-users" aria-hidden="true"></i>
-                        Patients
+                        {{ 'app.patients'|trans }}
                     </a>
                 </li>
                 {% if params.user is defined and params.no_menu is not defined  %}
                     <li>
                         <a href="{{ path('follow-profil', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                             <i class="fa fa-id-card" aria-hidden="true"></i>
-                            Profil
+                            {{ 'app.profile'|trans }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('follow-visit', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                             <i class="fa fa-area-chart" aria-hidden="true"></i>
-                            Suivi
+                            {{ 'app.follow'|trans }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('follow-rations', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                             <i class="fa fa-cutlery" aria-hidden="true"></i>
-                            Rations
+                            {{ 'app.rations'|trans }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('follow-training', {'userId': params.user.versionInfo.contentInfo.id}) }}">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
-                            Plan d'entrainement
+                            {{ 'app.training_plan'|trans }}
                         </a>
                     </li>
                 {% endif %}
@@ -59,52 +59,49 @@
                 <li>
                     <a href="{{ path('follow-profil-patient') }}">
                         <i class="fa fa-id-card" aria-hidden="true"></i>
-                        Profil
+                        {{ 'app.profile'|trans }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ path('follow-visit-patient') }}">
                         <i class="fa fa-area-chart" aria-hidden="true"></i>
-                        Suivi
+                        {{ 'app.follow'|trans }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ path('follow-rations-patient') }}">
                         <i class="fa fa-cutlery" aria-hidden="true"></i>
-                        Rations
+                        {{ 'app.rations'|trans }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ path('follow-training-patient') }}">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                        Plan d'entrainement
+                        {{ 'app.training_plan'|trans }}
                     </a>
                 </li>
                 <li>
                     <a href="mailto:{{ params.contact }}">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
-                        Contact
+                        {{ 'app.contact'|trans }}
                     </a>
                 </li>
             {% endif %}
             <li>
                 <a href="{{ path('follow-change-password') }}">
                     <i class="fa fa-key" aria-hidden="true"></i>
-                    Changer mot de passe
+                    {{ 'app.change_pswd'|trans }}
                 </a>
             </li>
             <li>
                 <a href="{{ path('logout') }}">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    Déconnexion
+                    {{ 'app.disconnect'|trans }}
                 </a>
             </li>
         </ul>
     </div>
     <div id="mask" class="mask"></div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
     <div id="page-content-wrapper">
         {% block body %}
         {% endblock %}

@@ -30,26 +30,26 @@ class TrainingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('day', ChoiceType::class, array(
-                'choices' => array(
-                    'Lundi',
-                    'Mardi',
-                    'Mercredi',
-                    'Jeudi',
-                    'Vendredi',
-                    'Samedi',
-                    'Dimanche'
-                ),
+            ->add('day', ChoiceType::class, [
+                'choices' => [
+                    'app.monday',
+                    'app.tuesday',
+                    'app.wednesday',
+                    'app.thursday',
+                    'app.friday',
+                    'app.saturday',
+                    'app.sunday'
+                ],
                 'required' => true
-            ))
-            ->add('startTime', TimeType::class, array(
+            ])
+            ->add('startTime', TimeType::class, [
                 'input'  => 'timestamp',
                 'widget' => 'choice',
-            ))
-            ->add('endTime', TimeType::class, array(
+            ])
+            ->add('endTime', TimeType::class, [
                 'input'  => 'timestamp',
                 'widget' => 'choice',
-            ))
+            ])
             ->add('userId', TextType::class)
             ->add('activity', TextType::class)
             ->add('color', TextType::class)

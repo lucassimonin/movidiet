@@ -1,0 +1,93 @@
+{% extends "AppSiteBundle::follow/common.html.twig" %}
+{% block class_section %}bg-white{% endblock %}
+{% block body %}
+
+    <div class="container">
+        {{ form_start( form, { 'attr': {'id': 'addpatient'}} ) }}
+        <div class="row">
+
+            <div class="col-sm-6 col-md-6">
+                    {% form_theme form 'AppSiteBundle::form/form_theme.html.twig' %}
+
+                    {{ form_row( form.image, {
+                        'label': 'app.patient.photo',
+                        'attr': {'class': ' form-control' }
+                    } ) }}
+                    <div class="row">
+                    {{ form_row( form.firstName, {
+                        'label': 'app.patient.firstname.label',
+                        'attr': {'placeholder': 'app.patient.firstname.placeholder', 'classBlock': 'col-sm-6', 'class': 'inputmov form-control' }
+                    } ) }}
+                    {{ form_row( form.lastName, {
+                        'label': 'app.patient.name.label',
+                        'attr': {'placeholder': 'app.patient.name.placeholder', 'classBlock': 'col-sm-6', 'class': 'inputmov form-control' }
+                    } ) }}
+                    </div>
+
+                    {{ form_row( form.birthday, {
+                        'label': 'app.patient.birthday.label'
+                    } ) }}
+                    {{ form_row( form.phone, {
+                        'label': 'app.patient.phone.label',
+                        'attr': {'placeholder': 'app.patient.phone.placeholder', 'class': 'inputmov form-control' }
+                    } ) }}
+                    {{ form_row( form.street, {
+                        'label': 'app.patient.street.label',
+                        'attr': {'placeholder': 'app.patient.street.placeholder', 'class': 'inputmov form-control' }
+                    } ) }}
+                    <div class="row">
+                    {{ form_row( form.postalCode, {
+                        'label': 'app.patient.postal.label',
+                        'attr': {'placeholder': 'app.patient.postal.placeholder', 'classBlock': 'col-sm-4', 'class': 'inputmov form-control' }
+                    } ) }}
+                    {{ form_row( form.city, {
+                        'label': 'app.patient.city.label',
+                        'attr': {'placeholder': 'app.patient.city.placeholder', 'classBlock': 'col-sm-8', 'class': 'inputmov form-control' }
+                    } ) }}
+                    </div>
+                    {{ form_row( form.country, {
+                        'label': 'app.patient.country.label',
+                        'attr': {'placeholder': 'app.patient.country.placeholder', 'class': 'inputmov form-control' }
+                    } ) }}
+             </div>
+            <div class="col-sm-6 col-md-6">
+                {{ form_row( form.email, {
+                    'label': 'app.patient.email.label',
+                    'attr': {'placeholder': 'app.patient.email.placeholder', 'class': 'inputmov form-control' }
+                } ) }}
+                {{ form_row( form.account, {
+                    'label': 'app.patient.account.label',
+                    'attr': {'class': 'inputmov form-control' }
+                } ) }}
+                {{ form_row( form.password.first, {
+                    'label': 'app.patient.pswd.label',
+                    'attr': {'class': 'inputmov form-control' }
+                } ) }}
+
+                {{ form_row( form.password.second, {
+                    'label': 'app.patient.repswd.label',
+                    'attr': {'class': 'inputmov form-control' }
+                } ) }}
+                {{ form_row( form.formule, {
+                    'label': 'app.patient.formule.label',
+                    'attr': {'class': 'inputmov form-control' }
+                } ) }}
+                {{ form_row( form.sex, {
+                    'label': 'app.patient.sex.label',
+                    'attr': {'class': 'inputmov form-control' }
+                } ) }}
+                {{ form_row( form.height, {
+                    'label': 'app.patient.height.label',
+                    'attr': {'class': 'inputmov form-control' }
+                } ) }}
+            </div>
+        </div>
+        <div class="text-center">
+            {{ form_row( form.save, {
+                'label': "app.save",
+                'attr': { 'class': 'btn btn-login' }
+            } ) }}
+        </div>
+        {{ form_end( form ) }}
+    </div>
+{% endblock %}

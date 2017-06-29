@@ -35,5 +35,81 @@ _multiFileUpload:
     resource: "@EzSystemsMultiFileUploadBundle/Resources/config/routing.yml"
     prefix:   "%ezpublish_rest.path_prefix%"
 
-my_route:
-    resource: "@AppSiteBundle/Resources/config/routing.yml"
+contact-form-ajax:
+    path: /add-contact
+    methods: [POST]
+    defaults: { _controller: AppSiteBundle:Home:contactForm }
+
+follow-index:
+    path: /followindex
+    defaults: { _controller: AppSiteBundle:Follow:index }
+
+follow-visit-patient:
+    path: /visit
+    defaults: { _controller: AppSiteBundle:Follow:visit }
+
+follow-visit:
+    path: /visit-patient/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:visit }
+
+follow-profil-patient:
+    path: /profil
+    defaults: { _controller: AppSiteBundle:Follow:profil }
+
+follow-profil:
+    path: /profil-patient/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:profil }
+
+follow-addpatient:
+    path: /addpatient
+    defaults: { _controller: AppSiteBundle:Follow:addPatient }
+
+follow-change-password:
+    path: /changepassword
+    defaults: { _controller: AppSiteBundle:Follow:changePassword }
+
+follow-rations-patient:
+    path: /ration
+    defaults: { _controller: AppSiteBundle:Follow:rations }
+
+follow-rations:
+    path: /ration-patient/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:rations }
+
+follow-training-patient:
+    path: /traning
+    defaults: { _controller: AppSiteBundle:Follow:training }
+
+follow-training:
+    path: /traning-patient/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:training }
+
+add-visit:
+    path: /add-visit
+    defaults: { _controller: AppSiteBundle:Follow:AddVisit}
+    methods:  [POST]
+
+add-training:
+    path: /add-training
+    defaults: { _controller: AppSiteBundle:Follow:AddTraining}
+    methods:  [POST]
+
+remove-training:
+    path: /remove-training
+    defaults: { _controller: AppSiteBundle:Follow:RemoveTraining}
+    methods:  [POST]
+
+edit-profil-patient:
+    path: /edit-profil
+    defaults: { _controller: AppSiteBundle:Follow:editProfil }
+
+edit-profil:
+    path: /edit-profil/{userId}
+    defaults: { _controller: AppSiteBundle:Follow:editProfil }
+
+condition-general:
+    path: /conditions-generales
+    methods: [GET]
+    defaults:
+        _controller: AppSiteBundle:Home:conditionsGenerales
+

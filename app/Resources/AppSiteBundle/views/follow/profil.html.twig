@@ -1,0 +1,41 @@
+{% extends "AppSiteBundle::follow/common.html.twig" %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% include 'AppSiteBundle::follow/userinfo.html.twig' %}
+            <div class="pull-right">
+                <a href="{% if params.admin %}{{ path('edit-profil', {'userId': params.user.versionInfo.contentInfo.id}) }}{% else %}{{ path('edit-profil-patient') }}{% endif %}" class="btn btn-download" >
+                    {{ 'app.patient.update'|trans }}
+                </a>
+            </div>
+            <div class="col-lg-12 panel-visit panel-basic">
+                <div class="col-lg-6">
+                    <h3>{{ 'app.patient.info'|trans }}</h3>
+                    <label>{{ 'app.patient.email.label'|trans }}:</label>
+                    <div>{{ ez_field_value(params.user, 'user_account').email }}</div>
+                    <label>{{ 'app.patient.sex.label'|trans }}:</label>
+                    <div>{{ ez_render_field(params.user, 'sex') }}</div>
+                    <label>{{ 'app.patient.birthday.label'|trans }}:</label>
+                    <div>{{ ez_render_field(params.user, 'birthday_date') }}</div>
+                    <label>{{ 'app.patient.adress.label'|trans }}:</label>
+                    <div>{{ ez_render_field(params.user, 'street') }}</div>
+                    <label>{{ 'app.patient.phone.label'|trans }}:</label>
+                    <div>{{ ez_render_field(params.user, 'phone') }}</div>
+                    <label>{{ 'app.patient.postal.label'|trans }}:</label>
+                    <div>{{ ez_render_field(params.user, 'postal_code') }}</div>
+                    <label>{{ 'app.patient.city.label'|trans }}:</label>
+                    <div>{{ ez_render_field(params.user, 'city') }}</div>
+                    <label>{{ 'app.patient.country.label'|trans }}:</label>
+                    <div>{{ ez_render_field(params.user, 'country') }}</div>
+                </div>
+                <div class="col-lg-6">
+                    <h3>{{ 'app.patient.other_info'|trans }}</h3>
+                    <label>{{ 'app.patient.formule.label'|trans }}:</label>
+                    <div>{{ ez_render_field(params.user, 'formule') }}</div>
+                    <label>{{ 'app.patient.account.label'|trans }}:</label>
+                    <div>{{ ez_field_value(params.user, 'user_account').login }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

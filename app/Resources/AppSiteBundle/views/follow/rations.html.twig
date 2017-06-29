@@ -7,11 +7,11 @@
                 {% if not ez_is_field_empty(params.user, 'pdf_ration') %}
                     <div class="pull-right">
                         {% set route_reference = ez_route( 'ez_content_download', { 'content': params.user, 'fieldIdentifier': 'pdf_ration' } ) %}
-                        <a href="{{ path( route_reference ) }}" class="btn btn-download">Télécharger votre livret</a>
+                        <a href="{{ path( route_reference ) }}" class="btn btn-download">{{ 'app.download'|trans }}</a>
                     </div>
                 {% endif %}
                  {% if not ez_is_field_empty(params.user, 'ration_normal') or not ez_is_field_empty(params.user, 'ration_sos') %}
-                    <h3>Rations journalière</h3>
+                    <h3>{{ 'app.ration_day'|trans }}</h3>
                      {% if not ez_is_field_empty(params.user, 'ration_normal') %}
                     <div class="col-lg-{% if ez_is_field_empty(params.user, 'ration_sos') %}12{% else %}6{% endif %} ">
                         {{ ez_render_field(params.user, 'ration_normal') }}
