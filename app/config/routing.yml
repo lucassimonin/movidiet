@@ -46,27 +46,31 @@ follow-index:
 
 follow-visit-patient:
     path: /visit
-    defaults: { _controller: AppSiteBundle:Follow:visit }
+    defaults: { _controller: AppSiteBundle:Visit:visit }
 
 follow-visit:
     path: /visit-patient/{userId}
-    defaults: { _controller: AppSiteBundle:Follow:visit }
+    defaults: { _controller: AppSiteBundle:Visit:visit }
 
 follow-profil-patient:
     path: /profil
-    defaults: { _controller: AppSiteBundle:Follow:profil }
+    defaults: { _controller: AppSiteBundle:Patient:profil }
 
 follow-profil:
     path: /profil-patient/{userId}
-    defaults: { _controller: AppSiteBundle:Follow:profil }
+    defaults: { _controller: AppSiteBundle:Patient:profil }
 
 follow-addpatient:
     path: /addpatient
-    defaults: { _controller: AppSiteBundle:Follow:addPatient }
+    defaults: { _controller: AppSiteBundle:Patient:addPatient }
+
+follow-disabedpatient:
+    path: /disabedpatient/{id}
+    defaults: { _controller: AppSiteBundle:Patient:disabledPatient }
 
 follow-change-password:
     path: /changepassword
-    defaults: { _controller: AppSiteBundle:Follow:changePassword }
+    defaults: { _controller: AppSiteBundle:Patient:changePassword }
 
 follow-rations-patient:
     path: /ration
@@ -78,34 +82,38 @@ follow-rations:
 
 follow-training-patient:
     path: /traning
-    defaults: { _controller: AppSiteBundle:Follow:training }
+    defaults: { _controller: AppSiteBundle:Training:training }
 
 follow-training:
     path: /traning-patient/{userId}
-    defaults: { _controller: AppSiteBundle:Follow:training }
+    defaults: { _controller: AppSiteBundle:Training:training }
 
 add-visit:
     path: /add-visit
-    defaults: { _controller: AppSiteBundle:Follow:AddVisit}
+    defaults: { _controller: AppSiteBundle:Visit:addVisit}
     methods:  [POST]
+
+remove-visit:
+    path: /remove-visit/{id}/{userId}
+    defaults: { _controller: AppSiteBundle:Visit:removeVisit}
 
 add-training:
     path: /add-training
-    defaults: { _controller: AppSiteBundle:Follow:AddTraining}
+    defaults: { _controller: AppSiteBundle:Training:addTraining}
     methods:  [POST]
 
 remove-training:
     path: /remove-training
-    defaults: { _controller: AppSiteBundle:Follow:RemoveTraining}
+    defaults: { _controller: AppSiteBundle:Training:removeTraining}
     methods:  [POST]
 
 edit-profil-patient:
     path: /edit-profil
-    defaults: { _controller: AppSiteBundle:Follow:editProfil }
+    defaults: { _controller: AppSiteBundle:Patient:editProfil }
 
 edit-profil:
     path: /edit-profil/{userId}
-    defaults: { _controller: AppSiteBundle:Follow:editProfil }
+    defaults: { _controller: AppSiteBundle:Patient:editProfil }
 
 condition-general:
     path: /conditions-generales

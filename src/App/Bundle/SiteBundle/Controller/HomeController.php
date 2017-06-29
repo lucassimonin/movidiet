@@ -70,6 +70,11 @@ class HomeController extends Controller
         return $view;
     }
 
+    /**
+     * Contact form action
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function contactFormAction(Request $request)
     {
         $repository = $this->container->get( 'ezpublish.api.repository' );

@@ -22,7 +22,7 @@ var formatTime = function(unixTimestamp) {
 }
 
 var addLineIntable = function(data) {
-    return "<tr><td>" + data.data.date + "</td><td>" + data.data.arm + "</td><td>" + data.data.thigh + "</td><td>" + data.data.chest + "</td><td>" + data.data.size + "</td><td>" + data.data.hip + "</td></tr>";
+    return "<tr><td>" + data.data.date + "</td><td>" + data.data.arm + "</td><td>" + data.data.thigh + "</td><td>" + data.data.chest + "</td><td>" + data.data.size + "</td><td>" + data.data.hip + "</td><td><button data-toggle='modal' data-target='#removePathModal' class='btn action remove-path' data-href='" + data.data.path +"'>Supprimer</button></td></tr>";
 }
 
 var addLineInNewAgenda = function(data, nbLine) {
@@ -331,6 +331,12 @@ $( document ).ready(function() {
        $(".valid-delete").data("idactivity", $(this).data("id"));
     });
 
+    $(document).on("click", ".remove-path", function() {
+        $(".valid-delete-path").data("path", $(this).data("href"));
+    });
+
+
+
     $(document).on("click", ".valid-delete", function() {
         var trainingId = $(this).data("idactivity"),
             userContentId = $(this).data("userid");
@@ -342,5 +348,11 @@ $( document ).ready(function() {
             location.reload();
         });
     });
+
+    $(document).on("click", ".valid-delete-path, .valid-delete-path", function() {
+        window.location.href = $(this).data('path');
+    });
+
+
 
 });

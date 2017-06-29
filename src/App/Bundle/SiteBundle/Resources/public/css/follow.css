@@ -14,6 +14,15 @@
     background: url("../img/IconUsername.svg") no-repeat 26px center;
 }
 
+.btn.action {
+    border: 1px solid;
+}
+
+.btn.action:hover {
+    background: #333;
+    color:#fff;
+}
+
 .inputmov.search {
     background: url("../img/iconSearch.svg") no-repeat 13px center #fff;
     height: 40px;

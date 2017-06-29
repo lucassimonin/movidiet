@@ -68,11 +68,17 @@ app.visit.thigh: Cuisses
 app.visit.chest: Poitrine
 app.visit.size: Taille
 app.visit.hip: Hanches
+app.visit_remove.success: Visite supprimée
+app.visit_not_exist: Cette visite n'existe pas ou n'appartient pas à ce patient
 app.visit.mesure_arm: Mesure bras
 app.visit.mesure_thigh: Mesure cuisses
 app.visit.mesure_chest: Mesure poitrine
 app.visit.mesure_size: Mesure taille
 app.visit.mesure_hip: Mesure hanches
+app.training.delete_visit: Supprimer la visite
+app.training.question_visit: Voulez vous supprimer cette visite ?
+app.training.delete_user: Désactiver l'utilisateur
+app.training.question_user: Voulez vous désactiver cet utilisateur ?
 app.patient.update: Modifier profil
 app.patient.info: Informations personnelles
 app.patient.other_info: Autres informations

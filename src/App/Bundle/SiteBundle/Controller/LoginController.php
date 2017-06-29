@@ -40,6 +40,10 @@ class LoginController
         $this->container = $container;
     }
 
+    /**
+     * Login action
+     * @return RedirectResponse|Response
+     */
     public function loginAction()
     {
         $securityContext = $this->container->get('security.authorization_checker');

@@ -53,6 +53,7 @@
                                         <th>{{ 'app.visit.chest'|trans }}</th>
                                         <th>{{ 'app.visit.size'|trans }}</th>
                                         <th>{{ 'app.visit.hip'|trans }}</th>
+                                        {% if params.admin %}<th>{{ 'app.form.action'|trans }}</th>{% endif %}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -64,6 +65,7 @@
                                                 <td>{{ visit.chest }}</td>
                                                 <td>{{ visit.size }}</td>
                                                 <td>{{ visit.hip }}</td>
+                                                {% if params.admin %}<td><button data-toggle='modal' data-target='#removePathModal' class="btn action remove-path" data-href="{{ path('remove-visit', {'id': visit.id, 'userId': params.user.versionInfo.contentInfo.id}) }}">{{ 'app.delete'|trans }}</button></td>{% endif %}
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -71,12 +73,28 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
     {% if params.admin %}
+        <div class="modal fade" id="removePathModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{ 'app.training.delete_visit'|trans }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{ 'app.training.question_visit'|trans }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'app.cancel'|trans }}</button>
+                        <button type="button" class="btn btn-primary valid-delete-path" data-path="">{{ 'app.yes'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="modal fade" id="visitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
