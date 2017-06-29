@@ -2,6 +2,8 @@ imports:
     - { resource: image_variations.yml }
 
 ezpublish:
+    http_cache:
+        purge_type: local
     # Repositories configuration, setup default repository to support solr if enabled
     repositories:
         default:

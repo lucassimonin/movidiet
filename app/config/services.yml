@@ -11,3 +11,9 @@ services:
     app.security.controller:
             class: "%app.login.controller.class%"
             arguments: ["@templating", "@ezpublish.config.resolver", "@security.authentication_utils", "@service_container"]
+
+    clear_locations_listener:
+            class: App\Bundle\SiteBundle\EventListener\ClearLocationsListener
+            arguments: ["@ezpublish.api.service.location", "%app.blog.locationid%", "%app.formules.locationid%"]
+            tags:
+                - { name: ezpublish.http_cache.event_subscriber }
