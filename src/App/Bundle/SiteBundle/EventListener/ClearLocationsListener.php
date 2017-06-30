@@ -10,36 +10,46 @@ namespace App\Bundle\SiteBundle\EventListener;
 
 
 use eZ\Publish\API\Repository\LocationService;
+use eZ\Publish\Core\MVC\Symfony\Cache\Http\LocalPurgeClient;
+use eZ\Publish\Core\MVC\Symfony\Event\SignalEvent;
+use eZ\Publish\Core\SignalSlot\Signal\ContentService\PublishVersionSignal;
+use EzSystems\PlatformHttpCacheBundle\PurgeClient\PurgeClientInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use eZ\Publish\Core\MVC\Symfony\Event\ContentCacheClearEvent;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 
 class ClearLocationsListener implements EventSubscriberInterface
 {
-
+    /** @var LocationService  */
     private $locationService;
-    private $blogLocationId;
-    private $formuleLocationId;
+
+    /** @var LocalPurgeClient  */
+    private $purgeClient;
     /**
      * ClearLocationsListener constructor.
      * @param LocationService $locationService
+     * @param LocalPurgeClient $purgeClient
      */
-    public function __construct(LocationService $locationService,  $blogLocationId, $formuleLocationId)
+    public function __construct(LocationService $locationService, LocalPurgeClient $purgeClient)
     {
         $this->locationService = $locationService;
-        $this->blogLocationId = $blogLocationId;
-        $this->formuleLocationId = $formuleLocationId;
+        $this->purgeClient = $purgeClient;
     }
 
     public static function getSubscribedEvents()
     {
-        return [MVCEvents::CACHE_CLEAR_CONTENT => ['onContentCacheClear', 100]];
+        return [
+            MVCEvents::API_SIGNAL => ['onContentCacheClear', 5]
+            ];
     }
 
-    public function onContentCacheClear( ContentCacheClearEvent $event )
+    public function onContentCacheClear( SignalEvent $event )
     {
-        $event->addLocationToClear( $this->locationService->loadLocation( $this->blogLocationId ) );
-        $event->addLocationToClear( $this->locationService->loadLocation( $this->formuleLocationId ) );
+        $signal = $event->getSignal();
+        if(!$signal instanceof PublishVersionSignal) {
+            return;
+        }
+        $this->purgeClient->purgeAll();
     }
 
 

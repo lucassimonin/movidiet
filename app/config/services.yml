@@ -14,6 +14,6 @@ services:
 
     clear_locations_listener:
             class: App\Bundle\SiteBundle\EventListener\ClearLocationsListener
-            arguments: ["@ezpublish.api.service.location", "%app.blog.locationid%", "%app.formules.locationid%"]
+            arguments: ["@ezpublish.api.service.location", "@ezpublish.http_cache.purge_client.local"]
             tags:
-                - { name: ezpublish.http_cache.event_subscriber }
+                - { name: kernel.event_subscriber }
