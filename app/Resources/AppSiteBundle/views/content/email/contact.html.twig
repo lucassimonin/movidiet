@@ -1,0 +1,8 @@
+<p>Nouveau contact reçu sur Movidiet:</p>
+<p>{{ contact.name|e('html') }} <{{ contact.email|e('html') }}></p>
+<p>Sujet: {{ subjectValue|e('html') }}</p>
+<p>Message:</p>
+{{ contact.message|e('html') }}
+
+
+

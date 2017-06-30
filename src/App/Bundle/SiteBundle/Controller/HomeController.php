@@ -128,6 +128,19 @@ class HomeController extends Controller
                 $locationCreateStruct = $locationService->newLocationCreateStruct( $this->container->getParameter('app.contacts.locationid') );
                 $draft = $contentService->createContent( $contentCreateStruct, [$locationCreateStruct] );
                 $contentService->publishVersion( $draft->versionInfo );
+                $subjectValue = $this->coreHelper->getValueFromEzSelectionKey($this->getParameter('app.contact.content_type.identifier'),
+                                                                                'subject',
+                                                                                $formData->subject);
+
+                $message = new \Swift_Message('Movidiet - Nouveau contact', $this->renderView(
+                    '@AppSite/content/email/contact.html.twig',
+                    ['contact' => $formData,
+                    'subjectValue' => $subjectValue]
+                ),'text/html');
+                $message->setFrom('no_reply@movidiet.fr');
+                $message->setTo($this->getParameter('app.email.contact'));
+                $this->get('mailer')->send($message);
+
             } else {
                 $result = [
                     'error_code' => 1,

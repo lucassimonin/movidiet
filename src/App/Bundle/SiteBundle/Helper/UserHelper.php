@@ -9,6 +9,7 @@
 namespace App\Bundle\SiteBundle\Helper;
 
 use App\Bundle\SiteBundle\Entity\User;
+use eZ\Bundle\EzPublishCoreBundle\Cache\Http\InstantCachePurger;
 use eZ\Publish\API\Repository\Repository;
 use Symfony\Component\DependencyInjection\Container;
 use DateTime;
@@ -185,7 +186,6 @@ class UserHelper
 
             $userUpdateStruct->contentUpdateStruct = $contentUpdateStruct;
             $userService->updateUser($ezUser, $userUpdateStruct);
-
             $this->container->get('ezpublish.http_cache.purger')->purge($ezUser->versionInfo->contentInfo->mainLocationId);
 
             $this->repository->setCurrentUser($currentUser);

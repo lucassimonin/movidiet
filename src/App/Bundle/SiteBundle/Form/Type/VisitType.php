@@ -1,6 +1,5 @@
 <?php
 /**
- * This file is part of the MrtEcommerce package.
  *
  * @copyright Copyright (C) Mapi Research Trust
  */

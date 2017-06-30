@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the MrtEcommerce package.
+ * This file is part of the movidiet package.
  *
  * @copyright Copyright (C) Mapi Research Trust
  */

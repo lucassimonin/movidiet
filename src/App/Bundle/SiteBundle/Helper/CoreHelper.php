@@ -189,8 +189,7 @@ class CoreHelper
     }
 
     /**
-     * Get criteria helper
-     * @return \Mrt\SiteBundle\Helper\CriteriaHelper
+     * @return CriteriaHelper|object
      */
     public function getCriteriaHelper()
     {
