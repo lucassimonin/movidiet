@@ -132,6 +132,13 @@ app.training.day: Jour
 app.training.start_activity: Début d'activité
 app.training.end_activity: Fin d'activité
 app.training.color: Coleur (Hexadécimal)
+app.monday: Lundi
+app.tuesday: Mardi
+app.wednesday: Mercredi
+app.thursday: Jeudi
+app.friday: Vendredi
+app.saturday: Samedi
+app.sunday: Dimanche
 
 
 
