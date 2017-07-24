@@ -120,7 +120,7 @@ app.delete: Supprimer
 app.cancel: Annuler
 app.yes: Oui
 app.download: Télécharger votre livret
-app.ration_day: Rations journalière
+app.ration_day: Ration journalière
 app.training.my_training: Mon entrainement
 app.training.add_activity: Ajouter une activité
 app.training.new_activity: Nouvelle activité
