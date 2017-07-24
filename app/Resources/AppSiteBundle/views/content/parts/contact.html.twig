@@ -5,26 +5,27 @@
         {% form_theme form 'AppSiteBundle::form/form_theme.html.twig' %}
         {{ form_start(form, {'attr': {'id': 'form-contact'}}) }}
             <div class="row">
-            {{ form_row(form.name, {
-                'label': false,
-                'attr': {'placeholder': 'app.form.name', 'classBlock': 'col-sm-4'}
-                })
-            }}
-            {{ form_row(form.email, {
-                'label': false,
-                'attr': {'placeholder': 'app.form.email', 'classBlock': 'col-sm-4'}
-                })
-            }}
-            {{ form_row(form.subject, {
-                'label': false,
-                'attr': {'classBlock': 'col-sm-4'}
-                })
-            }}
-            {{ form_row(form.message, {
-                'label': false,
-                'attr': {'placeholder': 'app.form.your_msg', 'classBlock': 'col-sm-12', 'rows': 10}
-                })
-            }}
+                <div class="form-group col-sm-4">
+                    {{ form_widget(form.name, {
+                        'attr': {'placeholder': 'app.form.name'}
+                        })
+                    }}
+                </div>
+                <div class="form-group col-sm-4">
+                    {{ form_widget(form.email, {
+                        'attr': {'placeholder': 'app.form.email'}
+                        })
+                    }}
+                </div>
+                <div class="form-group col-sm-4">
+                    {{ form_widget(form.subject)}}
+                </div>
+                <div class="form-group col-sm-12">
+                    {{ form_widget(form.message, {
+                        'attr': {'placeholder': 'app.form.your_msg', 'rows': 10}
+                        })
+                    }}
+                </div>
             </div>
         <button type="submit" id="btn-contact" class="btn btn-default">{{ 'app.send'|trans }}</button>
         <span class="msg"></span>

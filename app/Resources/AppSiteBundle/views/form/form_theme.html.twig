@@ -184,13 +184,7 @@
 {# Rows #}
 
 {% block form_row -%}
-    {% set classBlock = '' %}
-    {% for attrname,attrvalue in attr %}
-        {% if attrname == 'classBlock' %}
-            {% set classBlock = attrvalue %}
-        {% endif %}
-    {% endfor %}
-    <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %} {{ classBlock }}">
+    <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
         {{- form_errors(form) -}}
