@@ -4,6 +4,7 @@ namespace App\Bundle\SiteBundle\Controller;
 
 use App\Bundle\SiteBundle\Helper\CoreHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ParentController extends Controller
 {
